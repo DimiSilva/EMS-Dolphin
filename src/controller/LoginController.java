@@ -17,16 +17,18 @@ public class LoginController implements Initializable {
 	private double vboxLoginContainerXOffset;
 	private double vboxLoginContainerYOffset;
 	
+	
 	@FXML
 	private AnchorPane anchorPaneTopBar;
 	
 	@FXML
 	private ImageView imageViewClose;
 	
+	
 	@FXML
-	public void anchorPaneTopBarOnDragEntered() {
+	public void anchorPaneTopBarOnMousePressed() {
 		System.out.println("teste");
-	} 
+	}
 	
 	@FXML
 	void anchorPaneTopBarOnDragDropped () {
