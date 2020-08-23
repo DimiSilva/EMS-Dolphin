@@ -1,0 +1,21 @@
+.sidebar {
+	-fx-background-color: #343838;
+}
+
+.sidebar .header {
+	-fx-border-width: 0 0 1px 0;
+	-fx-border-color: #B9E0FF;
+	-fx-border-style: solid;
+}
+
+.sidebar .menu-container {
+	-fx-background-color: #343838;
+}
+
+.sidebar .menu-container .menu {
+	-fx-background-color: #343838;
+}
+
+.content-container {
+	-fx-background-color: #B9E0FF;
+}

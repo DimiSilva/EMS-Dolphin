@@ -16,10 +16,15 @@
 	-fx-border-width: 0 0 1px 0;
 	-fx-border-color: #00B4CC90;
 	-fx-prompt-text-fill: #00B4CC90;
+	-fx-text-fill: #00B4CC;
 }
 
 .btn-enter {
 	-fx-background-color: #005F6B;
 	-fx-text-fill: #00B4CC;
 	-fx-cursor: hand ;
+}
+
+.close-button {
+	-fx-cursor: hand;	
 }
