@@ -24,7 +24,7 @@ public class AdminStage implements IStage {
 	public AdminStage() {
 		stage = new Stage();
 		stage.setMaximized(true);
-		stage.setResizable(false);;
+		stage.setResizable(false);
 	    stage.setTitle("EMS Dolphin");
 	    stage.hide();
 	    
@@ -56,6 +56,9 @@ public class AdminStage implements IStage {
 	public void loadScene(String sceneName) {
 		switch (sceneName) {
 			case "dashboard": 
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+				
 				baseLayoutView.getChildren().add(dashboardView);
 				Scene baseLayout =  new Scene(baseLayoutView);
 			    stage.setScene(baseLayout);

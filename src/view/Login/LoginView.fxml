@@ -65,7 +65,7 @@
                   <Insets top="32.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="62.0" prefWidth="300.0">
                <children>
                   <Button fx:id="enterButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="147.0" styleClass="btn-enter" text="Entrar" />
                </children>

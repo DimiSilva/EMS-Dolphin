@@ -14,14 +14,14 @@ import model.stages.AdminStage;
 public class MainController extends Application {
 
 	private static IStage authStage;
-	private static IStage mainStage;
+	private static IStage adminStage;
 	
 	public static IStage currentStage;
 	
     @Override
     public void start(Stage primaryStage) {
     	authStage = new AuthStage();
-    	mainStage = new AdminStage();
+    	adminStage = new AdminStage();
     	
     	MainController.changeStage("auth");
     }
@@ -40,11 +40,11 @@ public class MainController extends Application {
     			currentStage = authStage;
     			authStage.load();
     			break;
-    		case "main":
+    		case "admin":
     			if(currentStage != null)
     				currentStage.hide();
-    			currentStage = mainStage;
-    			mainStage.load();
+    			currentStage = adminStage;
+    			adminStage.load();
     			break;
     		default:
     			System.out.println("Stage not found");

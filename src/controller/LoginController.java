@@ -49,7 +49,7 @@ public class LoginController implements Initializable {
 		Auth userAuth = authDAO.getByIdentifier(emailInput.getText());
 		System.out.println(userAuth.identifier);
 		
-		MainController.changeStage("main");
+		MainController.changeStage("admin");
 	}
 	
 	private String loginValidators() {

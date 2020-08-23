@@ -14,12 +14,17 @@ public class AuthDAO extends IDAO {
 			Connection conn = DBConnection.getConnection();
 			
 			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery("SELECT * FROM auth WHERE identifier = " + "'" + identifier + "'");
+			ResultSet result = statement.executeQuery(
+					"SELECT * FROM auth "
+					+ "WHERE identifier = " 
+							+ "'" + identifier + "'"
+				);
 			
 			result.first();
 			
 			return Auth.fromDBSet(result);
 		}
+		
 		catch (SQLException e) {
 			System.out.println(e.getMessage());
 			return null;
