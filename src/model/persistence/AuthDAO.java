@@ -30,4 +30,7 @@ public class AuthDAO extends IDAO {
 			return null;
 		}
 	}
+	//toDBSet
+	// Cada view tem um controller
+	// Alterar a lógica de loadScene dos estágios semelhante ao MasterStage
 }

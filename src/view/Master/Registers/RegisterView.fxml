@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MasterRegisterController">
+   <children>
+      <VBox prefHeight="400.0" prefWidth="610.0">
+         <children>
+            <AnchorPane prefHeight="406.0" prefWidth="600.0">
+               <children>
+                  <TextField fx:id="adminNameInput" layoutX="41.0" layoutY="50.0" />
+                  <Label layoutX="41.0" layoutY="33.0" text="Nome:" />
+                  <Button fx:id="adminSaveButtonRegister" layoutX="33.0" layoutY="350.0" mnemonicParsing="false" text="Salvar" />
+                  <TextField fx:id="adminEmailInput" layoutX="41.0" layoutY="132.0" />
+                  <TextField fx:id="adminCpfInput" layoutX="41.0" layoutY="211.0" />
+                  <Label layoutX="41.0" layoutY="115.0" text="E-mail:" />
+                  <Button fx:id="adminBackButtonRegister" layoutX="521.0" layoutY="350.0" mnemonicParsing="false" text="Voltar" />
+                  <Label layoutX="41.0" layoutY="192.0" text="CPF:" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</HBox>

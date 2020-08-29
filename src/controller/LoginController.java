@@ -42,14 +42,14 @@ public class LoginController implements Initializable {
 	private void login() {
 		String validationResult = loginValidators();
 		if(validationResult != null) {
-			//interação com o usuário aqui
+			// interação com o usuário aqui
 			return;
 		}
 		
 		Auth userAuth = authDAO.getByIdentifier(emailInput.getText());
 		System.out.println(userAuth.identifier);
 		
-		MainController.changeStage("admin");
+		MainController.changeStage("master");
 	}
 	
 	private String loginValidators() {
