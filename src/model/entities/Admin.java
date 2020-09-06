@@ -11,16 +11,17 @@ public class Admin extends BaseEntity{
 	private String name;
 	private String email;
 	private String cpf;
+
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
 	
-	public Admin(int id, String name, String email, String cpf, String createDate, String updateDate) throws ParseException {
+	public Admin(int id, String name, String email, String cpf, Date createDate, Date updateDate) throws ParseException {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.cpf = cpf;
-		this.createDate = sdf.parse(createDate);
-		this.updateDate = sdf.parse(updateDate);
+		this.createDate = createDate;
+		this.updateDate = updateDate;
 	}
 	
 	public static Admin fromDBSet(ResultSet DBSet) throws SQLException, ParseException {
@@ -28,11 +29,13 @@ public class Admin extends BaseEntity{
 		String name = DBSet.getString("name");
 		String email = DBSet.getString("email");
 		String cpf = DBSet.getString("cpf");
-		String createDate = DBSet.getString("createDate");
-		String updateDate = DBSet.getString("updateDate");
+		Date createDate = DBSet.getDate("create_date");
+		Date updateDate = DBSet.getDate("update_date");
 		
 		return new Admin(id, name, email, cpf, createDate, updateDate);
 	}
+	
+
 
 	public String getName() {
 		return name;

@@ -24,8 +24,9 @@
                <content>
                   <VBox fx:id="menu" styleClass="menu">
                      <children>
-                        <Button fx:id="adminButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="299.0" text="Admins" />
-                     </children></VBox>
+                        <!-- <Button fx:id="adminButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="299.0" text="Admins" />-->
+                     </children>
+                   </VBox>
                </content>
             </ScrollPane>
          </children>
