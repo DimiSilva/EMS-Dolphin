@@ -14,6 +14,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import model.entities.Auth;
+import model.enums.AccessTypes;
 import model.interfaces.IDAO;
 import model.persistence.AuthDAO;
 
@@ -23,6 +24,8 @@ public class LoginController implements Initializable {
 	
 	@FXML
 	private Label closeButton;
+	@FXML
+	private Label messageError;
 	@FXML 
 	private TextField emailInput;
 	@FXML 
@@ -40,26 +43,45 @@ public class LoginController implements Initializable {
 	
 	@FXML
 	private void login() {
+		System.out.println(AccessTypes.ADMIN);
 		String validationResult = loginValidators();
 		if(validationResult != null) {
-			// interação com o usuário aqui
+			messageError.setText(validationResult);
 			return;
 		}
 		
 		Auth userAuth = authDAO.getByIdentifier(emailInput.getText());
-		System.out.println(userAuth.identifier);
+
+		if(userAuth == null || passwordInput.getText().compareTo(userAuth.password) != 0){
+			messageError.setText("Credenciais inv�lidas!");
+			return;
+		}
 		
-		MainController.changeStage("master");
+		switch (AccessTypes.valueOf(userAuth.accessType) ) {
+			case ADMIN:
+				System.out.println("Admin,  nao tem tela ainda");
+				//MainController.changeStage("master");
+			break;
+			case CONTRIBUTOR:
+				System.out.println("Contribuidor, nao tenho sua tela ainda");
+				//MainController.changeStage("master");
+			break;
+			case MASTER:
+				System.out.println("Master");
+				MainController.changeStage("master");
+			break;
+	
+		}
 	}
 	
 	private String loginValidators() {
 		String email = emailInput.getText();
 		String password = passwordInput.getText();
 		if(email == null || email.length() < 3 || !email.contains("@"))
-			return "Email inválido!";
+			return "Email inv�lido!";
 		
 		if(password == null || password.length() < 6)
-			return "Senha inválida!";
+			return "Senha inv�lida!";
 			
 		return null;
 	}

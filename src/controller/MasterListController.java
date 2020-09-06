@@ -33,10 +33,11 @@ public class MasterListController implements Initializable {
 	private AdminDAO adminDAO;
 	
 	@FXML
-	private Button adminBackButtonTable;
+	private Button registernewAdmin;
 	
 	@FXML
 	private TableView<Admin> adminTable;
+	
 	
 	@FXML
 	private TableColumn<Admin, Integer> adminTableId;
@@ -57,7 +58,7 @@ public class MasterListController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		adminBackButtonTable.setOnMouseClicked(e -> updateList());
+		registernewAdmin.setOnMouseClicked(e -> MainController.changeScene("register"));
 		
 		adminDAO = new AdminDAO();
 		

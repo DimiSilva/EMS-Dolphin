@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import model.interfaces.IStage;
 import model.persistence.AdminDAO;
+import model.persistence.AuthDAO;
 import model.stages.MasterStage;
 
 public class MasterRegisterController implements Initializable {
@@ -24,7 +25,7 @@ public class MasterRegisterController implements Initializable {
 	// DAOs:
 	private AdminDAO adminDAO;
 	
-	
+	private AuthDAO authDao;
 	
 	// TextFields:
 	
@@ -34,13 +35,14 @@ public class MasterRegisterController implements Initializable {
 	private TextField adminEmailInput;
 	@FXML
 	private TextField adminCpfInput;
+
 	
 	// Buttons:
 	
 	@FXML
 	private Button adminSaveButtonRegister;
 	@FXML
-	private Button adminBackButtonRegister;
+	private Button backToListAdminsBtn;
 
 	
 	
@@ -50,7 +52,7 @@ public class MasterRegisterController implements Initializable {
 		adminDAO = new AdminDAO();
 		
 		adminSaveButtonRegister.setOnMouseClicked(e -> register());
-		adminBackButtonRegister.setOnMouseClicked(e -> MainController.changeScene("dashboard"));
+		backToListAdminsBtn.setOnMouseClicked(e -> MainController.changeScene("list"));
 		
 	}
 	
@@ -63,7 +65,8 @@ public class MasterRegisterController implements Initializable {
 		System.out.println(adminName);
 		System.out.println(adminEmail);
 		System.out.println(adminCpf);
-		adminDAO.toDBSet(adminName, adminEmail, adminCpf);
-		MainController.changeScene("dashboard");
+		Number authId = authDao.insert(adminEmail, "123456", "ADMIN");
+		adminDAO.toDBSet(adminName, adminEmail, adminCpf, authId);
+		MainController.changeScene("list");
 	}
 }
