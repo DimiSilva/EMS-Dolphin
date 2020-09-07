@@ -1,64 +1,71 @@
 package model.persistence;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import model.entities.Auth;
-import model.interfaces.IDAO;
+import model.exceptions.DBException;
 
-public class AuthDAO extends IDAO {
-	public Auth getByIdentifier(String identifier) {
+public class AuthDAO extends BaseDAO<Auth> {
+	public AuthDAO () {
+		super("auth");
+	}
+	
+	@Override
+	public Auth entityFromDBSet(ResultSet DBSet) throws SQLException {
+		return Auth.fromDBSet(DBSet);
+	}
+	
+	@Override
+	public String entityToDBInsertString(Auth object) {
+		return String.format(
+				"INSERT INTO %s "
+						+ "(identifier, password, access_type) "
+						+ "VALUES "
+						+ "('%s', '%s', '%s')"
+							, tableName
+							, object.getIdentifier()
+							, object.getPassword()
+							, object.getAcessType()
+					);
+	}
+
+	@Override
+	public String entityToDBupdateString(Auth object) {
+		return String.format(
+				"UPDATE %s "
+						+ "SET "
+						+ "password = '%s'"
+						+ "WHERE id = '%d'"
+							, object.getPassword()
+							, object.getId()
+					);
+	}
+	
+	public Auth getByIdentifier(String identifier) throws DBException {
 		try {
-			Connection conn = DBConnection.getConnection();
-			
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery(
-					"SELECT * FROM auth "
-					+ "WHERE identifier = " 
-							+ "'" + identifier + "'"
+					String.format(
+							"SELECT * FROM %s "
+									+ "WHERE identifier = '%s'"
+										, tableName, identifier
+						)
 				);
-			result.first();
 			
-			return Auth.fromDBSet(result);
+			result.first();
+			Auth auth = entityFromDBSet(result);
+
+			statement.close();
+			result.close();
+			
+			return auth;
 		}
 		
 		catch (SQLException e) {
 			System.out.println(e.getMessage());
-			return null;
+			throw new DBException();
 		}
 	}
-	// Inserir o auth e retornar o id
-	public int insert(String identifier,String password,String accessType) {
-		int resultSet = 0;
-		try {
-			Connection conn = DBConnection.getConnection();
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-			Statement statement = conn.createStatement();
-			resultSet = statement.executeUpdate(
-					"INSERT INTO admin (identifier, password, accessType, create_date, update_date)"
-					+ "VALUES('" + identifier 
-					+ "', '" + password 
-					+ "', '" + accessType  
-					+ "', '" + dateFormat.format(new Date())
-					+ "', '" + dateFormat.format(new Date())
-					+ "')");
-			
-			
-			
-		}
-		catch (SQLException e) {
-			System.out.println("Insert ERROR:");
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		}
-		return resultSet;
-	}
-	//toDBSet
-	// Cada view tem um controller
-	// Alterar a lógica de loadScene dos estágios semelhante ao MasterStage
 }

@@ -1,3 +1,4 @@
 package model.interfaces;
 
-public interface IBaseEntity {}
+public interface IBaseEntity {
+}

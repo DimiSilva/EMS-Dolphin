@@ -1,4 +1,4 @@
-package controller;
+package controller.Admin;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,7 +14,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-public class AdminDashboardController implements Initializable {
+public class DashboardController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

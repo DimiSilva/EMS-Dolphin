@@ -1,13 +1,8 @@
 package controller;
-import java.io.IOException;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.application.Platform;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import model.interfaces.IStage;
 import model.stages.AuthStage;
 import model.stages.MasterStage;
@@ -67,5 +62,8 @@ public class MainController extends Application {
     	currentStage.loadScene(sceneName);
     }
     
-    
+	public static void closeApplication() {
+		Platform.exit();
+		System.exit(0);
+	}
 }

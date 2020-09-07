@@ -6,6 +6,9 @@ import java.security.spec.KeySpec;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import model.enums.messages.Shared;
 import model.exceptions.EncryptionException;
 
 public class Utils {
@@ -25,5 +28,15 @@ public class Utils {
 			e.printStackTrace();
 			throw new EncryptionException(e.getMessage());
 		}
+	}
+	
+	public static void showErrorAlert(String title, String header, String message) {
+		Alert alert = new Alert(AlertType.ERROR);
+		
+		if(title != null) alert.setTitle("Erro!");
+		if(header != null) alert.setHeaderText(Shared.SOMETHING_WENT_WRONG.getText());
+		if(message != null) alert.setContentText(message);
+			
+		alert.showAndWait();
 	}
 }

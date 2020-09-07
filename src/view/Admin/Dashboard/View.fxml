@@ -5,6 +5,6 @@
 
 <HBox prefHeight="100.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox styleClass="container" stylesheets="@AdminDashboardView.css" HBox.hgrow="ALWAYS" />
+      <VBox styleClass="container" stylesheets="@Style.css" HBox.hgrow="ALWAYS" />
    </children>
 </HBox>

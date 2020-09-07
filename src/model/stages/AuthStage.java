@@ -21,7 +21,7 @@ public class AuthStage implements IStage {
 	    stage.hide();
 		
 		try {
-			loginScene =  new Scene(FXMLLoader.load(getClass().getResource("/view/Login/LoginView.fxml")));
+			loginScene =  new Scene(FXMLLoader.load(getClass().getResource("/view/Auth/Login/View.fxml")));
 		    loginScene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 		}
 		catch (IOException e) {

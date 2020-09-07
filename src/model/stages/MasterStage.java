@@ -2,7 +2,8 @@ package model.stages;
 
 import java.io.IOException;
 
-import controller.AdminDashboardController;
+import controller.MainController;
+import controller.Admin.DashboardController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -28,10 +29,9 @@ public class MasterStage implements IStage {
 	Stage stage;
 	
 	private HBox baseLayoutView;
-	private VBox menu;
 	
 	private VBox adminsListView;
-	private VBox registerAdminView;
+	private HBox adminsRegisterView;
 	//private VBox listView;
 	
 	public MasterStage() {
@@ -42,11 +42,10 @@ public class MasterStage implements IStage {
 	    stage.hide();
 	    
 		try {
-			baseLayoutView = FXMLLoader.load(getClass().getResource("/view/BaseLayout/BaseLayoutView.fxml"));
+			baseLayoutView = FXMLLoader.load(getClass().getResource("/view/BaseLayout/View.fxml"));
 			
-			adminsListView = (VBox)((HBox)FXMLLoader.load(getClass().getResource("/view/Master/MasterAdminsListView.fxml"))).getChildren().get(0);
-			registerAdminView = (VBox)((HBox)FXMLLoader.load(getClass().getResource("/view/Master/RegisterAdminView.fxml"))).getChildren().get(0);
-			//listView = (VBox)((HBox)FXMLLoader.load(getClass().getResource("/view/Master/Lists/ListView.fxml"))).getChildren().get(0);
+			adminsListView = (VBox)((HBox)FXMLLoader.load(getClass().getResource("/view/Master/Admins/ListView.fxml"))).getChildren().get(0);
+			adminsRegisterView = (HBox)((HBox)FXMLLoader.load(getClass().getResource("/view/Master/Admins/RegisterView.fxml"))).getChildren().get(0);
 		}
 		catch (IOException e) {
 			System.out.println("IOException occurred");
@@ -60,39 +59,28 @@ public class MasterStage implements IStage {
 		Scene baseLayout =  new Scene(baseLayoutView);
 	    stage.setScene(baseLayout);
 	    stage.show();
-		menu = (VBox)baseLayoutView.lookup("#menu");
-		
+	    this.renderMenu();
+	}
+	
+	private void renderMenu () {
+		VBox menu = (VBox)baseLayoutView.lookup("#menu");
+			
 		Button listAdminMastersBtn = new Button("Lista de Administradores");
-		//Button newAdminMasterBtn = new Button("Cadastrar Novo Administrador");
-		Button logoutBtn = new Button("Sair");
-		
-		//newAdminMasterBtn.setId("newAdminMasterBtn");
-		logoutBtn.setId("logoutBtn");
 		listAdminMastersBtn.setId("listAdminMastersBtn");
-		listAdminMastersBtn.setOnMouseClicked(e -> loadScene("register"));
-		//newAdminMasterBtn.setOnMouseClicked(e -> loadScene("register"));
-		logoutBtn.setId("logoutBtn");
-		listAdminMastersBtn.setId("listAdminMastersBtn");
-		
-		//newAdminMasterBtn.setPrefHeight(25.0);
-		logoutBtn.setPrefHeight(25.0);
+		listAdminMastersBtn.setOnMouseClicked(e -> loadScene("adminsList"));
 		listAdminMastersBtn.setPrefHeight(25.0);
-		
-		//newAdminMasterBtn.setPrefWidth(299.0);
-		logoutBtn.setPrefWidth(299.0);
 		listAdminMastersBtn.setPrefWidth(299.0);
-		
-		
-		//newAdminMasterBtn.getStyleClass().add("ems-btn");
-		logoutBtn.getStyleClass().add("ems-btn");
 		listAdminMastersBtn.getStyleClass().add("ems-btn");
 		
-		
-		
-		menu.getStylesheets().add(0, "/view/Master/MasterView.css");
+		Button logoutBtn = new Button("Sair");
+		logoutBtn.setOnMouseClicked(e -> MainController.closeApplication());
+		logoutBtn.setId("logoutBtn");			
+		logoutBtn.setPrefHeight(25.0);
+		logoutBtn.setPrefWidth(299.0);
+		logoutBtn.getStyleClass().add("ems-btn");
+			
 		menu.getChildren().addAll(listAdminMastersBtn,logoutBtn );
 		VBox.setMargin(listAdminMastersBtn, new Insets(16, 0, 0, 0));
-		//VBox.setMargin(newAdminMasterBtn, new Insets(16, 0, 0, 0));
 		VBox.setMargin(logoutBtn, new Insets(16, 0, 0, 0));
 	}
 	
@@ -101,20 +89,19 @@ public class MasterStage implements IStage {
 		if(stage.isShowing())
 			stage.hide();
 	}
-	
-	// pode receber um id
+
 	public void loadScene(String sceneName) {
 		switch (sceneName) {
-			case "list":
+			case "adminsList":
 				if(baseLayoutView.getChildren().toArray().length == 2)
 					baseLayoutView.getChildren().remove(1);
 					baseLayoutView.getChildren().add(adminsListView);
 					stage.show();
 				break;
-			case "register":
+			case "adminsRegister":
 				if(baseLayoutView.getChildren().toArray().length == 2)
 					baseLayoutView.getChildren().remove(1);
-					baseLayoutView.getChildren().add(registerAdminView);
+					baseLayoutView.getChildren().add(adminsRegisterView);
 					stage.show();
 				break;
 			default:

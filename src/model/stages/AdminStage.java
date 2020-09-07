@@ -2,7 +2,7 @@ package model.stages;
 
 import java.io.IOException;
 
-import controller.AdminDashboardController;
+import controller.Admin.DashboardController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -29,10 +29,10 @@ public class AdminStage implements IStage {
 	    stage.hide();
 	    
 		try {
-			baseLayoutView = FXMLLoader.load(getClass().getResource("/view/BaseLayout/BaseLayoutView.fxml"));
+			baseLayoutView = FXMLLoader.load(getClass().getResource("/view/BaseLayout/View.fxml"));
 			menu = (VBox)baseLayoutView.lookup("#menu");
 			
-			dashboardView = (VBox)((HBox)FXMLLoader.load(getClass().getResource("/view/Admin/AdminDashboard/AdminDashboardView.fxml"))).getChildren().get(0);
+			dashboardView = (VBox)((HBox)FXMLLoader.load(getClass().getResource("/view/Admin/Dashboard/View.fxml"))).getChildren().get(0);
 		}
 		catch (IOException e) {
 			System.out.println("IOException occurred");

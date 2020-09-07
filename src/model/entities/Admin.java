@@ -11,56 +11,50 @@ public class Admin extends BaseEntity{
 	private String name;
 	private String email;
 	private String cpf;
-
+	private Integer authId;
 	
-	private static final SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+	public Admin(String name, String email, String cpf, Integer authId) {
+		this.name = name;
+		this.email = email;
+		this.cpf = cpf;
+		this.authId = authId;
+	}
 	
-	public Admin(int id, String name, String email, String cpf, Date createDate, Date updateDate) throws ParseException {
+	public Admin(Integer id, String name, String email, String cpf, Integer authId, Date createDate, Date updateDate) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.cpf = cpf;
+		this.authId = authId;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 	}
 	
-	public static Admin fromDBSet(ResultSet DBSet) throws SQLException, ParseException {
+	public static Admin fromDBSet(ResultSet DBSet) throws SQLException {
 		int id = DBSet.getInt("id");
 		String name = DBSet.getString("name");
 		String email = DBSet.getString("email");
 		String cpf = DBSet.getString("cpf");
+		Integer authId = DBSet.getInt("auth_id");
 		Date createDate = DBSet.getDate("create_date");
 		Date updateDate = DBSet.getDate("update_date");
 		
-		return new Admin(id, name, email, cpf, createDate, updateDate);
+		return new Admin(id, name, email, cpf, authId, createDate, updateDate);
 	}
 	
-
-
 	public String getName() {
-		return name;
+		return	this.name;
 	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	
 	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+		return this.email;
 	}
 	
+	public String getCPF() {
+		return this.cpf;
+	}
 	
-	
+	public Integer getAuthId() {
+		return this.authId;
+	}
 }

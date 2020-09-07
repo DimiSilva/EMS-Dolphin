@@ -19,3 +19,10 @@
 .content-container {
 	-fx-background-color: #B9E0FF;
 }
+
+.ems-btn {
+	-fx-background-color: #005F6B;
+	-fx-text-fill: #00B4CC;
+	-fx-cursor: hand ;
+	-fx-padding: 4px 16px;
+}
