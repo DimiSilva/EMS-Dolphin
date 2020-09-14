@@ -1,7 +1,7 @@
 package model.enums;
 
 public enum AccessTypes {
-	CONTRIBUTOR("ADMIN"),
+	CONTRIBUTOR("CONTRIBUTOR"),
 	ADMIN("ADMIN"),
 	MASTER("MASTER");
 	

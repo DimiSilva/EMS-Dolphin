@@ -45,11 +45,10 @@ public abstract class BaseDAO<T> implements IDAO<T> {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery(
 					String.format(
-							"SELECT * FROM %s "
-									+ "LIMIT %d, %d"
-										, tableName
-										, page * perPage - perPage
-										, perPage
+							"CALL get_paged('%s', %d, %d)"
+								, tableName
+								, page
+								, perPage
 						)
 					);
 
@@ -74,11 +73,12 @@ public abstract class BaseDAO<T> implements IDAO<T> {
 			ResultSet result = statement.executeQuery(
 					String.format(
 							"SELECT * FROM %s "
-									+ "WHERE id = '%s'"
-							, tableName, id
+							+ "WHERE id = '%s'"
+								, tableName, id
 						)
 					);
 			
+			if(!result.next()) return null;
 			T instance = entityFromDBSet(result);
 			
 			result.close();
@@ -95,7 +95,7 @@ public abstract class BaseDAO<T> implements IDAO<T> {
 	public int count() throws DBException {
 		try {
 			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery(String.format("SELECT COUNT(*) FROM %s", tableName));
+			ResultSet result = statement.executeQuery(String.format("SELECT COUNT(*) as count FROM %s", tableName));
 
 			result.first();
 			int total = result.getInt("count");
@@ -114,7 +114,11 @@ public abstract class BaseDAO<T> implements IDAO<T> {
 	public int insert(T object) throws DBException {
 		try {
 			Statement statement = conn.createStatement();
-			int id = statement.executeUpdate(entityToDBInsertString(object), Statement.RETURN_GENERATED_KEYS);
+			statement.executeUpdate(entityToDBInsertString(object), Statement.RETURN_GENERATED_KEYS);
+			
+			ResultSet result = statement.getGeneratedKeys();
+			result.next();
+			int id = result.getInt(1); 
 			statement.close();
 			
 			return id;
@@ -143,8 +147,8 @@ public abstract class BaseDAO<T> implements IDAO<T> {
 			statement.executeUpdate(
 						String.format(
 								"DELETE FROM %s "
-										+ "WHERE id = '%s'"
-								, tableName, id)
+								+ "WHERE id = '%s'"
+									, tableName, id)
 					);
 			statement.close();
 		}

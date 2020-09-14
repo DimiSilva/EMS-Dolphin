@@ -58,7 +58,6 @@ public class MainController extends Application {
     }
     
     public static void changeScene(String sceneName) {
-    	System.out.println("Change Scene");
     	currentStage.loadScene(sceneName);
     }
     

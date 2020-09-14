@@ -1,9 +1,9 @@
 .container {
-	-fx-background-color:  #343838;
+	-fx-background-color: #343838;
 }
 
 .login-form-container {
-	-fx-background-color:  #343838;
+	-fx-background-color: #343838;
 }
 
 .input:focused {
@@ -26,20 +26,12 @@
 	-fx-border-radius: 16px;
 	-fx-background-radius: 16px;
 	-fx-spin-enabled: 16px;
-	 -fx-padding: 16px;
+	-fx-padding: 16px;
 }
 .ems-container-card{
 	-fx-padding: 48px;
 }
-.ems-btn {
-	-fx-background-color: #005F6B;
-	-fx-text-fill: #00B4CC;
-	-fx-cursor: hand ;
-	 -fx-padding: 4px 16px;
-}
+
 .ems-anchor-card{
 	-fx-border-radius: 16px;
-}
-.close-button {
-	-fx-cursor: hand;
 }

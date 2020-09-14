@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import controller.MainController;
 import controller.Admin.DashboardController;
+import controller.Master.AdminsListController;
+import controller.Master.AdminsRegisterController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -28,11 +30,14 @@ import model.interfaces.IStage;
 public class MasterStage implements IStage {
 	Stage stage;
 	
+	private FXMLLoader baseLayout;
 	private HBox baseLayoutView;
 	
+	private FXMLLoader adminsList;
 	private VBox adminsListView;
-	private HBox adminsRegisterView;
-	//private VBox listView;
+	
+	private FXMLLoader adminsRegister;
+	private VBox adminsRegisterView;
 	
 	public MasterStage() {
 		stage = new Stage();
@@ -42,10 +47,14 @@ public class MasterStage implements IStage {
 	    stage.hide();
 	    
 		try {
-			baseLayoutView = FXMLLoader.load(getClass().getResource("/view/BaseLayout/View.fxml"));
+			baseLayout = new FXMLLoader(getClass().getResource("/view/BaseLayout/View.fxml"));
+			baseLayoutView = baseLayout.load();
 			
-			adminsListView = (VBox)((HBox)FXMLLoader.load(getClass().getResource("/view/Master/Admins/ListView.fxml"))).getChildren().get(0);
-			adminsRegisterView = (HBox)((HBox)FXMLLoader.load(getClass().getResource("/view/Master/Admins/RegisterView.fxml"))).getChildren().get(0);
+			adminsList = new FXMLLoader(getClass().getResource("/view/Master/Admins/ListView.fxml"));
+			adminsListView = (VBox)((HBox)adminsList.load()).getChildren().get(0);
+			
+			adminsRegister = new FXMLLoader(getClass().getResource("/view/Master/Admins/RegisterView.fxml"));
+			adminsRegisterView = (VBox)((HBox)adminsRegister.load()).getChildren().get(0);
 		}
 		catch (IOException e) {
 			System.out.println("IOException occurred");
@@ -96,6 +105,8 @@ public class MasterStage implements IStage {
 				if(baseLayoutView.getChildren().toArray().length == 2)
 					baseLayoutView.getChildren().remove(1);
 					baseLayoutView.getChildren().add(adminsListView);
+					AdminsListController adminsListController = adminsList.getController();
+					adminsListController.fetchAdmins();
 					stage.show();
 				break;
 			case "adminsRegister":

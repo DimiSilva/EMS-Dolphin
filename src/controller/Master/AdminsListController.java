@@ -1,45 +1,36 @@
 package controller.Master;
 
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import controller.MainController;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import model.entities.Admin;
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
 import model.helpers.Utils;
-import model.interfaces.IStage;
 import model.persistence.AdminDAO;
-import model.stages.MasterStage;
 
 public class AdminsListController implements Initializable {
 	
 	private AdminDAO adminDAO;
 	
+	private int currentPage = 1;
+	private int perPage = 20;
+	private int totalPages = 0;
+	
 	@FXML
 	private Button goToRegisterScreenButton;
-	
 	@FXML
 	private TableView<Admin> table;
 	
@@ -56,24 +47,46 @@ public class AdminsListController implements Initializable {
 	@FXML
 	private TableColumn<Admin, Date> updateDateColumn;
 	
-	ObservableList<Admin> observableAdminList = FXCollections.observableArrayList();
+	@FXML
+	private Text currentPageText;
+	@FXML
+	private Text pagesText;
+	@FXML
+	private Button firstPageButton;
+	@FXML
+	private Button backPageButton; 
+	@FXML
+	private Button nextPageButton;
+	@FXML
+	private Button lastPageButton;
+	
+	ObservableList<Admin> tableItems = FXCollections.observableArrayList();
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		goToRegisterScreenButton.setOnMouseClicked(e -> MainController.changeScene("adminsRegister"));
 		adminDAO = new AdminDAO();
 		
-		this.fetchAdmins();
+		goToRegisterScreenButton.setOnMouseClicked(e -> MainController.changeScene("adminsRegister"));
+		firstPageButton.setOnMouseClicked(e -> this.updateTableData(1));
+		backPageButton.setOnMouseClicked(e -> this.updateTableData(this.currentPage - 1));
+		lastPageButton.setOnMouseClicked(e -> this.updateTableData(this.totalPages));
+		nextPageButton.setOnMouseClicked(e -> this.updateTableData(this.currentPage + 1));
+		
+		
+		this.fetchAdmins(); 
 	}
 	
-	public void updateTableData() {
+	public void updateTableData(Integer page) {
+		if(page != null && page > 0 && page < this.totalPages) this.currentPage = page;
 		this.fetchAdmins();
-	}
+	} 
 	
-	private void fetchAdmins() {
+	public void fetchAdmins() {
 		try {
-			List<Admin> admins = adminDAO.getAll();
-			observableAdminList = FXCollections.observableArrayList(admins);
+			List<Admin> admins = adminDAO.getPaged(this.currentPage, this.perPage);
+			int totalItems = adminDAO.count();
+			
+			tableItems = FXCollections.observableArrayList(admins);
 			idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 			nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 			emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -81,7 +94,11 @@ public class AdminsListController implements Initializable {
 			createDateColumn.setCellValueFactory(new PropertyValueFactory<>("createDate"));
 			updateDateColumn.setCellValueFactory(new PropertyValueFactory<>("updateDate"));
 				
-			table.setItems(observableAdminList);
+			table.setItems(tableItems);
+			
+			this.totalPages = (int)Math.ceil((float)totalItems / this.perPage);
+			this.currentPageText.setText(String.valueOf(this.currentPage));
+			this.pagesText.setText(String.valueOf(this.totalPages));
 		} catch(DBException e) {
 			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
 		}

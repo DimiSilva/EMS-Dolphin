@@ -53,8 +53,7 @@ public class AuthDAO extends BaseDAO<Auth> {
 										, tableName, identifier
 						)
 				);
-			
-			result.first();
+			if(!result.next()) return null;
 			Auth auth = entityFromDBSet(result);
 
 			statement.close();

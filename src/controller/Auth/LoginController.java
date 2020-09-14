@@ -87,10 +87,10 @@ public class LoginController implements Initializable {
 		String email = emailInput.getText();
 		String password = passwordInput.getText();
 		if(email == null || email.length() < 3 || !email.contains("@"))
-			return "Email inv�lido!";
+			return "Email inválido!";
 		
 		if(password == null || password.length() < 6)
-			return "Senha inv�lida!";
+			return "Senha inválida!";
 			
 		return null;
 	}

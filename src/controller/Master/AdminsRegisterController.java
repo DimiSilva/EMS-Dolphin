@@ -52,8 +52,8 @@ public class AdminsRegisterController implements Initializable {
 			int id = authDAO.insert(auth);
 			 
 			Admin admin = new Admin(nameInput.getText(), emailInput.getText(), cpfInput.getText(), id);
-			
 			adminDAO.insert(admin);
+			
 			MainController.changeScene("adminsList");
 		}
 		catch(DBException e) {
