@@ -9,15 +9,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="667.0" prefWidth="1134.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Master.AdminsListController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="667.0" prefWidth="1134.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Master.AdminsListController">
    <children>
       <VBox prefHeight="400.0" prefWidth="605.0" HBox.hgrow="ALWAYS">
          <children> 
             <HBox prefHeight="400.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="bg-dark" HBox.hgrow="ALWAYS">
                      <children>
-                        <HBox alignment="TOP_RIGHT">
+                        <HBox alignment="TOP_RIGHT" styleClass="page-body-container">
                            <children>
                               
                               <Button fx:id="goToRegisterScreenButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="299.0" styleClass="ems-btn" text="Cadastrar Novo Administrador" />
@@ -28,18 +28,22 @@
                         </HBox>
                         <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                            <children>
-                              <TableView fx:id="table" fixedCellSize="20.0" minHeight="-Infinity" HBox.hgrow="ALWAYS">
+                              <TableView fx:id="table" fixedCellSize="20.0" minHeight="-Infinity" styleClass="table-list" HBox.hgrow="ALWAYS">
                                 <columns>
-                                  <TableColumn fx:id="idColumn" editable="false" text="Id" />
-                                  <TableColumn fx:id="nameColumn" editable="false" minWidth="100.0" text="Nome" />
-                                    <TableColumn fx:id="emailColumn" editable="false" minWidth="100.0" text="E-mail" />
-                                    <TableColumn fx:id="cpfColumn" editable="false" minWidth="100.0" text="CPF" />
-                                    <TableColumn fx:id="createDateColumn" editable="false" minWidth="100.0" text="Dt.Criação" />
-                                    <TableColumn fx:id="updateDateColumn" editable="false" minWidth="100.0" text="Dt.Edição" />
+                                  <TableColumn fx:id="idColumn" editable="false" styleClass="column" text="Id" />
+                                  <TableColumn fx:id="nameColumn" editable="false" minWidth="100.0" styleClass="column" text="Nome" />
+                                    <TableColumn fx:id="emailColumn" editable="false" minWidth="100.0" styleClass="column" text="E-mail" />
+                                    <TableColumn fx:id="cpfColumn" editable="false" minWidth="100.0" styleClass="column" text="CPF" />
+                                    <TableColumn fx:id="createDateColumn" editable="false" minWidth="100.0" styleClass="column" text="Dt.Criação" />
+                                    <TableColumn fx:id="updateDateColumn" editable="false" minWidth="100.0" styleClass="column" text="Dt.Edição" />
+                               		<TableColumn fx:id="actionsColumn" editable="false" minWidth="100.0" styleClass="column" text="Ações" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
                               </TableView>
                            </children>
                            <VBox.margin>

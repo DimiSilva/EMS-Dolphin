@@ -11,9 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import model.entities.Admin;
 import model.enums.messages.Shared;
@@ -46,6 +48,8 @@ public class AdminsListController implements Initializable {
 	private TableColumn<Admin, Date> createDateColumn;
 	@FXML
 	private TableColumn<Admin, Date> updateDateColumn;
+	@FXML
+	private TableColumn<Admin, HBox> actionsColumn;
 	
 	@FXML
 	private Text currentPageText;
@@ -65,8 +69,7 @@ public class AdminsListController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		adminDAO = new AdminDAO();
-		
-		goToRegisterScreenButton.setOnMouseClicked(e -> MainController.changeScene("adminsRegister"));
+		goToRegisterScreenButton.setOnMouseClicked(e -> goToRegister());
 		firstPageButton.setOnMouseClicked(e -> this.updateTableData(1));
 		backPageButton.setOnMouseClicked(e -> this.updateTableData(this.currentPage - 1));
 		lastPageButton.setOnMouseClicked(e -> this.updateTableData(this.totalPages));
@@ -76,10 +79,31 @@ public class AdminsListController implements Initializable {
 		this.fetchAdmins(); 
 	}
 	
+	public void goToRegister() {
+		MainController.changeScene("adminsRegister");
+	} 
+	
 	public void updateTableData(Integer page) {
 		if(page != null && page > 0 && page < this.totalPages) this.currentPage = page;
 		this.fetchAdmins();
 	} 
+	public void deleteUser(int id, String name) {
+		adminDAO = new AdminDAO();
+		
+		
+		if(Utils.showConfirmAlert("Atenção", "Deseja mesmo apagar o usuário " + name , "Apagar", "Cancelar") == true) {
+			
+			try {
+				adminDAO.remove(String.valueOf(id));
+				fetchAdmins();
+			}
+			catch(DBException e) {
+				Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+			}
+		}
+
+	} 
+	
 	
 	public void fetchAdmins() {
 		try {
@@ -93,6 +117,24 @@ public class AdminsListController implements Initializable {
 			cpfColumn.setCellValueFactory(new PropertyValueFactory<>("cpf"));
 			createDateColumn.setCellValueFactory(new PropertyValueFactory<>("createDate"));
 			updateDateColumn.setCellValueFactory(new PropertyValueFactory<>("updateDate"));
+		
+			actionsColumn.setCellFactory(params -> new TableCell<Admin, HBox>() {
+				  @Override
+				    protected void updateItem(HBox hbox, boolean empty) {
+				       super.updateItem(hbox, empty);
+				       if(getIndex() == -1 || tableItems.size() < getIndex() + 1) {
+				    	   return;
+				       }
+				       Admin admin = tableItems.get(getIndex());
+				       Button editButton = new Button("edit");
+				       editButton.setOnMouseClicked(e ->  MainController.changeScene("adminsRegister", admin.getId()));
+				       Button deleteButton = new Button("delete");
+				       deleteButton.setOnMouseClicked(e -> deleteUser(admin.getId(), admin.getName()));
+				      
+				        HBox pane = new HBox(deleteButton, editButton);
+				        setGraphic(pane);
+				    }
+			});
 				
 			table.setItems(tableItems);
 			

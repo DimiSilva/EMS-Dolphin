@@ -49,8 +49,8 @@ public class LoginController implements Initializable {
 	
 	@FXML
 	private void login() {
-//		emailInput.setText("master@master.com");
-//		passwordInput.setText("123456");
+		emailInput.setText("master@master.com");
+		passwordInput.setText("123456");
 		String validationResult = loginValidators();
 		if(validationResult != null) {
 			messageError.setText(validationResult);

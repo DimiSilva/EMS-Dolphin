@@ -41,6 +41,7 @@ public class AdminDAO extends BaseDAO<Admin> {
 						+ "SET "
 						+ "name = '%s'"
 						+ "WHERE id = '%d'"
+							, tableName
 							, object.getName()
 							, object.getId()
 					);

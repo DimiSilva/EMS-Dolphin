@@ -61,6 +61,11 @@ public class MainController extends Application {
     	currentStage.loadScene(sceneName);
     }
     
+    public static void changeScene(String sceneName, int id) {
+    	System.out.println("changeScene " + id);
+    	currentStage.loadScene(sceneName, id);
+    }
+    
 	public static void closeApplication() {
 		Platform.exit();
 		System.exit(0);
