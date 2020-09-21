@@ -1,10 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox prefHeight="100.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Admin.DashboardController">
    <children>
-      <VBox styleClass="container" stylesheets="@Style.css" HBox.hgrow="ALWAYS" />
+      <VBox styleClass="container" stylesheets="@Style.css" HBox.hgrow="ALWAYS"> 
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <BarChart fx:id="contributorsWorkedHoursInYearByMonthChart" legendVisible="false" title="Total de horas trabalhadas nos meses do ano atual" VBox.vgrow="ALWAYS"> 
+                     <xAxis>
+                        <CategoryAxis label="Mês" side="BOTTOM" tickLabelFill="WHITE" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis label="Horas" side="LEFT" tickLabelFill="WHITE" />
+                     </yAxis>
+                  </BarChart>
+               </children>
+               <padding>
+                  <Insets top="8.0" />
+               </padding>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <BarChart fx:id="projectsWorkedHoursChart" legendVisible="false" title="Total de horas trabalhadas nos projetos" VBox.vgrow="ALWAYS">
+                    <xAxis>
+                      <CategoryAxis label="Horas" side="BOTTOM" tickLabelFill="WHITE" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis label="Projeto" side="LEFT" tickLabelFill="WHITE" />
+                    </yAxis>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets top="8.0" />
+                     </padding>
+                  </BarChart>
+               </children>
+            </VBox>
+         </children></VBox>
    </children>
 </HBox>

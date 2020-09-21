@@ -49,8 +49,8 @@ public class LoginController implements Initializable {
 	
 	@FXML
 	private void login() {
-//		emailInput.setText("master@master.com");
-//		passwordInput.setText("123456");
+		emailInput.setText("admin@admin.com");
+		passwordInput.setText("123456");
 		String validationResult = loginValidators();
 		if(validationResult != null) {
 			messageError.setText(validationResult);
@@ -67,10 +67,10 @@ public class LoginController implements Initializable {
 			
 			switch (AccessTypes.valueOf(userAuth.getAcessType())) {
 				case ADMIN:
-					System.out.println("Admin,  nao tem tela ainda");
+					MainController.changeStage("admin");
 				break;
 				case CONTRIBUTOR:
-					System.out.println("Contribuidor, nao tenho sua tela ainda");
+					MainController.changeStage("contributor");
 				break;
 				case MASTER:
 					MainController.changeStage("master");
