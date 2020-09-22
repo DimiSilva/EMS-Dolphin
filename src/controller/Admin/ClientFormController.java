@@ -1,9 +1,11 @@
 package controller.Admin;
 
 import java.net.URL;
+import java.text.ParseException;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import controller.MainController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,14 +23,22 @@ import javafx.scene.layout.VBox;
 import model.DTOs.ContributorsWorkedHoursInYearByMonth;
 import model.DTOs.ProjectsWorkedHours;
 import model.entities.Admin;
+import model.entities.Auth;
+import model.entities.Client;
+import model.enums.AccessTypes;
 import model.enums.Months;
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
+import model.exceptions.InvalidFieldException;
 import model.helpers.Utils;
+import model.persistence.AdminDAO;
+import model.persistence.AuthDAO;
+import model.persistence.ClientDAO;
 import model.persistence.DashboardDAO;
 
 public class ClientFormController implements Initializable {
-
+	private ClientDAO clientDAO;
+	
 	@FXML
 	private Labeled titlePage;
 	@FXML
@@ -36,9 +46,9 @@ public class ClientFormController implements Initializable {
 	@FXML
 	private TextField emailInput;
 	@FXML
-	private TextField cpfInput;
+	private TextField cnpjInput;
 	@FXML
-	private PasswordField passwordInput;
+	private TextField phoneInput;
 	@FXML
 	private Button registerButton;
 	@FXML
@@ -46,41 +56,87 @@ public class ClientFormController implements Initializable {
 	@FXML
 	private VBox passwordContainer;	
 	@FXML
-	private int updatingUserId;
+	private int updatingClientrId;
 	@FXML
-	private Admin updatingUser;
+	private Client updatingClient;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		/*try {	
-			dashboardDAO = new DashboardDAO();
-			contributorsWorkedHoursInMonthData = dashboardDAO.getAllContributorsWorkedHoursInYearByMonth();
-			projectsWorkedHoursData = dashboardDAO.getAllProjectsWorkedHours();
+		clientDAO = new ClientDAO();
+		
+		registerButton.setOnMouseClicked(e -> register());
+		backButton.setOnMouseClicked(e -> MainController.changeScene("clientsList"));
+	}
+	@FXML
+	public void register() {
+		System.out.println(nameInput.getText());
+		System.out.println(phoneInput.getText());
+		System.out.println(emailInput.getText());
+		System.out.println(cnpjInput.getText());
+		try {
 			
-			XYChart.Series<String, Integer> contributorsWorkedHoursPerMonthInYearDataSet = new XYChart.Series<String, Integer>();
-			contributorsWorkedHoursInMonthData.forEach(
-					item -> contributorsWorkedHoursPerMonthInYearDataSet
-								.getData()
-								.add(
-									new XYChart.Data<String, Integer>(Months.values()[item.month].getText(), item.hours)
-								)
-							);
+		
+			Client client = new Client(nameInput.getText(), phoneInput.getText(), emailInput.getText(), cnpjInput.getText());
+			clientDAO.insert(client);
 			
-			XYChart.Series<String, Integer> projectsWorkedHoursDataSet = new XYChart.Series<String, Integer>();
-			projectsWorkedHoursData.forEach(
-					item -> projectsWorkedHoursDataSet
-								.getData()
-								.add(
-									new XYChart.Data<String, Integer>(item.projectName, item.hours)
-								)
-							);
-			
-			
-			contributorsWorkedHoursInYearByMonthChart.getData().addAll(contributorsWorkedHoursPerMonthInYearDataSet);
-			projectsWorkedHoursChart.getData().addAll(projectsWorkedHoursDataSet);
+			MainController.changeScene("clientsList");
 		}
 		catch(DBException e) {
 			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
-		}*/
+		}
 	}
+	
+	@FXML
+	public void update() {
+		try {
+			this.updatingClient.update(this.nameInput.getText(), this.emailInput.getText(), this.cnpjInput.getText(), this.phoneInput.getText());
+			
+			clientDAO.update(this.updatingClient);			
+			MainController.changeScene("clientsList");
+		}
+		catch(DBException e) {
+			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+		}
+		catch(InvalidFieldException e) {
+			Utils.showErrorAlert("Erro!", e.message, null);
+		}
+	}
+
+
+	public void setUpdatingUserId(int updatingClientrId) {
+		this.updatingClientrId = updatingClientrId;
+	}
+	
+	public void reset() {
+		this.updatingClient = null;
+		this.nameInput.setText(null);
+		this.emailInput.setText(null);
+		this.cnpjInput.setText(null);
+		this.phoneInput.setText(null);
+		this.passwordContainer.setVisible(true);
+		registerButton.setText("Cadastrar");
+		registerButton.setOnMouseClicked(e -> register());
+		titlePage.setText("Cadastrar Cliente");
+	}
+	public void loadUpdatingClientById(int updatingClientrId) {
+		
+		this.updatingClientrId = updatingClientrId;
+		
+		try {
+			this.updatingClient = clientDAO.getById(String.valueOf(this.updatingClientrId));
+			this.nameInput.setText(this.updatingClient.getName());
+			this.emailInput.setText(this.updatingClient.getEmail());
+			this.cnpjInput.setText(this.updatingClient.getCnpj());
+			this.phoneInput.setText(this.updatingClient.getPhone());
+	
+			
+			registerButton.setText("Salvar");
+			registerButton.setOnMouseClicked(e -> update());
+			titlePage.setText("Editar Cliente");
+		}
+		catch(DBException e){
+			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+		}
+	}
+	
 }

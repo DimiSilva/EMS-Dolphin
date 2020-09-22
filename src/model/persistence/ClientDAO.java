@@ -4,47 +4,52 @@ package model.persistence;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 
 import model.entities.Admin;
 import model.entities.Auth;
+import model.entities.Client;
 import model.exceptions.DBException;
 
-public class ClientDAO extends BaseDAO<Admin> {	
+public class ClientDAO extends BaseDAO<Client> {	
 	public ClientDAO() {
-		super("admin");
+		super("client");
 	}
 
 	@Override
-	public Admin entityFromDBSet(ResultSet DBSet) throws SQLException {
-		return Admin.fromDBSet(DBSet);
+	public Client entityFromDBSet(ResultSet DBSet) throws SQLException {
+		return Client.fromDBSet(DBSet);
 	}
 
 	@Override
-	public String entityToDBInsertString(Admin object) {
+	public String entityToDBInsertString(Client object) {
 		return String.format(
 				"INSERT INTO %s "
-						+ "(name, email, cpf, auth_id) "
+						+ "(name, email, cnpj, phone) "
 						+ "VALUES "
 						+ "('%s', '%s', '%s', '%s')"
 							, tableName
 							, object.getName()
 							, object.getEmail()
-							, object.getCPF()
-							, object.getAuthId()
+							, object.getCnpj()
+							, object.getPhone()
 					);
 	}
 
 	@Override
-	public String entityToDBupdateString(Admin object) {
+	public String entityToDBupdateString(Client object) {
 		return String.format(
 				"UPDATE %s "
 						+ "SET "
 						+ "name = '%s'"
+						+ "email = '%s'"
+						+ "phone = '%s'"
 						+ "WHERE id = '%d'"
 							, tableName
 							, object.getName()
+							, object.getEmail()
+							, object.getPhone()
 							, object.getId()
 					);
 	}
-	
 }

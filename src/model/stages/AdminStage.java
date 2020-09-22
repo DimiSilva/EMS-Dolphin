@@ -3,6 +3,10 @@ package model.stages;
 import java.io.IOException;
 
 import controller.MainController;
+import controller.Admin.ClientFormController;
+import controller.Admin.ClientsListController;
+import controller.Master.AdminsListController;
+import controller.Master.AdminsRegisterController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -216,12 +220,17 @@ public class AdminStage implements IStage {
 			if(baseLayoutView.getChildren().toArray().length == 2)
 				baseLayoutView.getChildren().remove(1);
 				baseLayoutView.getChildren().add(clientsListView);
+				ClientsListController clientsListController = clientsList.getController();
+				clientsListController.fetchClients();
 				stage.show();
 			break;
 		case "clientForm":
 			if(baseLayoutView.getChildren().toArray().length == 2)
 				baseLayoutView.getChildren().remove(1);
 				baseLayoutView.getChildren().add(clientFormView);
+				ClientFormController clientFormController = clientForm.getController();
+
+				clientFormController.reset();
 				stage.show();
 			break;
 		case "costCentersList":
@@ -287,12 +296,19 @@ public class AdminStage implements IStage {
 			if(baseLayoutView.getChildren().toArray().length == 2)
 				baseLayoutView.getChildren().remove(1);
 				baseLayoutView.getChildren().add(clientsListView);
+				ClientsListController clientsListController = clientsList.getController();
+				clientsListController.fetchClients();
 				stage.show();
 			break;
 		case "clientForm":
 			if(baseLayoutView.getChildren().toArray().length == 2)
 				baseLayoutView.getChildren().remove(1);
 				baseLayoutView.getChildren().add(clientFormView);
+				ClientFormController clientFormController = clientForm.getController();
+
+				clientFormController.loadUpdatingClientById(id);
+			
+		
 				stage.show();
 			break;
 		case "costCentersList":

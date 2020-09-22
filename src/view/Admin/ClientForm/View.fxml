@@ -22,7 +22,7 @@
                            <children>
                               <VBox prefWidth="800.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label fx:id="titlePage" text="Cadastrar Administrador">
+                                    <Label fx:id="titlePage" text="Cadastrar Cliente">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -58,8 +58,8 @@
                                     </VBox>
                                     <VBox prefHeight="63.0" prefWidth="281.0" styleClass="ems-form-control-left" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <Label text="CPF" VBox.vgrow="ALWAYS" />
-                                          <TextField fx:id="cpfInput" styleClass="input" VBox.vgrow="ALWAYS" />
+                                          <Label text="CNPJ" VBox.vgrow="ALWAYS" />
+                                          <TextField fx:id="cnpjInput" styleClass="input" VBox.vgrow="ALWAYS" />
                                        </children>
                                        <opaqueInsets>
                                           <Insets />
@@ -84,10 +84,10 @@
                                           <Insets right="8.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox  fx:id="passwordContainer" prefHeight="63.0" prefWidth="281.0" styleClass="ems-form-control-right" VBox.vgrow="ALWAYS">
+                                    <VBox fx:id="passwordContainer" prefHeight="63.0" prefWidth="281.0" styleClass="ems-form-control-right" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <Label text="Senha" VBox.vgrow="ALWAYS" />
-                                          <PasswordField fx:id="passwordInput" styleClass="input" />
+                                          <Label text="Telefone" VBox.vgrow="ALWAYS" />
+                                          <TextField fx:id="phoneInput" prefHeight="26.0" prefWidth="345.0" styleClass="input" VBox.vgrow="ALWAYS" />
                                        </children>
                                        <opaqueInsets>
                                           <Insets />
