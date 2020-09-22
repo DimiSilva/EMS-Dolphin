@@ -115,4 +115,12 @@ public class AuthStage implements IStage {
 				break;
 		}
 	}
+	
+	public void loadScene(String sceneName, int id) {
+		switch (sceneName) {
+			case "login":
+			
+				break;
+		}
+	}
 }

@@ -5,8 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import model.entities.Admin;
-import model.entities.Auth;
 import model.entities.Contributor;
 import model.exceptions.DBException;
 
@@ -41,7 +39,7 @@ public class ContributorDAO extends BaseDAO<Contributor> {
 							, object.getId()
 					);
 	}
-	
+
 	@Override
 	public Contributor getById(String id) throws DBException {
 		try {

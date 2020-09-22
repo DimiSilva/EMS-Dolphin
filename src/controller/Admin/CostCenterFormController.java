@@ -1,8 +1,6 @@
 package controller.Admin;
 
 import java.net.URL;
-import java.time.Month;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -29,7 +27,8 @@ import model.exceptions.DBException;
 import model.helpers.Utils;
 import model.persistence.DashboardDAO;
 
-public class ProfileController implements Initializable {
+public class CostCenterFormController implements Initializable {
+
 	@FXML
 	private Labeled titlePage;
 	@FXML

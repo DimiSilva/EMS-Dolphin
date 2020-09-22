@@ -92,4 +92,17 @@ public class ContributorStage implements IStage {
 			break;
 		}
 	}
+	
+	public void loadScene(String sceneName, int id) {
+		switch (sceneName) {
+		case "dashboard":
+			if(baseLayoutView.getChildren().toArray().length == 2)
+				baseLayoutView.getChildren().remove(1);
+			baseLayoutView.getChildren().add(dashboardView);
+			DashboardController dashboardController = dashboard.getController();
+			dashboardController.loadDashboardData();
+			stage.show();
+			break;
+		}
+	}
 }

@@ -1,0 +1,21 @@
+.container {
+	-fx-background-color: #005F6B;
+}
+
+.chart-title {
+	-fx-text-fill: white;
+}
+
+.chart-bar { 
+	-fx-bar-fill : #00B4CC;
+}
+
+.axis {
+    -fx-tick-label-fill: white;
+    -fx-tick-length: 20;
+    -fx-minor-tick-length: 10;
+}
+ 
+.axis-label {
+   -fx-text-fill: white; 
+}

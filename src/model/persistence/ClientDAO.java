@@ -9,8 +9,8 @@ import model.entities.Admin;
 import model.entities.Auth;
 import model.exceptions.DBException;
 
-public class AdminDAO extends BaseDAO<Admin> {	
-	public AdminDAO() {
+public class ClientDAO extends BaseDAO<Admin> {	
+	public ClientDAO() {
 		super("admin");
 	}
 
@@ -47,28 +47,4 @@ public class AdminDAO extends BaseDAO<Admin> {
 					);
 	}
 	
-	public Admin getByAuthId(String id) throws DBException {
-		try {
-			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery(
-					String.format(
-							"SELECT * FROM %s "
-							+ "WHERE auth_id = '%s'"
-								, tableName, id
-						)
-					);
-			
-			if(!result.next()) return null;
-			Admin instance = entityFromDBSet(result);
-			
-			result.close();
-			statement.close();
-			
-			return instance;
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-			throw new DBException();
-		}
-	}
 }

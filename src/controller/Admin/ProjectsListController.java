@@ -1,4 +1,4 @@
-package controller.Master;
+package controller.Admin;
 
 import java.net.URL;
 import java.util.Date;
@@ -6,28 +6,36 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import controller.MainController;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
+
 import javafx.scene.control.Button;
+
 import javafx.scene.control.TableCell;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+
 import javafx.scene.layout.HBox;
+
 import javafx.scene.text.Text;
+
 import model.entities.Admin;
+
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
 import model.helpers.Utils;
 import model.persistence.AdminDAO;
 import model.persistence.AuthDAO;
 
-public class AdminsListController implements Initializable {
-	
+
+public class ProjectsListController implements Initializable {
 	private AdminDAO adminDAO;
 	private AuthDAO authDAO;
 	
@@ -45,9 +53,11 @@ public class AdminsListController implements Initializable {
 	@FXML
 	private TableColumn<Admin, String> nameColumn;
 	@FXML
-	private TableColumn<Admin, String> emailColumn;
+	private TableColumn<Admin, String> descriptionColumn;
 	@FXML
-	private TableColumn<Admin, String> cpfColumn;
+	private TableColumn<Admin, Date> initDateColumn;
+	@FXML
+	private TableColumn<Admin, Date> endDateColumn;
 	@FXML
 	private TableColumn<Admin, Date> createDateColumn;
 	@FXML
@@ -81,23 +91,23 @@ public class AdminsListController implements Initializable {
 		nextPageButton.setOnMouseClicked(e -> this.updateTableData(this.currentPage + 1));
 		
 		
-		this.fetchAdmins(); 
+		this.fetchProjects(); 
 	}
 	
 	public void goToRegister() {
-		MainController.changeScene("adminsRegister");
+		MainController.changeScene("projectForm");
 	} 
 	
 	public void updateTableData(Integer page) {
 		if(page != null && page > 0 && page < this.totalPages) this.currentPage = page;
-		this.fetchAdmins();
+		this.fetchProjects();
 	} 
-	public void deleteUser(int id, int authId, String name) {	
+	public void deleteProject(int id, int authId, String name) {	
 		if(Utils.showConfirmAlert("Atenção", "Deseja mesmo apagar o usuário " + name , "Apagar", "Cancelar") == true) {
 			try {
 				adminDAO.remove(String.valueOf(id));
 				authDAO.remove(String.valueOf(authId));
-				fetchAdmins();
+				fetchProjects();
 			}
 			catch(DBException e) {
 				Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
@@ -107,7 +117,7 @@ public class AdminsListController implements Initializable {
 	} 
 	
 	
-	public void fetchAdmins() {
+	public void fetchProjects() {
 		try {
 			List<Admin> admins = adminDAO.getPaged(this.currentPage, this.perPage);
 			int totalItems = adminDAO.count();
@@ -115,8 +125,8 @@ public class AdminsListController implements Initializable {
 			tableItems = FXCollections.observableArrayList(admins);
 			idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 			nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-			emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-			cpfColumn.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+			//emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+			//cpfColumn.setCellValueFactory(new PropertyValueFactory<>("cpf"));
 			createDateColumn.setCellValueFactory(new PropertyValueFactory<>("createDate"));
 			updateDateColumn.setCellValueFactory(new PropertyValueFactory<>("updateDate"));
 		
@@ -132,20 +142,17 @@ public class AdminsListController implements Initializable {
 				       ImageView iconEdit = new ImageView("assets/icons/edit_icon.png");
 				       iconEdit.setFitHeight(16);
 				       iconEdit.setFitWidth(16);
-				       editButton.setCursor(Cursor.HAND);
 				       editButton.getStyleClass().add("btn-list-actions");
 				       editButton.setGraphic(iconEdit);
-				     
 				       editButton.setOnMouseClicked(e ->  MainController.changeScene("adminsRegister", admin.getId()));
 				       Button deleteButton = new Button();
 				       ImageView iconDelete = new ImageView("assets/icons/delete_icon.png");
 				       iconDelete.setFitHeight(16);
 				       iconDelete.setFitWidth(16);
-				       deleteButton.setCursor(Cursor.HAND);
 				       deleteButton.setGraphic(iconDelete);
 				    
 				       deleteButton.getStyleClass().add("btn-list-actions");
-				       deleteButton.setOnMouseClicked(e -> deleteUser(admin.getId(), admin.getAuthId(), admin.getName()));
+				       deleteButton.setOnMouseClicked(e -> deleteProject(admin.getId(), admin.getAuthId(), admin.getName()));
 				      
 				        HBox pane = new HBox(editButton, deleteButton);
 				        setGraphic(pane);

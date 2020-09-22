@@ -1,11 +1,10 @@
 package controller.Admin;
 
 import java.net.URL;
-import java.time.Month;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import controller.MainController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,9 +26,17 @@ import model.enums.Months;
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
 import model.helpers.Utils;
+import model.persistence.AdminDAO;
+import model.persistence.AuthDAO;
 import model.persistence.DashboardDAO;
 
-public class ProfileController implements Initializable {
+public class ContributorFormController implements Initializable {
+
+	private AdminDAO adminDAO;
+	private AuthDAO authDAO;
+	
+	
+	
 	@FXML
 	private Labeled titlePage;
 	@FXML
@@ -53,35 +60,10 @@ public class ProfileController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		/*try {	
-			dashboardDAO = new DashboardDAO();
-			contributorsWorkedHoursInMonthData = dashboardDAO.getAllContributorsWorkedHoursInYearByMonth();
-			projectsWorkedHoursData = dashboardDAO.getAllProjectsWorkedHours();
-			
-			XYChart.Series<String, Integer> contributorsWorkedHoursPerMonthInYearDataSet = new XYChart.Series<String, Integer>();
-			contributorsWorkedHoursInMonthData.forEach(
-					item -> contributorsWorkedHoursPerMonthInYearDataSet
-								.getData()
-								.add(
-									new XYChart.Data<String, Integer>(Months.values()[item.month].getText(), item.hours)
-								)
-							);
-			
-			XYChart.Series<String, Integer> projectsWorkedHoursDataSet = new XYChart.Series<String, Integer>();
-			projectsWorkedHoursData.forEach(
-					item -> projectsWorkedHoursDataSet
-								.getData()
-								.add(
-									new XYChart.Data<String, Integer>(item.projectName, item.hours)
-								)
-							);
-			
-			
-			contributorsWorkedHoursInYearByMonthChart.getData().addAll(contributorsWorkedHoursPerMonthInYearDataSet);
-			projectsWorkedHoursChart.getData().addAll(projectsWorkedHoursDataSet);
-		}
-		catch(DBException e) {
-			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
-		}*/
+		adminDAO = new AdminDAO();
+		authDAO = new AuthDAO();
+		
+		registerButton.setOnMouseClicked(e ->  MainController.changeScene("adminsList"));
+		backButton.setOnMouseClicked(e -> MainController.changeScene("adminsList"));
 	}
 }

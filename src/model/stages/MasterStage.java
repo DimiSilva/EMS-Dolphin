@@ -111,8 +111,41 @@ public class MasterStage implements IStage {
 				if(baseLayoutView.getChildren().toArray().length == 2)
 					baseLayoutView.getChildren().remove(1);
 					baseLayoutView.getChildren().add(adminsRegisterView);
+					AdminsRegisterController adminsRegisterController = adminsRegister.getController();
+
+					adminsRegisterController.reset();
+					stage.show();
+				break;
+			default:
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(adminsListView);
 					stage.show();
 				break;
 		}
 	}
+	
+	public void loadScene(String sceneName, int id) {
+	
+		switch (sceneName) {
+			case "adminsList":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(adminsListView);
+					AdminsListController adminsListController = adminsList.getController();
+					adminsListController.fetchAdmins();
+					stage.show();
+				break;
+			case "adminsRegister":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(adminsRegisterView);
+					AdminsRegisterController adminsRegisterController = adminsRegister.getController();
+
+					adminsRegisterController.loadUpdatingUserById(id);
+					stage.show();
+				break;
+		}
+	}
+
 }

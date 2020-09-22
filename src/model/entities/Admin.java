@@ -3,6 +3,7 @@ package model.entities;
 import java.util.Date;
 
 import model.interfaces.IBaseUser;
+import model.exceptions.InvalidFieldException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -42,6 +43,17 @@ public class Admin extends BaseEntity implements IBaseUser {
 		return new Admin(id, name, email, cpf, authId, createDate, updateDate);
 	}
 	
+	public void update(String name, String email, String cpf) throws InvalidFieldException {
+		boolean valid = true;
+		if(valid == true) {		
+			this.name = name != null ? name : this.name;
+			this.email = email != null ? email : this.email;
+			this.cpf = cpf != null ? cpf : this.cpf;
+		}else {
+			throw new InvalidFieldException();
+		}
+	}
+	
 	public String getName() {
 		return	this.name;
 	}
@@ -57,4 +69,5 @@ public class Admin extends BaseEntity implements IBaseUser {
 	public Integer getAuthId() {
 		return this.authId;
 	}
+	
 }

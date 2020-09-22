@@ -2,14 +2,6 @@
 	-fx-background-color: #005F6B;
 }
 
-.axis {
-    -fx-tick-label-fill: white;
-}
- 
-.axis-label {
-   -fx-text-fill: white; 
-}
-
 .list-line {
 	-fx-border-color: white;
 	-fx-border-width: 1px;
@@ -34,4 +26,12 @@
 
 .chart-vertical-grid-lines {
     -fx-stroke: #00000020;
+}
+
+.axis {
+    -fx-tick-label-fill: white;
+}
+ 
+.axis-label {
+   -fx-text-fill: white; 
 }
