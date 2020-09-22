@@ -6,34 +6,84 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Contributor extends BaseEntity{
+import model.interfaces.IBaseUser;
+
+public class Contributor extends BaseEntity implements IBaseUser {
 	private String name;
 	private String phone;
 	private String address;
 	private String email;
-	private Date birthdate;
+	private Date birthDate;
 	private String cpf;
-
-	public Contributor(Integer id, String name, String phone, String address, String email, String birthDate, String cpf, String createDate, String updateDate) throws ParseException{
+	private Integer authId;
+	private Role role;
+	private CostCenter costCenter; 
+	
+	public Contributor(Integer id, String name, String phone, String address, String email, Date birthDate, String cpf, Integer authId, Role role, CostCenter costCenter, Date createDate, Date updateDate) {
 		this.id = id;
 		this.name = name;
 		this.phone = phone;
 		this.address = address;
 		this.email = email;
+		this.birthDate = birthDate;
 		this.cpf = cpf;
+		this.authId = authId;
+		this.role = role;
+		this.costCenter = costCenter;
+		this.createDate = createDate;
+		this.updateDate = updateDate;
 	}
 	
-	public static Contributor fromDBSet(ResultSet DBSet) throws SQLException, ParseException {
-		int id = DBSet.getInt("id");
+	public static Contributor fromDBSet(ResultSet DBSet) throws SQLException {
+		Integer id = DBSet.getInt("id");
 		String name = DBSet.getString("name");
 		String phone = DBSet.getString("phone");
 		String address = DBSet.getString("address");
 		String email = DBSet.getString("email");
-		String birthDate = DBSet.getString("birthDate");
+		Date birthDate = DBSet.getDate("birthdate");
 		String cpf = DBSet.getString("cpf");
-		String createDate = DBSet.getString("createDate");
-		String updateDate = DBSet.getString("updateDate");
+		Integer authId = DBSet.getInt("auth_id");
+		Role role = new Role(DBSet.getInt("role_id"), DBSet.getString("role_name"), DBSet.getFloat("role_base_salary"), DBSet.getDate("role_create_date"), DBSet.getDate("role_update_date"));
+		CostCenter costCenter = new CostCenter(DBSet.getInt("cost_center_id"), DBSet.getString("cost_center_name"), DBSet.getString("cost_center_description"), DBSet.getDate("cost_center_create_date"), DBSet.getDate("cost_center_update_date"));
+		Date createDate = DBSet.getDate("create_date");
+		Date updateDate = DBSet.getDate("update_date");
 		
-		return new Contributor(id, name, phone, address, email, birthDate, cpf, createDate, updateDate);
+		return new Contributor(id, name, phone, address, email, birthDate, cpf, authId, role, costCenter,  createDate, updateDate);
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getPhone() {
+		return phone;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public String getCpf() {
+		return cpf;
+	}
+	
+	public Date getBirthDate() {
+		return birthDate;
+	}
+	
+	public Integer getAuthId() {
+		return authId;
+	}
+	
+	public Role getRole() {
+		return role;
+	}
+	
+	public CostCenter getCostCenter() {
+		return costCenter;
 	}
 }

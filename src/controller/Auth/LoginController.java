@@ -16,15 +16,21 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
+import model.entities.Admin;
 import model.entities.Auth;
 import model.enums.AccessTypes;
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
 import model.helpers.Utils;
 import model.interfaces.IDAO;
+import model.persistence.AdminDAO;
 import model.persistence.AuthDAO;
+import model.persistence.ContributorDAO;
+import model.stages.AuthStage;
 
 public class LoginController implements Initializable {
+	
+	AuthStage stage;
 	
 	private AuthDAO authDAO;
 	
@@ -49,7 +55,8 @@ public class LoginController implements Initializable {
 	
 	@FXML
 	private void login() {
-		emailInput.setText("admin@admin.com");
+		emailInput.setText("contributor2@contributor.com");
+//		emailInput.setText("admin@admin.com"); 
 		passwordInput.setText("123456");
 		String validationResult = loginValidators();
 		if(validationResult != null) {
@@ -65,7 +72,9 @@ public class LoginController implements Initializable {
 				return;
 			}
 			
-			switch (AccessTypes.valueOf(userAuth.getAcessType())) {
+			stage.updateLoggedUser(userAuth);
+			
+			switch (AccessTypes.valueOf(userAuth.getAccessType())) {
 				case ADMIN:
 					MainController.changeStage("admin");
 				break;
@@ -75,7 +84,6 @@ public class LoginController implements Initializable {
 				case MASTER:
 					MainController.changeStage("master");
 				break;
-		
 			}
 		}
 		catch(DBException e) {
@@ -93,5 +101,9 @@ public class LoginController implements Initializable {
 			return "Senha inválida!";
 			
 		return null;
+	}
+	
+	public void setStage(AuthStage authStage) {
+		this.stage = authStage;
 	}
 }

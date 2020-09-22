@@ -2,12 +2,12 @@ package model.entities;
 
 import java.util.Date;
 
+import model.interfaces.IBaseUser;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
-public class Admin extends BaseEntity{
+public class Admin extends BaseEntity implements IBaseUser {
 	private String name;
 	private String email;
 	private String cpf;

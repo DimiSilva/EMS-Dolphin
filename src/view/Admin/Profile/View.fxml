@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Admin.ProfileController">
+   <children>
+      <VBox styleClass="container" HBox.hgrow="ALWAYS">
+         <stylesheets>
+            <URL value="@Style.css" />
+            <URL value="@../../Style.css" />
+         </stylesheets></VBox>
+   </children>
+</HBox>

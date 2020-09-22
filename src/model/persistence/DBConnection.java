@@ -22,12 +22,14 @@ public class DBConnection {
 			catch (SQLException e) {
 				System.out.println("An exception occurred when connecting to the db, the application will be closed");
 				System.out.println(e.getMessage());
+				e.printStackTrace();
 				Platform.exit();
 				System.exit(0);
 			}
 			catch (IOException e) {
 				System.out.println("An exception occurred when getting application properties, the application will be closed");
 				System.out.println(e.getMessage());
+				e.printStackTrace();
 				Platform.exit();
 				System.exit(0);
 			}

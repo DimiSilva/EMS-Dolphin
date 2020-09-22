@@ -27,7 +27,7 @@ public class AuthDAO extends BaseDAO<Auth> {
 							, tableName
 							, object.getIdentifier()
 							, object.getPassword()
-							, object.getAcessType()
+							, object.getAccessType()
 					);
 	}
 

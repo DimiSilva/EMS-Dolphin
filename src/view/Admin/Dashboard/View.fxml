@@ -13,7 +13,7 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                <children>
-                  <BarChart fx:id="contributorsWorkedHoursInYearByMonthChart" legendVisible="false" title="Total de horas trabalhadas nos meses do ano atual" VBox.vgrow="ALWAYS"> 
+                  <BarChart fx:id="contributorsWorkedHoursInYearByMonthChart" animated="false" legendVisible="false" title="Total de horas trabalhadas nos meses do ano atual" VBox.vgrow="ALWAYS"> 
                      <xAxis>
                         <CategoryAxis label="Mês" side="BOTTOM" tickLabelFill="WHITE" />
                      </xAxis>
@@ -28,12 +28,12 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                <children>
-                  <BarChart fx:id="projectsWorkedHoursChart" legendVisible="false" title="Total de horas trabalhadas nos projetos" VBox.vgrow="ALWAYS">
+                  <BarChart fx:id="projectsWorkedHoursChart" animated="false" legendVisible="false" title="Total de horas trabalhadas nos projetos" VBox.vgrow="ALWAYS">
                     <xAxis>
-                      <CategoryAxis label="Horas" side="BOTTOM" tickLabelFill="WHITE" />
+                      <CategoryAxis label="Projeto" side="BOTTOM" tickLabelFill="WHITE" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis label="Projeto" side="LEFT" tickLabelFill="WHITE" />
+                      <NumberAxis label="Horas" side="LEFT" tickLabelFill="WHITE" />
                     </yAxis>
                      <VBox.margin>
                         <Insets />

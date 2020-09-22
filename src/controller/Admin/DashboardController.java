@@ -1,6 +1,8 @@
 package controller.Admin;
 
 import java.net.URL;
+import java.time.Month;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -16,7 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import model.DTOs.ContributorsWorkedHoursInYearByMonthData;
+import model.DTOs.ContributorsWorkedHoursInYearByMonth;
 import model.DTOs.ProjectsWorkedHours;
 import model.enums.Months;
 import model.enums.messages.Shared;
@@ -32,7 +34,7 @@ public class DashboardController implements Initializable {
 	
 	DashboardDAO dashboardDAO;
 	
-	List<ContributorsWorkedHoursInYearByMonthData> contributorsWorkedHoursInMonthData;
+	List<ContributorsWorkedHoursInYearByMonth> contributorsWorkedHoursInMonthData;
 	List<ProjectsWorkedHours> projectsWorkedHoursData;
 	
 	@SuppressWarnings("unchecked")
@@ -43,26 +45,32 @@ public class DashboardController implements Initializable {
 			contributorsWorkedHoursInMonthData = dashboardDAO.getAllContributorsWorkedHoursInYearByMonth();
 			projectsWorkedHoursData = dashboardDAO.getAllProjectsWorkedHours();
 			
-			XYChart.Series<String, Integer> contributorsWorkedHoursPerMonthInYearDataSet = new XYChart.Series<String, Integer>();
-			contributorsWorkedHoursInMonthData.forEach(
-					item -> contributorsWorkedHoursPerMonthInYearDataSet
-								.getData()
-								.add(
-									new XYChart.Data<String, Integer>(Months.values()[item.month].getText(), item.hours)
-								)
-							);
+			XYChart.Series<String, Integer> contributorsWorkedHoursInMonthDataSet = new XYChart.Series<String, Integer>();
+			Arrays.asList(Months.values()).forEach(
+				month -> {
+					Integer monthHours = 0;
+					for(int i = 0; i < contributorsWorkedHoursInMonthData.size(); i++) {
+						ContributorsWorkedHoursInYearByMonth item = contributorsWorkedHoursInMonthData.get(i);
+						if(Months.values()[item.month].getText().compareTo(month.getText()) == 0) {
+							monthHours = item.hours;
+							break;
+						}
+					}
+					contributorsWorkedHoursInMonthDataSet
+						.getData()
+						.add(new XYChart.Data<String, Integer>(month.getText(), monthHours));						
+				}
+			);
 			
 			XYChart.Series<String, Integer> projectsWorkedHoursDataSet = new XYChart.Series<String, Integer>();
 			projectsWorkedHoursData.forEach(
-					item -> projectsWorkedHoursDataSet
-								.getData()
-								.add(
-									new XYChart.Data<String, Integer>(item.projectName, item.hours)
-								)
-							);
+				item -> projectsWorkedHoursDataSet
+					.getData()
+					.add(new XYChart.Data<String, Integer>(item.projectName, item.hours))
+			);
 			
 			
-			contributorsWorkedHoursInYearByMonthChart.getData().addAll(contributorsWorkedHoursPerMonthInYearDataSet);
+			contributorsWorkedHoursInYearByMonthChart.getData().addAll(contributorsWorkedHoursInMonthDataSet);
 			projectsWorkedHoursChart.getData().addAll(projectsWorkedHoursDataSet);
 		}
 		catch(DBException e) {

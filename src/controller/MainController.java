@@ -18,7 +18,6 @@ public class MainController extends Application {
 	
 	public static IStage currentStage;
 	
-	
     @Override
     public void start(Stage primaryStage) {
     	authStage = new AuthStage();
@@ -53,7 +52,7 @@ public class MainController extends Application {
     			if(currentStage != null)
     				currentStage.hide();
     			currentStage = contributorStage;
-    			adminStage.load();
+    			contributorStage.load();
     			break;
     		case "master":
     			if(currentStage != null)

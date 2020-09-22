@@ -13,3 +13,11 @@
 .table-row-cell:empty .table-cell {
 	-fx-border-width: 0px;
 }
+
+.dark-background {
+	-fx-background-color: #005F6B;
+}
+
+.text-white {
+	-fx-text-fill: white; 
+}

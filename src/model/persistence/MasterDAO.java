@@ -7,46 +7,46 @@ import java.sql.Statement;
 
 import model.entities.Admin;
 import model.entities.Auth;
+import model.entities.Contributor;
+import model.entities.Master;
 import model.exceptions.DBException;
 
-public class AdminDAO extends BaseDAO<Admin> {	
-	public AdminDAO() {
-		super("admin");
+public class MasterDAO extends BaseDAO<Master> {	
+	public MasterDAO() {
+		super("master");
 	}
 
 	@Override
-	public Admin entityFromDBSet(ResultSet DBSet) throws SQLException {
-		return Admin.fromDBSet(DBSet);
+	public Master entityFromDBSet(ResultSet DBSet) throws SQLException {
+		return Master.fromDBSet(DBSet);
 	}
 
 	@Override
-	public String entityToDBInsertString(Admin object) {
+	public String entityToDBInsertString(Master object) {
 		return String.format(
 				"INSERT INTO %s "
-						+ "(name, email, cpf, auth_id) "
+						+ "(email, auth_id) "
 						+ "VALUES "
-						+ "('%s', '%s', '%s', '%s')"
+						+ "('%s', '%s')"
 							, tableName
-							, object.getName()
 							, object.getEmail()
-							, object.getCPF()
 							, object.getAuthId()
 					);
 	}
 
 	@Override
-	public String entityToDBupdateString(Admin object) {
+	public String entityToDBupdateString(Master object) {
 		return String.format(
 				"UPDATE %s "
 						+ "SET "
-						+ "name = '%s'"
+						+ "email = '%s'"
 						+ "WHERE id = '%d'"
-							, object.getName()
+							, object.getEmail()
 							, object.getId()
 					);
 	}
 	
-	public Admin getByAuthId(String id) throws DBException {
+	public Master getByAuthId(String id) throws DBException {
 		try {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery(
@@ -58,7 +58,7 @@ public class AdminDAO extends BaseDAO<Admin> {
 					);
 			
 			if(!result.next()) return null;
-			Admin instance = entityFromDBSet(result);
+			Master instance = entityFromDBSet(result);
 			
 			result.close();
 			statement.close();

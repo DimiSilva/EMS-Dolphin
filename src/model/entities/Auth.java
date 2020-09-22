@@ -43,7 +43,7 @@ public class Auth extends BaseEntity {
 		return this.password;
 	}
 	
-	public String getAcessType() {
+	public String getAccessType() {
 		return this.accessType;
 	}
 }
