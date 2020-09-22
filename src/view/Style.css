@@ -3,6 +3,10 @@
 	-fx-text-fill: #00B4CC;
 	-fx-cursor: hand ;
 	-fx-padding: 4px 16px;
+	-fx-font-weight: bold;
+}
+.text-primary-color{
+	-fx-text-fill: #00B4CC;
 }
 
 

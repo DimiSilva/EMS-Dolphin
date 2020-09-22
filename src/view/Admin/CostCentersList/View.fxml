@@ -11,19 +11,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="667.0" prefWidth="1134.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Master.AdminsListController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="667.0" prefWidth="1134.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Admin.CostCentersListController">
    <children>
-      <VBox prefHeight="400.0" prefWidth="605.0" HBox.hgrow="ALWAYS">
+      <VBox prefHeight="400.0" prefWidth="605.0" styleClass="bg-dark" HBox.hgrow="ALWAYS">
          <children> 
             <HBox prefHeight="400.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox styleClass="bg-dark" HBox.hgrow="ALWAYS">
+                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="bg-dark" HBox.hgrow="ALWAYS">
                      <children>
                         <HBox alignment="TOP_RIGHT" styleClass="page-body-container">
                            <children>
                               <VBox HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label text="Administradores" VBox.vgrow="ALWAYS">
+                                    <Label text="Centros de Custo" VBox.vgrow="ALWAYS">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -31,7 +31,7 @@
                                  </children>
                               </VBox>
                               
-                              <Button fx:id="goToRegisterScreenButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="299.0" styleClass="ems-btn" text="Cadastrar Novo Administrador" />
+                              <Button fx:id="goToRegisterScreenButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="299.0" styleClass="ems-btn" text="Cadastrar Novo Centro de Custo" />
                            </children>
                            <padding>
                               <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
@@ -43,8 +43,7 @@
                                 <columns>
                                   <TableColumn fx:id="idColumn" editable="false" styleClass="column" text="Id" />
                                   <TableColumn fx:id="nameColumn" editable="false" minWidth="100.0" styleClass="column" text="Nome" />
-                                    <TableColumn fx:id="emailColumn" editable="false" minWidth="100.0" styleClass="column" text="E-mail" />
-                                    <TableColumn fx:id="cpfColumn" editable="false" minWidth="100.0" styleClass="column" text="CPF" />
+                                    <TableColumn fx:id="descriptionColumn" editable="false" minWidth="200.0" styleClass="column" text="Descrição" />
                                     <TableColumn fx:id="createDateColumn" editable="false" minWidth="100.0" styleClass="column" text="Dt.Criação" />
                                     <TableColumn fx:id="updateDateColumn" editable="false" minWidth="100.0" styleClass="column" text="Dt.Edição" />
                                		<TableColumn fx:id="actionsColumn" editable="false" minWidth="100.0" styleClass="column" text="Ações" />
@@ -87,11 +86,17 @@
                                        <HBox.margin>
                                           <Insets right="4.0" />
                                        </HBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
                                     </Button>
                                     <Button fx:id="backPageButton" mnemonicParsing="false" styleClass="ems-btn" text="&lt;">
                                        <HBox.margin>
                                           <Insets right="8.0" />
                                        </HBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
                                     </Button>
                                     <Text fx:id="currentPageText" fill="#00b4cc" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                                        <font>
@@ -101,25 +106,28 @@
                                        <HBox.margin>
                                           <Insets left="8.0" />
                                        </HBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
                                     </Button>
                                     <Button fx:id="lastPageButton" mnemonicParsing="false" styleClass="ems-btn" text="&gt;&gt;">
                                        <HBox.margin>
                                           <Insets left="4.0" />
                                        </HBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
                                     </Button>
                                  </children>
                               </HBox>
                            </children>
                         </HBox>
                      </children>
-                     <padding>
-                        <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
-                     </padding>
                   </VBox>
                </children>
-               <opaqueInsets>
+               <padding>
                   <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
-               </opaqueInsets>
+               </padding>
             </HBox>
          </children>
          <stylesheets>

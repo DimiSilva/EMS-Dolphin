@@ -54,7 +54,6 @@ public class Utils {
 		Optional<ButtonType> result = alert.showAndWait();
 
 		if (result.orElse(bar) == foo) {
-		   System.out.println("Confirmar");
 		   return true;
 		}else {
 			return false;

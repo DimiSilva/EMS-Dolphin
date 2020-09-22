@@ -13,32 +13,46 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import model.DTOs.ContributorsWorkedHoursInYearByMonthData;
 import model.DTOs.ProjectsWorkedHours;
+import model.entities.Admin;
 import model.enums.Months;
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
 import model.helpers.Utils;
 import model.persistence.DashboardDAO;
 
-public class DashboardController implements Initializable {
+public class ProfileController implements Initializable {
+
 	@FXML
-	BarChart<String, Integer> contributorsWorkedHoursInYearByMonthChart;
+	private Labeled titlePage;
 	@FXML
-	BarChart<String, Integer> projectsWorkedHoursChart;
+	private TextField nameInput;
+	@FXML
+	private TextField emailInput;
+	@FXML
+	private TextField cpfInput;
+	@FXML
+	private PasswordField passwordInput;
+	@FXML
+	private Button registerButton;
+	@FXML
+	private Button backButton;
+	@FXML
+	private VBox passwordContainer;	
+	@FXML
+	private int updatingUserId;
+	@FXML
+	private Admin updatingUser;
 	
-	DashboardDAO dashboardDAO;
-	
-	List<ContributorsWorkedHoursInYearByMonthData> contributorsWorkedHoursInMonthData;
-	List<ProjectsWorkedHours> projectsWorkedHoursData;
-	
-	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		try {	
+		/*try {	
 			dashboardDAO = new DashboardDAO();
 			contributorsWorkedHoursInMonthData = dashboardDAO.getAllContributorsWorkedHoursInYearByMonth();
 			projectsWorkedHoursData = dashboardDAO.getAllProjectsWorkedHours();
@@ -67,6 +81,6 @@ public class DashboardController implements Initializable {
 		}
 		catch(DBException e) {
 			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
-		}
+		}*/
 	}
 }

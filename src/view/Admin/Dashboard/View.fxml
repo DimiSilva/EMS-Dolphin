@@ -1,10 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<HBox prefHeight="100.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Admin.DashboardController">
    <children>
-      <VBox styleClass="container" stylesheets="@Style.css" HBox.hgrow="ALWAYS" />
+      <VBox styleClass="bg-dark" stylesheets="@Style.css" HBox.hgrow="ALWAYS"> 
+         <children>
+            <HBox maxHeight="-Infinity" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Dashboard" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="32.0" />
+               </padding>
+            </HBox>
+            <HBox>
+               <children>
+                  <VBox styleClass="chart-container" HBox.hgrow="ALWAYS">
+                     <children>
+                        <BarChart fx:id="contributorsWorkedHoursInYearByMonthChart" legendVisible="false" title="Total de horas trabalhadas nos meses do ano atual" VBox.vgrow="ALWAYS"> 
+                           <xAxis>
+                              <CategoryAxis label="Mês" prefWidth="550.0" side="BOTTOM" tickLabelFill="WHITE" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis label="Horas" side="LEFT" tickLabelFill="WHITE" />
+                           </yAxis>
+                           <padding>
+                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                           </padding>
+                        </BarChart>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="8.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox styleClass="chart-container" HBox.hgrow="ALWAYS">
+                     <children>
+                        <BarChart fx:id="projectsWorkedHoursChart" legendVisible="false" title="Total de horas trabalhadas nos projetos" VBox.vgrow="ALWAYS">
+                          <xAxis>
+                            <CategoryAxis label="Horas" side="BOTTOM" tickLabelFill="WHITE" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis label="Projeto" side="LEFT" tickLabelFill="WHITE" />
+                          </yAxis>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                           </padding>
+                        </BarChart>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="8.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <padding>
+            <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
+         </padding></VBox>
    </children>
 </HBox>

@@ -103,6 +103,7 @@ public class AdminsRegisterController implements Initializable {
 		this.nameInput.setText(null);
 		this.emailInput.setText(null);
 		this.cpfInput.setText(null);
+		this.passwordInput.setText(null);
 		this.passwordContainer.setVisible(true);
 		registerButton.setText("Cadastrar");
 		registerButton.setOnMouseClicked(e -> register());

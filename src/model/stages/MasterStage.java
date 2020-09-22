@@ -62,7 +62,6 @@ public class MasterStage implements IStage {
 		}
 	}
 	
-	@Override
 	public void load() {
 		baseLayoutView.getChildren().add(adminsListView);
 		Scene baseLayout =  new Scene(baseLayoutView);
@@ -74,12 +73,12 @@ public class MasterStage implements IStage {
 	private void renderMenu () {
 		VBox menu = (VBox)baseLayoutView.lookup("#menu");
 			
-		Button listAdminMastersBtn = new Button("Lista de Administradores");
-		listAdminMastersBtn.setId("listAdminMastersBtn");
-		listAdminMastersBtn.setOnMouseClicked(e -> loadScene("adminsList"));
-		listAdminMastersBtn.setPrefHeight(25.0);
-		listAdminMastersBtn.setPrefWidth(299.0);
-		listAdminMastersBtn.getStyleClass().add("ems-btn");
+		Button adminsBtn = new Button("Administradores");
+		adminsBtn.setId("listAdminMastersBtn");
+		adminsBtn.setOnMouseClicked(e -> loadScene("adminsList"));
+		adminsBtn.setPrefHeight(25.0);
+		adminsBtn.setPrefWidth(299.0);
+		adminsBtn.getStyleClass().add("ems-btn");
 		
 		Button logoutBtn = new Button("Sair");
 		logoutBtn.setOnMouseClicked(e -> MainController.closeApplication());
@@ -88,12 +87,11 @@ public class MasterStage implements IStage {
 		logoutBtn.setPrefWidth(299.0);
 		logoutBtn.getStyleClass().add("ems-btn");
 			
-		menu.getChildren().addAll(listAdminMastersBtn,logoutBtn );
-		VBox.setMargin(listAdminMastersBtn, new Insets(16, 0, 0, 0));
+		menu.getChildren().addAll(adminsBtn, logoutBtn);
+		VBox.setMargin(adminsBtn, new Insets(16, 0, 0, 0));
 		VBox.setMargin(logoutBtn, new Insets(16, 0, 0, 0));
 	}
 	
-	@Override
 	public void hide() {
 		if(stage.isShowing())
 			stage.hide();
@@ -145,12 +143,6 @@ public class MasterStage implements IStage {
 					AdminsRegisterController adminsRegisterController = adminsRegister.getController();
 
 					adminsRegisterController.loadUpdatingUserById(id);
-					stage.show();
-				break;
-			default:
-				if(baseLayoutView.getChildren().toArray().length == 2)
-					baseLayoutView.getChildren().remove(1);
-					baseLayoutView.getChildren().add(adminsListView);
 					stage.show();
 				break;
 		}

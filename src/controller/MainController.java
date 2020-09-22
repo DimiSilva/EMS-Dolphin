@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import model.interfaces.IStage;
 import model.stages.AuthStage;
+import model.stages.ContributorStage;
 import model.stages.MasterStage;
 import model.stages.AdminStage;
 
@@ -12,6 +13,7 @@ public class MainController extends Application {
 
 	private static IStage authStage;
 	private static IStage adminStage;
+	private static IStage contributorStage;
 	private static IStage masterStage;
 	
 	public static IStage currentStage;
@@ -21,6 +23,7 @@ public class MainController extends Application {
     public void start(Stage primaryStage) {
     	authStage = new AuthStage();
     	adminStage = new AdminStage();
+    	contributorStage = new ContributorStage();
     	masterStage = new MasterStage();
     	
     	MainController.changeStage("auth");
@@ -46,6 +49,12 @@ public class MainController extends Application {
     			currentStage = adminStage;
     			adminStage.load();
     			break;
+    		case "contributor":
+    			if(currentStage != null)
+    				currentStage.hide();
+    			currentStage = contributorStage;
+    			adminStage.load();
+    			break;
     		case "master":
     			if(currentStage != null)
     				currentStage.hide();
@@ -62,7 +71,6 @@ public class MainController extends Application {
     }
     
     public static void changeScene(String sceneName, int id) {
-    	System.out.println("changeScene " + id);
     	currentStage.loadScene(sceneName, id);
     }
     
