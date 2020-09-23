@@ -13,15 +13,19 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -29,17 +33,20 @@ import javafx.scene.text.Text;
 import model.DTOs.ContributorsWorkedHoursInYearByMonth;
 import model.DTOs.ProjectsWorkedHours;
 import model.entities.Admin;
+import model.entities.Client;
+import model.entities.Contributor;
 import model.enums.Months;
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
 import model.helpers.Utils;
 import model.persistence.AdminDAO;
 import model.persistence.AuthDAO;
+import model.persistence.ContributorDAO;
 import model.persistence.DashboardDAO;
 
 public class ContributorsListController implements Initializable {
 
-	private AdminDAO adminDAO;
+	private ContributorDAO contributorDAO;
 	private AuthDAO authDAO;
 	
 	private int currentPage = 1;
@@ -49,25 +56,25 @@ public class ContributorsListController implements Initializable {
 	@FXML
 	private Button goToRegisterScreenButton;
 	@FXML
-	private TableView<Admin> table;
+	private TableView<Contributor> table;
 	
 	@FXML
-	private TableColumn<Admin, Integer> idColumn;
+	private TableColumn<Contributor, Integer> idColumn;
 	@FXML
-	private TableColumn<Admin, String> nameColumn;
+	private TableColumn<Contributor, String> nameColumn;
 	@FXML
-	private TableColumn<Admin, String> emailColumn;
+	private TableColumn<Contributor, String> emailColumn;
 	@FXML
-	private TableColumn<Admin, String> cpfColumn;
+	private TableColumn<Contributor, String> cpfColumn;
 	@FXML
-	private TableColumn<Admin, Date> createDateColumn;
+	private TableColumn<Contributor, Date> createDateColumn;
 	@FXML
-	private TableColumn<Admin, Date> updateDateColumn;
+	private TableColumn<Contributor, Date> updateDateColumn;
 	@FXML
-	private TableColumn<Admin, String> phoneColumn;
+	private TableColumn<Contributor, String> phoneColumn;
 	
 	@FXML
-	private TableColumn<Admin, HBox> actionsColumn;
+	private TableColumn<Contributor, HBox> actionsColumn;
 	
 	@FXML
 	private Text currentPageText;
@@ -82,11 +89,11 @@ public class ContributorsListController implements Initializable {
 	@FXML
 	private Button lastPageButton;
 	
-	ObservableList<Admin> tableItems = FXCollections.observableArrayList();
+	ObservableList<Contributor> tableItems = FXCollections.observableArrayList();
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		adminDAO = new AdminDAO();
+		contributorDAO = new ContributorDAO();
 		authDAO = new AuthDAO();
 		goToRegisterScreenButton.setOnMouseClicked(e -> goToRegister());
 		firstPageButton.setOnMouseClicked(e -> this.updateTableData(1));
@@ -106,9 +113,9 @@ public class ContributorsListController implements Initializable {
 		this.fetchContributors();
 	} 
 	public void deleteContributor(int id, int authId, String name) {	
-		if(Utils.showConfirmAlert("Atenção", "Deseja mesmo apagar o usuário " + name , "Apagar", "Cancelar") == true) {
+		if(Utils.showConfirmAlert("Atenção", "Deseja mesmo apagar o contribuidor " + name , "Apagar", "Cancelar") == true) {
 			try {
-				adminDAO.remove(String.valueOf(id));
+				contributorDAO.remove(String.valueOf(id));
 				authDAO.remove(String.valueOf(authId));
 				fetchContributors();
 			}
@@ -121,6 +128,49 @@ public class ContributorsListController implements Initializable {
 	
 	
 	public void fetchContributors() {
-	
+		try {
+			List<Contributor> contributors = contributorDAO.getPaged(this.currentPage, this.perPage);
+			int totalItems = contributorDAO.count();
+			
+			tableItems = FXCollections.observableArrayList(contributors);
+			idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+			nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+			emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+			cpfColumn.setCellValueFactory(new PropertyValueFactory<>("cnpj"));
+			phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+			createDateColumn.setCellValueFactory(new PropertyValueFactory<>("createDate"));
+			updateDateColumn.setCellValueFactory(new PropertyValueFactory<>("updateDate"));
+		
+			actionsColumn.setCellFactory(params -> new TableCell<Contributor, HBox>() {
+				  @Override
+				    protected void updateItem(HBox hbox, boolean empty) {
+				       super.updateItem(hbox, empty);
+				       if(getIndex() == -1 || tableItems.size() < getIndex() + 1) {
+				    	   return;
+				       }
+				       Contributor contributor = tableItems.get(getIndex());
+				       Button editButton = new Button();
+				       ImageView iconEdit = new ImageView("assets/icons/edit_icon.png");
+				       iconEdit.setFitHeight(16);
+				       iconEdit.setFitWidth(16);
+				       editButton.setCursor(Cursor.HAND);
+				       editButton.getStyleClass().add("btn-list-actions");
+				       editButton.setGraphic(iconEdit);
+				     
+				       editButton.setOnMouseClicked(e ->  MainController.changeScene("clientForm", contributor.getId()));
+				      
+				        HBox pane = new HBox(editButton);
+				        setGraphic(pane);
+				    }
+			});
+				
+			table.setItems(tableItems);
+			
+			this.totalPages = (int)Math.ceil((float)totalItems / this.perPage);
+			this.currentPageText.setText(String.valueOf(this.currentPage));
+			this.pagesText.setText(String.valueOf(this.totalPages));
+		} catch(DBException e) {
+			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+		}
 	}
 }

@@ -23,7 +23,7 @@
                            <children>
                               <VBox HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label text="Contribuidores">
+                                    <Label text="Colaboradores">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -31,7 +31,7 @@
                                  </children>
                               </VBox>
                               
-                              <Button fx:id="goToRegisterScreenButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="299.0" styleClass="ems-btn" text="Cadastrar Novo Contribuidor" />
+                              <Button fx:id="goToRegisterScreenButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="299.0" styleClass="ems-btn" text="Cadastrar Novo Colaborador" />
                            </children>
                            <padding>
                               <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />

@@ -13,6 +13,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.PasswordField;
@@ -44,6 +46,12 @@ public class ContributorFormController implements Initializable {
 	@FXML
 	private TextField emailInput;
 	@FXML
+	private TextField addressInput;
+	@FXML
+	private TextField phoneInput;
+	@FXML
+	private DatePicker birthdateInput;
+	@FXML
 	private TextField cpfInput;
 	@FXML
 	private PasswordField passwordInput;
@@ -54,9 +62,12 @@ public class ContributorFormController implements Initializable {
 	@FXML
 	private VBox passwordContainer;	
 	@FXML
-	private int updatingUserId;
+	private int updatingContributorId;
 	@FXML
-	private Admin updatingUser;
+	private Admin updatingContributor;
+	@FXML
+	private ComboBox<?> roleInput;	
+	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -64,6 +75,6 @@ public class ContributorFormController implements Initializable {
 		authDAO = new AuthDAO();
 		
 		registerButton.setOnMouseClicked(e ->  MainController.changeScene("adminsList"));
-		backButton.setOnMouseClicked(e -> MainController.changeScene("adminsList"));
+		backButton.setOnMouseClicked(e -> MainController.changeScene("contributorsList"));
 	}
 }
