@@ -45,4 +45,8 @@ public class CostCenter extends BaseEntity {
 	public String getDescription() {
 		return this.description;
 	}
+	@Override
+	public String toString() {
+	    return this.getName();
+	}
 }

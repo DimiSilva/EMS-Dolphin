@@ -46,8 +46,8 @@
                                     <TableColumn fx:id="emailColumn" editable="false" minWidth="100.0" styleClass="column" text="E-mail" />
                                     <TableColumn fx:id="cpfColumn" editable="false" minWidth="100.0" styleClass="column" text="CPF" />
                                     <TableColumn fx:id="phoneColumn" editable="false" minWidth="100.0" styleClass="column" text="Telefone" />
-                                    <TableColumn fx:id="createDateColumn" editable="false" minWidth="100.0" styleClass="column" text="Dt.Criação" />
-                                    <TableColumn fx:id="updateDateColumn" editable="false" minWidth="100.0" styleClass="column" text="Dt.Edição" />
+                                    <TableColumn fx:id="roleColumn" editable="false" minWidth="100.0" styleClass="column" text="Tipo de Acesso" />
+                                    <TableColumn fx:id="costCenterColumn" editable="false" minWidth="100.0" styleClass="column" text="Centro de Custo" />
                                		<TableColumn fx:id="actionsColumn" editable="false" minWidth="100.0" styleClass="column" text="Ações" />
                                 </columns>
                                  <columnResizePolicy>
