@@ -7,42 +7,43 @@ import java.sql.Statement;
 
 import model.entities.Admin;
 import model.entities.Auth;
+import model.entities.CostCenter;
 import model.exceptions.DBException;
 
-public class CostCenterDAO extends BaseDAO<Admin> {	
+public class CostCenterDAO extends BaseDAO<CostCenter> {	
 	public CostCenterDAO() {
-		super("admin");
+		super("cost_center");
 	}
 
 	@Override
-	public Admin entityFromDBSet(ResultSet DBSet) throws SQLException {
-		return Admin.fromDBSet(DBSet);
+	public CostCenter entityFromDBSet(ResultSet DBSet) throws SQLException {
+		return CostCenter.fromDBSet(DBSet);
 	}
 
 	@Override
-	public String entityToDBInsertString(Admin object) {
+	public String entityToDBInsertString(CostCenter object) {
 		return String.format(
 				"INSERT INTO %s "
-						+ "(name, email, cpf, auth_id) "
+						+ "(name, description) "
 						+ "VALUES "
-						+ "('%s', '%s', '%s', '%s')"
+						+ "('%s', '%s')"
 							, tableName
 							, object.getName()
-							, object.getEmail()
-							, object.getCPF()
-							, object.getAuthId()
+							, object.getDescription()
 					);
 	}
 
 	@Override
-	public String entityToDBupdateString(Admin object) {
+	public String entityToDBupdateString(CostCenter object) {
 		return String.format(
 				"UPDATE %s "
 						+ "SET "
-						+ "name = '%s'"
+						+ "name = '%s', "
+						+ "description = '%s'"
 						+ "WHERE id = '%d'"
 							, tableName
 							, object.getName()
+							, object.getDescription()
 							, object.getId()
 					);
 	}

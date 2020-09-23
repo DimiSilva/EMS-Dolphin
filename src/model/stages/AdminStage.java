@@ -3,6 +3,12 @@ package model.stages;
 import java.io.IOException;
 
 import controller.MainController;
+import controller.Admin.ClientFormController;
+import controller.Admin.ContributorFormController;
+import controller.Admin.CostCenterFormController;
+import controller.Admin.CostCentersListController;
+import controller.Admin.ProjectFormController;
+import controller.Master.AdminsRegisterController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -176,143 +182,117 @@ public class AdminStage implements IStage {
 	
 	public void loadScene(String sceneName) {
 		switch (sceneName) {
-		case "profile":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(profileView);
-				stage.show();
-			break;
-		case "dashboard":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(dashboardView);
-				stage.show();
-			break;
-		case "projectsList":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(projectsListView);
-				stage.show();
-			break;
-		case "projectForm":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(projectFormView);
-				stage.show();
-			break;
-		case "contributorsList":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(contributorsListView);
-				stage.show();
-			break;
-		case "contributorForm":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(contributorFormView);
-				stage.show();
-			break;
-		case "clientsList":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(clientsListView);
-				stage.show();
-			break;
-		case "clientForm":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(clientFormView);
-				stage.show();
-			break;
-		case "costCentersList":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(costCentersListView);
-				stage.show();
-			break;
-		case "costCenterForm":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(costCenterFormView);
-				stage.show();
-			break;
-		default:
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(dashboardView);
-				stage.show();
-			break;
+			case "profile":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(profileView);
+					stage.show();
+				break;
+			case "dashboard":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(dashboardView);
+					stage.show();
+				break;
+			case "projectsList":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(projectsListView);
+					stage.show();
+				break;
+			case "projectForm":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(projectFormView);
+//					ProjectFormController projectFormController = projectForm.getController();
+//					projectFormController.reset();
+					stage.show();
+				break;
+			case "contributorsList":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(contributorsListView);
+					stage.show();
+				break;
+			case "contributorForm":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(contributorFormView);
+//					ContributorFormController contributorFormController = contributorForm.getController();
+//					contributorFormController.reset();
+					stage.show();
+				break;
+			case "clientsList":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(clientsListView);
+					stage.show();
+				break;
+			case "clientForm":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(clientFormView);
+//					ClientFormController clientFormController = clientForm.getController();
+//					clientFormController.reset();
+					stage.show();
+				break;
+			case "costCentersList":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(costCentersListView);
+					CostCentersListController costCentersListController = costCentersList.getController();
+					costCentersListController.fetchCostCenters();
+					stage.show();
+				break;
+			case "costCenterForm":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(costCenterFormView);
+					CostCenterFormController costCenterFormController = costCenterForm.getController();
+					costCenterFormController.reset();
+					stage.show();
+				break;
 		}
 	}
 	
 	public void loadScene(String sceneName, int id) {
 		switch (sceneName) {
-		case "profile":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(profileView);
-				stage.show();
-			break;
-		case "dashboard":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(dashboardView);
-				stage.show();
-			break;
-		case "projectsList":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(projectsListView);
-				stage.show();
-			break;
-		case "projectForm":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(projectFormView);
-				stage.show();
-			break;
-		case "contributorsList":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(contributorsListView);
-				stage.show();
-			break;
-		case "contributorForm":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(contributorFormView);
-				stage.show();
-			break;
-		case "clientsList":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(clientsListView);
-				stage.show();
-			break;
-		case "clientForm":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(clientFormView);
-				stage.show();
-			break;
-		case "costCentersList":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(costCentersListView);
-				stage.show();
-			break;
-		case "costCenterForm":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(costCenterFormView);
-				stage.show();
-			break;
-		default:
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-				baseLayoutView.getChildren().add(dashboardView);
-				stage.show();
-			break;
+			case "projectForm":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(projectFormView);
+	//				ProjectFormController projectFormController = projectForm.getController();
+	//				projectFormController.reset();
+	//				projectFormController.loadUpdatingProjectById(id);
+					stage.show();
+				break;
+			case "contributorForm":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(contributorFormView);
+	//				ContributorFormController contributorFormController = contributorForm.getController();
+	//				contributorFormController.reset();
+	//				contributorFormController.loadUpdatingContributorById(id);
+					stage.show();
+				break;
+			case "clientForm":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(clientFormView);
+	//				ClientFormController clientFormController = clientForm.getController();
+    //				clientFormController.reset();
+	//				clientFormController.loadUpdatingClientById(id);
+					stage.show();
+				break;
+			case "costCenterForm":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(costCenterFormView);
+					CostCenterFormController costCenterFormController = costCenterForm.getController();
+					costCenterFormController.reset();
+					costCenterFormController.loadUpdatingCostCenterById(id);
+					stage.show();
+				break;
 		}
 	}
 }

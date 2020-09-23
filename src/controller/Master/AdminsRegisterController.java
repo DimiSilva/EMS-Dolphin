@@ -48,9 +48,6 @@ public class AdminsRegisterController implements Initializable {
 	@FXML
 	private Admin updatingUser;
 	
-	
-	
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		adminDAO = new AdminDAO();

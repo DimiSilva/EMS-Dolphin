@@ -20,6 +20,21 @@
 	-fx-prompt-text-fill: #00B4CC90;
 	-fx-text-fill: #00B4CC;
 }
+.text-area{
+	-fx-background-color: transparent;
+	-fx-prompt-text-fill: #00B4CC90;
+	-fx-text-fill: #00B4CC;
+}
+
+.text-area .content {	
+    -fx-background-color: #343838;
+	-fx-background-radius: 0.0px;
+	-fx-border-radius: 0.0px;
+	-fx-border-width: 0 0 1px 0;
+	-fx-border-color: #00B4CC90;
+	-fx-prompt-text-fill: #00B4CC90;
+}
+
 .ems-card{
 	-fx-background-color: transparent;
 	-fx-border-color: #005F6B;

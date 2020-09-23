@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import controller.MainController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,30 +16,36 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import model.DTOs.ContributorsWorkedHoursInYearByMonth;
 import model.DTOs.ProjectsWorkedHours;
 import model.entities.Admin;
+import model.entities.Auth;
+import model.entities.CostCenter;
+import model.enums.AccessTypes;
 import model.enums.Months;
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
+import model.exceptions.InvalidFieldException;
 import model.helpers.Utils;
+import model.persistence.AdminDAO;
+import model.persistence.AuthDAO;
+import model.persistence.CostCenterDAO;
 import model.persistence.DashboardDAO;
 
 public class CostCenterFormController implements Initializable {
 
+	CostCenterDAO costCenterDAO;
+	
 	@FXML
 	private Labeled titlePage;
 	@FXML
 	private TextField nameInput;
 	@FXML
-	private TextField emailInput;
-	@FXML
-	private TextField cpfInput;
-	@FXML
-	private PasswordField passwordInput;
+	private TextArea descriptionInput;
 	@FXML
 	private Button registerButton;
 	@FXML
@@ -46,41 +53,71 @@ public class CostCenterFormController implements Initializable {
 	@FXML
 	private VBox passwordContainer;	
 	@FXML
-	private int updatingUserId;
+	private int updatingCostCenterId;
 	@FXML
-	private Admin updatingUser;
+	private CostCenter updatingCostCenter;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		/*try {	
-			dashboardDAO = new DashboardDAO();
-			contributorsWorkedHoursInMonthData = dashboardDAO.getAllContributorsWorkedHoursInYearByMonth();
-			projectsWorkedHoursData = dashboardDAO.getAllProjectsWorkedHours();
+		costCenterDAO = new CostCenterDAO();
+		
+		registerButton.setOnMouseClicked(e -> register());
+		backButton.setOnMouseClicked(e -> MainController.changeScene("costCentersList"));
+	}
+	
+	@FXML
+	public void register() {
+		try {
+			CostCenter costCenter = new CostCenter(nameInput.getText(), descriptionInput.getText());
+			int id = costCenterDAO.insert(costCenter);
 			
-			XYChart.Series<String, Integer> contributorsWorkedHoursPerMonthInYearDataSet = new XYChart.Series<String, Integer>();
-			contributorsWorkedHoursInMonthData.forEach(
-					item -> contributorsWorkedHoursPerMonthInYearDataSet
-								.getData()
-								.add(
-									new XYChart.Data<String, Integer>(Months.values()[item.month].getText(), item.hours)
-								)
-							);
-			
-			XYChart.Series<String, Integer> projectsWorkedHoursDataSet = new XYChart.Series<String, Integer>();
-			projectsWorkedHoursData.forEach(
-					item -> projectsWorkedHoursDataSet
-								.getData()
-								.add(
-									new XYChart.Data<String, Integer>(item.projectName, item.hours)
-								)
-							);
-			
-			
-			contributorsWorkedHoursInYearByMonthChart.getData().addAll(contributorsWorkedHoursPerMonthInYearDataSet);
-			projectsWorkedHoursChart.getData().addAll(projectsWorkedHoursDataSet);
+			MainController.changeScene("costCentersList");
 		}
 		catch(DBException e) {
 			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
-		}*/
+		}
+	}
+	
+	@FXML
+	public void update() {
+		try {
+			this.updatingCostCenter.update(this.nameInput.getText(), this.descriptionInput.getText());
+			
+			costCenterDAO.update(this.updatingCostCenter);
+			
+			MainController.changeScene("costCentersList");
+		}
+		catch(DBException e) {
+			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+		}
+	}
+	
+	public void updatingCostCenterId(int updatingCostCenterId) {
+		this.updatingCostCenterId = updatingCostCenterId;
+	}
+	
+	public void reset() {
+		this.updatingCostCenter = null;
+		this.nameInput.setText(null);
+		this.descriptionInput.setText(null);
+		registerButton.setText("Cadastrar");
+		registerButton.setOnMouseClicked(e -> register());
+		titlePage.setText("Cadastrar centro de custo");
+	}
+	public void loadUpdatingCostCenterById(int updatingCostCenterId) {
+		this.updatingCostCenterId = updatingCostCenterId;
+		
+		try {
+			this.updatingCostCenter = costCenterDAO.getById(String.valueOf(this.updatingCostCenterId));
+			this.nameInput.setText(this.updatingCostCenter.getName());
+			this.descriptionInput.setText(this.updatingCostCenter.getDescription());
+			
+			registerButton.setText("Salvar");
+			registerButton.setOnMouseClicked(e -> update());
+			titlePage.setText("Editar Administrador");
+		}
+		catch(DBException e){
+			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+		}
 	}
 }
