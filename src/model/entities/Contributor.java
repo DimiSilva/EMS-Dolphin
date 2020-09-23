@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import model.exceptions.DBException;
+import model.exceptions.InvalidFieldException;
 import model.interfaces.IBaseUser;
 import model.persistence.CostCenterDAO;
 import model.persistence.RoleDAO;
@@ -87,6 +88,23 @@ public class Contributor extends BaseEntity implements IBaseUser {
 		Date updateDate = DBSet.getDate("update_date");
 		
 		return new Contributor(id, name, phone, address, email, birthDate, cpf, authId, role, costCenter,  createDate, updateDate);
+	}
+	
+	public void update(Integer authId, String name, String email, String cpf, String phone, String address, Date birthDate, Role role, CostCenter costCenter) throws InvalidFieldException {
+		boolean valid = true;
+		if(valid == true) {		
+			this.authId = authId != null ? authId : this.authId;
+			this.name = name != null ? name : this.name;
+			this.email = email != null ? email : this.email;
+			this.cpf = cpf != null ? cpf : this.cpf;
+			this.phone = phone != null ? phone : this.phone;
+			this.birthDate = birthDate != null ? birthDate : this.birthDate;
+			this.role = role != null ? role : this.role;
+			this.costCenter = role != null ? costCenter : this.costCenter;
+		
+		}else {
+			throw new InvalidFieldException();
+		}
 	}
 	
 	public String getName() {

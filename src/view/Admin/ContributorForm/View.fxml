@@ -24,7 +24,7 @@
                            <children>
                               <VBox prefWidth="800.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label fx:id="titlePage" text="Cadastrar Contribuidor">
+                                    <Label fx:id="titlePage" text="Cadastrar Colaborador">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -84,7 +84,7 @@
                                     </VBox>
                                     <VBox prefHeight="63.0" prefWidth="281.0" styleClass="ems-form-control-left">
                                        <children>
-                                          <Label text="Tipo de Acesso" VBox.vgrow="ALWAYS" />
+                                          <Label text="Cargo" VBox.vgrow="ALWAYS" />
                                           <ComboBox fx:id="roleInput" prefHeight="25.0" prefWidth="549.0" VBox.vgrow="ALWAYS" />
                                        </children>
                                        <opaqueInsets>

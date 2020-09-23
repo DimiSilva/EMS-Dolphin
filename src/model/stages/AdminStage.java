@@ -6,6 +6,7 @@ import controller.MainController;
 import controller.Admin.ClientFormController;
 import controller.Admin.ClientsListController;
 import controller.Admin.ContributorFormController;
+import controller.Admin.ContributorsListController;
 import controller.Admin.CostCenterFormController;
 import controller.Admin.CostCentersListController;
 import controller.Admin.ProjectFormController;
@@ -54,6 +55,9 @@ public class AdminStage implements IStage {
 	private FXMLLoader costCentersList;
 	private VBox costCentersListView;
 	
+	private FXMLLoader appointmentsList;
+	private VBox appointmentsListView;
+	
 	private FXMLLoader costCenterForm;
 	private VBox costCenterFormView;
 	
@@ -79,6 +83,9 @@ public class AdminStage implements IStage {
 			
 			dashboard = new FXMLLoader(getClass().getResource("/view/Admin/Dashboard/View.fxml"));
 			dashboardView = (VBox)((HBox)dashboard.load()).getChildren().get(0);
+			
+			appointmentsList = new FXMLLoader(getClass().getResource("/view/Admin/AppointmentsList/View.fxml"));
+			appointmentsListView = (VBox)((HBox)appointmentsList.load()).getChildren().get(0);
 			
 			projectsList = new FXMLLoader(getClass().getResource("/view/Admin/ProjectsList/View.fxml"));
 			projectsListView = (VBox)((HBox)projectsList.load()).getChildren().get(0);
@@ -139,6 +146,13 @@ public class AdminStage implements IStage {
 		dashboardBtn.setPrefWidth(299.0);
 		dashboardBtn.getStyleClass().add("ems-btn");
 		
+		Button appointmentsBtn = new Button("Apontamentos");
+		appointmentsBtn.setOnMouseClicked(e -> loadScene("appointmentsList"));
+		appointmentsBtn.setPrefHeight(25.0);
+		appointmentsBtn.setPrefWidth(299.0);
+		appointmentsBtn.getStyleClass().add("ems-btn");
+		
+		
 		Button projectsBtn = new Button("Projetos");
 		projectsBtn.setOnMouseClicked(e -> loadScene("projectsList"));
 		projectsBtn.setPrefHeight(25.0);
@@ -175,9 +189,10 @@ public class AdminStage implements IStage {
 		logoutBtn.setPrefWidth(299.0);
 		logoutBtn.getStyleClass().add("ems-btn");
 			
-		menu.getChildren().addAll(profileBtn, dashboardBtn, projectsBtn, contributorsBtn, clientsBtn, costsCenterBtn, rolesBtn, logoutBtn);
+		menu.getChildren().addAll(profileBtn, dashboardBtn, appointmentsBtn, projectsBtn, contributorsBtn, clientsBtn, costsCenterBtn, rolesBtn, logoutBtn);
 		VBox.setMargin(profileBtn, new Insets(16, 0, 0, 0));
 		VBox.setMargin(dashboardBtn, new Insets(24, 0, 0, 0));
+		VBox.setMargin(appointmentsBtn, new Insets(24, 0, 0, 0));
 		VBox.setMargin(projectsBtn, new Insets(24, 0, 0, 0));
 		VBox.setMargin(contributorsBtn, new Insets(24, 0, 0, 0));
 		VBox.setMargin(clientsBtn, new Insets(24, 0, 0, 0));
@@ -205,6 +220,12 @@ public class AdminStage implements IStage {
 					baseLayoutView.getChildren().add(dashboardView);
 					stage.show();
 				break;
+			case "appointmentsList":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(appointmentsListView);
+					stage.show();
+				break;
 			case "projectsList":
 				if(baseLayoutView.getChildren().toArray().length == 2)
 					baseLayoutView.getChildren().remove(1);
@@ -223,14 +244,16 @@ public class AdminStage implements IStage {
 				if(baseLayoutView.getChildren().toArray().length == 2)
 					baseLayoutView.getChildren().remove(1);
 					baseLayoutView.getChildren().add(contributorsListView);
+					ContributorsListController contributorsListController = contributorsList.getController();
+					contributorsListController.fetchContributors();
 					stage.show();
 				break;
 			case "contributorForm":
 				if(baseLayoutView.getChildren().toArray().length == 2)
 					baseLayoutView.getChildren().remove(1);
 					baseLayoutView.getChildren().add(contributorFormView);
-//					ContributorFormController contributorFormController = contributorForm.getController();
-//					contributorFormController.reset();
+					ContributorFormController contributorFormController = contributorForm.getController();
+					contributorFormController.reset();	
 					stage.show();
 				break;
 			case "clientsList":
@@ -299,9 +322,8 @@ public class AdminStage implements IStage {
 				if(baseLayoutView.getChildren().toArray().length == 2)
 					baseLayoutView.getChildren().remove(1);
 					baseLayoutView.getChildren().add(contributorFormView);
-	//				ContributorFormController contributorFormController = contributorForm.getController();
-	//				contributorFormController.reset();
-	//				contributorFormController.loadUpdatingContributorById(id);
+					ContributorFormController contributorFormController = contributorForm.getController();
+					contributorFormController.loadUpdatingContributorById(id);
 					stage.show();
 				break;
 			case "clientForm":

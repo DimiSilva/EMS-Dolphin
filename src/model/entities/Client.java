@@ -49,7 +49,7 @@ public class Client extends BaseEntity{
 			this.name = name != null ? name : this.name;
 			this.email = email != null ? email : this.email;
 			this.cnpj = cnpj != null ? cnpj : this.cnpj;
-			this.phone = cnpj != null ? phone : this.phone;
+			this.phone = phone != null ? phone : this.phone;
 		}else {
 			throw new InvalidFieldException();
 		}

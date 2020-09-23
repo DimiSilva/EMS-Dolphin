@@ -44,8 +44,22 @@ public class ContributorDAO extends BaseDAO<Contributor> {
 		return String.format(
 				"UPDATE %s "
 						+ "SET "
-						+ ""
+						+ "name = '%s', "
+						+ "email = '%s', "
+						+ "address = '%s', "
+						+ "birthdate = '%s', "
+						+ "role_id = '%s', "
+						+ "cost_center_id = '%s', "
+						+ "phone = '%s' "
 						+ "WHERE id = '%d'"
+							, tableName
+							, object.getName()
+							, object.getEmail()
+							, object.getAddress()
+							, object.getBirthDate()
+							, object.getRole().getId()
+							, object.getCostCenter().getId()
+							, object.getPhone()
 							, object.getId()
 					);
 	}
