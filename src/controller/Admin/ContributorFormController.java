@@ -25,23 +25,21 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import model.DTOs.ContributorsWorkedHoursInYearByMonth;
-import model.DTOs.ProjectsWorkedHours;
-import model.entities.Admin;
-import model.entities.Client;
+import model.entities.Auth;
 import model.entities.Contributor;
 import model.entities.CostCenter;
 import model.entities.Role;
-import model.enums.Months;
+import model.enums.AccessTypes;
+
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
-import model.exceptions.InvalidFieldException;
+
 import model.helpers.Utils;
-import model.persistence.AdminDAO;
+
 import model.persistence.AuthDAO;
 import model.persistence.ContributorDAO;
 import model.persistence.CostCenterDAO;
-import model.persistence.DashboardDAO;
+
 import model.persistence.RoleDAO;
 
 public class ContributorFormController implements Initializable {
@@ -78,7 +76,7 @@ public class ContributorFormController implements Initializable {
 	@FXML
 	private int updatingContributorId;
 	@FXML
-	private Admin updatingContributor;
+	private Contributor updatingContributor;
 	@FXML
 	private ComboBox<Role> roleInput;	
 	@FXML
@@ -92,13 +90,14 @@ public class ContributorFormController implements Initializable {
 		costCenterDAO = new CostCenterDAO();
 		authDAO = new AuthDAO();
 		List<Role> roleList  =  null;
+		List<CostCenter> costCenterList  =  null;
 		try {
 			roleList = roleDAO.getAll();
 		} catch (DBException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		List<CostCenter> costCenterList  =  null;
+		roleInput.getItems().addAll(roleList);
 		try {
 			costCenterList = costCenterDAO.getAll();
 		} catch (DBException e1) {
@@ -117,10 +116,24 @@ public class ContributorFormController implements Initializable {
 	@FXML
 	public void register() {
 
+		System.out.println(nameInput.getText());
+		System.out.println(phoneInput.getText());
+		System.out.println(emailInput.getText());
+		System.out.println(cpfInput.getText());
+		System.out.println(addressInput.getText());
+		System.out.println(phoneInput.getText());
+		System.out.println(birthdateInput.getValue());
+		System.out.println(passwordInput.getText());
+		System.out.println(roleInput.getValue().getId());
+		System.out.println(costCenterInput.getValue().getId());
 		try {
-			Contributor contributor = new Contributor(nameInput.getText(), phoneInput.getText(), emailInput.getText(), cpfInput.getText(), addressInput.getText(), 
+			Auth auth = new Auth(emailInput.getText(), passwordInput.getText(), AccessTypes.CONTRIBUTOR.getText());
+			int id = authDAO.insert(auth);
+			
+			Contributor contributor = new Contributor(id, nameInput.getText(), phoneInput.getText(), emailInput.getText(), cpfInput.getText(), addressInput.getText(), 
 					Date.from(birthdateInput.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()), 
 					roleInput.getValue(), costCenterInput.getValue());
+			
 			contributorDAO.insert(contributor);
 			
 			MainController.changeScene("clientsList");
@@ -132,7 +145,7 @@ public class ContributorFormController implements Initializable {
 	
 	@FXML
 	public void update() {
-		try {
+		/*try {
 			this.updatingClient.update(this.nameInput.getText(), this.emailInput.getText(), this.cnpjInput.getText(), this.phoneInput.getText());
 			
 			clientDAO.update(this.updatingClient);			
@@ -143,15 +156,15 @@ public class ContributorFormController implements Initializable {
 		}
 		catch(InvalidFieldException e) {
 			Utils.showErrorAlert("Erro!", e.message, null);
-		}
+		}*/
 	}
 
 	public void setUpdatingUserId(int updatingClientrId) {
-		this.updatingClientrId = updatingClientrId;
+		/*this.updatingClientrId = updatingClientrId;*/
 	}
 	
 	public void reset() {
-		this.updatingClient = null;
+		/*this.updatingClient = null;
 		this.nameInput.setText(null);
 		this.emailInput.setText(null);
 		this.cnpjInput.setText(null);
@@ -159,10 +172,10 @@ public class ContributorFormController implements Initializable {
 		this.passwordContainer.setVisible(true);
 		registerButton.setText("Cadastrar");
 		registerButton.setOnMouseClicked(e -> register());
-		titlePage.setText("Cadastrar Cliente");
+		titlePage.setText("Cadastrar Cliente");*/
 	}
 	public void loadUpdatingClientById(int updatingClientrId) {
-		this.updatingClientrId = updatingClientrId;
+		/*this.updatingClientrId = updatingClientrId;
 		
 		try {
 			this.updatingClient = clientDAO.getById(String.valueOf(this.updatingClientrId));
@@ -177,6 +190,6 @@ public class ContributorFormController implements Initializable {
 		}
 		catch(DBException e){
 			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
-		}
+		}*/
 	}
 }

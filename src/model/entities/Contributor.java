@@ -22,7 +22,7 @@ public class Contributor extends BaseEntity implements IBaseUser {
 	private Role role;
 	private CostCenter costCenter; 
 	
-	public Contributor(String name, String phone, String email, String cpf, String address, Date birthDate, Role role, CostCenter costCenter) {
+	public Contributor(Integer authId, String name, String phone, String email, String cpf, String address, Date birthDate, Role role, CostCenter costCenter) {
 		this.name = name;
 		this.phone = phone;
 		this.email = email;
@@ -31,6 +31,7 @@ public class Contributor extends BaseEntity implements IBaseUser {
 		this.costCenter = costCenter;
 		this.address = address;
 		this.birthDate = birthDate;
+		this.authId = authId;
 	}
 	public Contributor(Integer id, String name, String phone, String address, String email, Date birthDate, String cpf, Integer authId, Role role, CostCenter costCenter, Date createDate, Date updateDate) {
 		this.id = id;

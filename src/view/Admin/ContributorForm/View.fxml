@@ -40,7 +40,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="340.0" prefWidth="950.0" styleClass="ems-card" VBox.vgrow="ALWAYS">
+                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="395.0" prefWidth="950.0" styleClass="ems-card" VBox.vgrow="ALWAYS">
                      <children>
                         <HBox prefHeight="576.0" prefWidth="766.0" VBox.vgrow="ALWAYS">
                            <children>
@@ -85,7 +85,7 @@
                                     <VBox prefHeight="63.0" prefWidth="281.0" styleClass="ems-form-control-left">
                                        <children>
                                           <Label text="Tipo de Acesso" VBox.vgrow="ALWAYS" />
-                                          <ComboBox fx:id="roleInput" prefHeight="25.0" prefWidth="549.0" promptText="sadasdasd" VBox.vgrow="ALWAYS" />
+                                          <ComboBox fx:id="roleInput" prefHeight="25.0" prefWidth="549.0" VBox.vgrow="ALWAYS" />
                                        </children>
                                        <opaqueInsets>
                                           <Insets />
@@ -149,7 +149,7 @@
                                     <VBox prefHeight="63.0" prefWidth="281.0" styleClass="ems-form-control-right">
                                        <children>
                                           <Label text="Centro de Custo" VBox.vgrow="ALWAYS" />
-                                          <ComboBox fx:id="costCenterInput" prefHeight="25.0" prefWidth="549.0" promptText="sadasdasd" VBox.vgrow="ALWAYS" />
+                                          <ComboBox fx:id="costCenterInput" prefHeight="25.0" prefWidth="549.0" VBox.vgrow="ALWAYS" />
                                        </children>
                                        <opaqueInsets>
                                           <Insets />

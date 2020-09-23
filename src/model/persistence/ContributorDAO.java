@@ -22,12 +22,22 @@ public class ContributorDAO extends BaseDAO<Contributor> {
 	public String entityToDBInsertString(Contributor object) {
 		return String.format(
 				"INSERT INTO %s "
-						+ "() "
+						+ "(name, email, cpf, phone, address, birthdate, auth_id, role_id, cost_center_id) "
 						+ "VALUES "
-						+ "()"
+						+ "('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"
 							, tableName
+							, object.getName()
+							, object.getEmail()
+							, object.getCpf()
+							, object.getPhone()
+							, object.getAddress()
+							, object.getBirthDate()
+							, object.getAuthId()
+							, object.getRole().getId()
+							, object.getCostCenter().getId()						
 					);
 	}
+
 
 	@Override
 	public String entityToDBupdateString(Contributor object) {
