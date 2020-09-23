@@ -45,4 +45,8 @@ public class Role extends BaseEntity{
 	public Float getBaseSalary() {
 		return baseSalary;
 	}
+	@Override
+	public String toString() {
+	    return this.getName();
+	}
 }

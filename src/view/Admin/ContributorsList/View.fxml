@@ -23,7 +23,7 @@
                            <children>
                               <VBox HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label text="Contribuidores">
+                                    <Label text="Colaboradores">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -31,7 +31,7 @@
                                  </children>
                               </VBox>
                               
-                              <Button fx:id="goToRegisterScreenButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="299.0" styleClass="ems-btn" text="Cadastrar Novo Contribuidor" />
+                              <Button fx:id="goToRegisterScreenButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="299.0" styleClass="ems-btn" text="Cadastrar Novo Colaborador" />
                            </children>
                            <padding>
                               <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
@@ -46,8 +46,8 @@
                                     <TableColumn fx:id="emailColumn" editable="false" minWidth="100.0" styleClass="column" text="E-mail" />
                                     <TableColumn fx:id="cpfColumn" editable="false" minWidth="100.0" styleClass="column" text="CPF" />
                                     <TableColumn fx:id="phoneColumn" editable="false" minWidth="100.0" styleClass="column" text="Telefone" />
-                                    <TableColumn fx:id="createDateColumn" editable="false" minWidth="100.0" styleClass="column" text="Dt.Criação" />
-                                    <TableColumn fx:id="updateDateColumn" editable="false" minWidth="100.0" styleClass="column" text="Dt.Edição" />
+                                    <TableColumn fx:id="roleColumn" editable="false" minWidth="100.0" styleClass="column" text="Tipo de Acesso" />
+                                    <TableColumn fx:id="costCenterColumn" editable="false" minWidth="100.0" styleClass="column" text="Centro de Custo" />
                                		<TableColumn fx:id="actionsColumn" editable="false" minWidth="100.0" styleClass="column" text="Ações" />
                                 </columns>
                                  <columnResizePolicy>

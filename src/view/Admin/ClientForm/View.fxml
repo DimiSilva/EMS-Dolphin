@@ -4,7 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -22,7 +21,7 @@
                            <children>
                               <VBox prefWidth="800.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label fx:id="titlePage" text="Cadastrar Cliente">
+                                    <Label fx:id="titlePage" text="Cadastrar Colaborador">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -38,7 +37,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="200.0" styleClass="ems-card" VBox.vgrow="ALWAYS">
+                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="272.0" prefWidth="950.0" styleClass="ems-card" VBox.vgrow="ALWAYS">
                      <children>
                         <HBox prefHeight="576.0" prefWidth="766.0" VBox.vgrow="ALWAYS">
                            <children>
@@ -68,11 +67,23 @@
                                           <Insets right="8.0" />
                                        </padding>
                                     </VBox>
+                                    <VBox prefHeight="63.0" prefWidth="281.0" styleClass="ems-form-control-left">
+                                       <children>
+                                          <Label text="Senha" VBox.vgrow="ALWAYS" />
+                                          <TextField fx:id="cnpjInput1" styleClass="input" VBox.vgrow="ALWAYS" />
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <padding>
+                                          <Insets right="8.0" />
+                                       </padding>
+                                    </VBox>
                                  </children>
                               </VBox>
                               <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <VBox prefHeight="63.0" prefWidth="281.0" styleClass="ems-form-control-right" VBox.vgrow="ALWAYS">
+                                    <VBox maxHeight="-Infinity" prefWidth="281.0" styleClass="ems-form-control-right" VBox.vgrow="ALWAYS">
                                        <children>
                                           <Label text="Email" VBox.vgrow="ALWAYS" />
                                           <TextField fx:id="emailInput" prefHeight="26.0" prefWidth="345.0" styleClass="input" VBox.vgrow="ALWAYS" />
