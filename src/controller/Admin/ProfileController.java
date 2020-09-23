@@ -27,9 +27,15 @@ import model.enums.Months;
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
 import model.helpers.Utils;
+import model.persistence.AdminDAO;
+import model.persistence.AuthDAO;
 import model.persistence.DashboardDAO;
+import model.stages.AuthStage;
 
 public class ProfileController implements Initializable {
+	private AuthDAO authDAO;
+	private AdminDAO adminDAO;
+	
 	@FXML
 	private Labeled titlePage;
 	@FXML
@@ -50,38 +56,42 @@ public class ProfileController implements Initializable {
 	private int updatingUserId;
 	@FXML
 	private Admin updatingUser;
+	@FXML
+	private Admin loggedUser;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		/*try {	
-			dashboardDAO = new DashboardDAO();
-			contributorsWorkedHoursInMonthData = dashboardDAO.getAllContributorsWorkedHoursInYearByMonth();
-			projectsWorkedHoursData = dashboardDAO.getAllProjectsWorkedHours();
-			
-			XYChart.Series<String, Integer> contributorsWorkedHoursPerMonthInYearDataSet = new XYChart.Series<String, Integer>();
-			contributorsWorkedHoursInMonthData.forEach(
-					item -> contributorsWorkedHoursPerMonthInYearDataSet
-								.getData()
-								.add(
-									new XYChart.Data<String, Integer>(Months.values()[item.month].getText(), item.hours)
-								)
-							);
-			
-			XYChart.Series<String, Integer> projectsWorkedHoursDataSet = new XYChart.Series<String, Integer>();
-			projectsWorkedHoursData.forEach(
-					item -> projectsWorkedHoursDataSet
-								.getData()
-								.add(
-									new XYChart.Data<String, Integer>(item.projectName, item.hours)
-								)
-							);
-			
-			
-			contributorsWorkedHoursInYearByMonthChart.getData().addAll(contributorsWorkedHoursPerMonthInYearDataSet);
-			projectsWorkedHoursChart.getData().addAll(projectsWorkedHoursDataSet);
+		authDAO = new AuthDAO();
+		adminDAO = new AdminDAO();
+		registerButton.setOnMouseClicked(e -> updateProfile());
+		
+	}
+	
+	public void loadProfile() {
+		this.loggedUser = (Admin) AuthStage.loggedUser;
+		
+		if(this.loggedUser != null) {
+			System.out.println("12");
+			nameInput.setText(this.loggedUser.getName());
+			cpfInput.setText(this.loggedUser.getCPF());
+			emailInput.setText(this.loggedUser.getEmail());
 		}
-		catch(DBException e) {
-			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
-		}*/
+	}
+	public void updateProfile() {
+		AuthStage authStage = new AuthStage();
+		try {
+			adminDAO.update(new Admin(
+					this.loggedUser.getId(),
+					this.nameInput.getText(),
+					this.emailInput.getText(),
+					this.cpfInput.getText(),
+					this.loggedUser.getAuthId()
+					));
+		} catch (DBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		authStage.updateLoggedUser(this.loggedUser.getAuth());
+		//adminDAO.update();
 	}
 }

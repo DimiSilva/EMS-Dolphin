@@ -9,6 +9,7 @@ import controller.Admin.ContributorFormController;
 import controller.Admin.ContributorsListController;
 import controller.Admin.CostCenterFormController;
 import controller.Admin.CostCentersListController;
+import controller.Admin.ProfileController;
 import controller.Admin.ProjectFormController;
 import controller.Admin.RoleFormController;
 import controller.Admin.RolesListController;
@@ -212,6 +213,8 @@ public class AdminStage implements IStage {
 				if(baseLayoutView.getChildren().toArray().length == 2)
 					baseLayoutView.getChildren().remove(1);
 					baseLayoutView.getChildren().add(profileView);
+					ProfileController profileController = profile.getController();
+					profileController.loadProfile();
 					stage.show();
 				break;
 			case "dashboard":

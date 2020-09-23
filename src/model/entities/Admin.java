@@ -3,6 +3,8 @@ package model.entities;
 import java.util.Date;
 
 import model.interfaces.IBaseUser;
+import model.persistence.AuthDAO;
+import model.exceptions.DBException;
 import model.exceptions.InvalidFieldException;
 
 import java.sql.ResultSet;
@@ -21,6 +23,14 @@ public class Admin extends BaseEntity implements IBaseUser {
 		this.authId = authId;
 	}
 	
+	public Admin(Integer id, String name, String email, String cpf, Integer authId) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.cpf = cpf;
+		this.authId = authId;
+
+	}
 	public Admin(Integer id, String name, String email, String cpf, Integer authId, Date createDate, Date updateDate) {
 		this.id = id;
 		this.name = name;
@@ -68,6 +78,18 @@ public class Admin extends BaseEntity implements IBaseUser {
 	
 	public Integer getAuthId() {
 		return this.authId;
+	}
+	public Auth getAuth() {
+		
+		AuthDAO authDAO = new AuthDAO();
+		Auth auth = null;
+		try {
+			auth = authDAO.getById(this.getAuthId().toString());
+		} catch (DBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return auth;
 	}
 	
 }
