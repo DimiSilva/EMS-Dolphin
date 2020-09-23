@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import controller.MainController;
 import controller.Admin.ClientFormController;
+import controller.Admin.ClientsListController;
 import controller.Admin.ContributorFormController;
 import controller.Admin.CostCenterFormController;
 import controller.Admin.CostCentersListController;
@@ -112,8 +113,6 @@ public class AdminStage implements IStage {
 	private void renderMenu () {
 		VBox menu = (VBox)baseLayoutView.lookup("#menu");
 			
-
-		
 		Button profileBtn = new Button("Meu Perfil");
 		profileBtn.setId("dashboardBtn");
 		profileBtn.setOnMouseClicked(e -> loadScene("profile"));
@@ -226,14 +225,16 @@ public class AdminStage implements IStage {
 				if(baseLayoutView.getChildren().toArray().length == 2)
 					baseLayoutView.getChildren().remove(1);
 					baseLayoutView.getChildren().add(clientsListView);
+					ClientsListController clientsListController = clientsList.getController();
+					clientsListController.fetchClients();
 					stage.show();
 				break;
 			case "clientForm":
 				if(baseLayoutView.getChildren().toArray().length == 2)
 					baseLayoutView.getChildren().remove(1);
 					baseLayoutView.getChildren().add(clientFormView);
-//					ClientFormController clientFormController = clientForm.getController();
-//					clientFormController.reset();
+					ClientFormController clientFormController = clientForm.getController();
+					clientFormController.reset();
 					stage.show();
 				break;
 			case "costCentersList":
@@ -279,9 +280,9 @@ public class AdminStage implements IStage {
 				if(baseLayoutView.getChildren().toArray().length == 2)
 					baseLayoutView.getChildren().remove(1);
 					baseLayoutView.getChildren().add(clientFormView);
-	//				ClientFormController clientFormController = clientForm.getController();
-    //				clientFormController.reset();
-	//				clientFormController.loadUpdatingClientById(id);
+					ClientFormController clientFormController = clientForm.getController();
+    				clientFormController.reset();
+					clientFormController.loadUpdatingClientById(id);
 					stage.show();
 				break;
 			case "costCenterForm":
