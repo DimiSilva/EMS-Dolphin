@@ -27,17 +27,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 import model.entities.Admin;
-
+import model.entities.Project;
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
 import model.helpers.Utils;
 import model.persistence.AdminDAO;
 import model.persistence.AuthDAO;
+import model.persistence.ProjectDAO;
 
 
 public class ProjectsListController implements Initializable {
-	private AdminDAO adminDAO;
-	private AuthDAO authDAO;
+	private ProjectDAO projectDAO;
 	
 	private int currentPage = 1;
 	private int perPage = 20;
@@ -46,24 +46,28 @@ public class ProjectsListController implements Initializable {
 	@FXML
 	private Button goToRegisterScreenButton;
 	@FXML
-	private TableView<Admin> table;
+	private TableView<Project> table;
 	
 	@FXML
-	private TableColumn<Admin, Integer> idColumn;
+	private TableColumn<Project, Integer> idColumn;
 	@FXML
-	private TableColumn<Admin, String> nameColumn;
+	private TableColumn<Project, String> nameColumn;
 	@FXML
-	private TableColumn<Admin, String> descriptionColumn;
+	private TableColumn<Project, String> descriptionColumn;
 	@FXML
-	private TableColumn<Admin, Date> initDateColumn;
+	private TableColumn<Project, String> costCenterColumn;
 	@FXML
-	private TableColumn<Admin, Date> endDateColumn;
+	private TableColumn<Project, String> clientColumn;
 	@FXML
-	private TableColumn<Admin, Date> createDateColumn;
+	private TableColumn<Project, Date> initDateColumn;
 	@FXML
-	private TableColumn<Admin, Date> updateDateColumn;
+	private TableColumn<Project, Date> endDateColumn;
 	@FXML
-	private TableColumn<Admin, HBox> actionsColumn;
+	private TableColumn<Project, Date> createDateColumn;
+	@FXML
+	private TableColumn<Project, Date> updateDateColumn;
+	@FXML
+	private TableColumn<Project, HBox> actionsColumn;
 	
 	@FXML
 	private Text currentPageText;
@@ -78,18 +82,16 @@ public class ProjectsListController implements Initializable {
 	@FXML
 	private Button lastPageButton;
 	
-	ObservableList<Admin> tableItems = FXCollections.observableArrayList();
+	ObservableList<Project> tableItems = FXCollections.observableArrayList();
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		adminDAO = new AdminDAO();
-		authDAO = new AuthDAO();
+		projectDAO = new ProjectDAO();
 		goToRegisterScreenButton.setOnMouseClicked(e -> goToRegister());
 		firstPageButton.setOnMouseClicked(e -> this.updateTableData(1));
 		backPageButton.setOnMouseClicked(e -> this.updateTableData(this.currentPage - 1));
 		lastPageButton.setOnMouseClicked(e -> this.updateTableData(this.totalPages));
 		nextPageButton.setOnMouseClicked(e -> this.updateTableData(this.currentPage + 1));
-		
 		
 		this.fetchProjects(); 
 	}
@@ -102,59 +104,40 @@ public class ProjectsListController implements Initializable {
 		if(page != null && page > 0 && page < this.totalPages) this.currentPage = page;
 		this.fetchProjects();
 	} 
-	public void deleteProject(int id, int authId, String name) {	
-		if(Utils.showConfirmAlert("Atenção", "Deseja mesmo apagar o usuário " + name , "Apagar", "Cancelar") == true) {
-			try {
-				adminDAO.remove(String.valueOf(id));
-				authDAO.remove(String.valueOf(authId));
-				fetchProjects();
-			}
-			catch(DBException e) {
-				Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
-			}
-		}
-
-	} 
-	
 	
 	public void fetchProjects() {
 		try {
-			List<Admin> admins = adminDAO.getPaged(this.currentPage, this.perPage);
-			int totalItems = adminDAO.count();
+			List<Project> projects = projectDAO.getPaged(this.currentPage, this.perPage);
+			int totalItems = projectDAO.count();
 			
-			tableItems = FXCollections.observableArrayList(admins);
+			tableItems = FXCollections.observableArrayList(projects);
 			idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 			nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-			//emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-			//cpfColumn.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+			descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+			costCenterColumn.setCellValueFactory(new PropertyValueFactory<>("costCenterName"));
+			clientColumn.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+			initDateColumn.setCellValueFactory(new PropertyValueFactory<>("initDate"));
+			endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
 			createDateColumn.setCellValueFactory(new PropertyValueFactory<>("createDate"));
 			updateDateColumn.setCellValueFactory(new PropertyValueFactory<>("updateDate"));
 		
-			actionsColumn.setCellFactory(params -> new TableCell<Admin, HBox>() {
+			actionsColumn.setCellFactory(params -> new TableCell<Project, HBox>() {
 				  @Override
 				    protected void updateItem(HBox hbox, boolean empty) {
 				       super.updateItem(hbox, empty);
 				       if(getIndex() == -1 || tableItems.size() < getIndex() + 1) {
 				    	   return;
 				       }
-				       Admin admin = tableItems.get(getIndex());
+				       Project project = tableItems.get(getIndex());
 				       Button editButton = new Button();
 				       ImageView iconEdit = new ImageView("assets/icons/edit_icon.png");
 				       iconEdit.setFitHeight(16);
 				       iconEdit.setFitWidth(16);
 				       editButton.getStyleClass().add("btn-list-actions");
 				       editButton.setGraphic(iconEdit);
-				       editButton.setOnMouseClicked(e ->  MainController.changeScene("adminsRegister", admin.getId()));
-				       Button deleteButton = new Button();
-				       ImageView iconDelete = new ImageView("assets/icons/delete_icon.png");
-				       iconDelete.setFitHeight(16);
-				       iconDelete.setFitWidth(16);
-				       deleteButton.setGraphic(iconDelete);
+				       editButton.setOnMouseClicked(e ->  MainController.changeScene("projectForm", project.getId()));
 				    
-				       deleteButton.getStyleClass().add("btn-list-actions");
-				       deleteButton.setOnMouseClicked(e -> deleteProject(admin.getId(), admin.getAuthId(), admin.getName()));
-				      
-				        HBox pane = new HBox(editButton, deleteButton);
+				        HBox pane = new HBox(editButton);
 				        setGraphic(pane);
 				    }
 			});

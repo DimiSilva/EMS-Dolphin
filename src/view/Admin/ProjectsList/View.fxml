@@ -43,7 +43,9 @@
                                 <columns>
                                   <TableColumn fx:id="idColumn" editable="false" styleClass="column" text="Id" />
                                   <TableColumn fx:id="nameColumn" editable="false" minWidth="100.0" styleClass="column" text="Nome" />
-                                    <TableColumn fx:id="descriptionColumn" editable="false" minWidth="200.0" styleClass="column" text="Descrição" />                       
+                                    <TableColumn fx:id="descriptionColumn" editable="false" minWidth="200.0" styleClass="column" text="Descrição" />
+                                    <TableColumn fx:id="costCenterColumn" editable="false" maxWidth="160.0" minWidth="130.0" prefWidth="130.0" text="Centro de custo" />
+                                    <TableColumn fx:id="clientColumn" maxWidth="160.0" minWidth="80.0" prefWidth="100.0" text="Cliente" />                       
                                     <TableColumn fx:id="initDateColumn" editable="false" minWidth="100.0" styleClass="column" text="Dt.Início" />
                                     <TableColumn fx:id="endDateColumn" editable="false" minWidth="100.0" styleClass="column" text="Dt.Fim" />
                                     <TableColumn fx:id="createDateColumn" editable="false" minWidth="100.0" styleClass="column" text="Dt.Criação" />
