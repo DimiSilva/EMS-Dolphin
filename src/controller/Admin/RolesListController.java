@@ -33,6 +33,7 @@ import model.DTOs.ContributorsWorkedHoursInYearByMonth;
 import model.DTOs.ProjectsWorkedHours;
 import model.entities.Admin;
 import model.entities.CostCenter;
+import model.entities.Role;
 import model.enums.Months;
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
@@ -41,10 +42,11 @@ import model.persistence.AdminDAO;
 import model.persistence.AuthDAO;
 import model.persistence.CostCenterDAO;
 import model.persistence.DashboardDAO;
+import model.persistence.RoleDAO;
 
-public class CostCentersListController implements Initializable {
+public class RolesListController implements Initializable {
 
-	private CostCenterDAO costCenterDAO;
+	private RoleDAO roleDAO;
 	
 	private int currentPage = 1;
 	private int perPage = 20;
@@ -53,20 +55,20 @@ public class CostCentersListController implements Initializable {
 	@FXML
 	private Button goToRegisterScreenButton;
 	@FXML
-	private TableView<CostCenter> table;
+	private TableView<Role> table;
 	
 	@FXML
-	private TableColumn<CostCenter, Integer> idColumn;
+	private TableColumn<Role, Integer> idColumn;
 	@FXML
-	private TableColumn<CostCenter, String> nameColumn;
+	private TableColumn<Role, String> nameColumn;
 	@FXML
-	private TableColumn<CostCenter, String> descriptionColumn;
+	private TableColumn<Role, Float> baseSalaryColumn;
 	@FXML
-	private TableColumn<CostCenter, Date> createDateColumn;
+	private TableColumn<Role, Date> createDateColumn;
 	@FXML
-	private TableColumn<CostCenter, Date> updateDateColumn;
+	private TableColumn<Role, Date> updateDateColumn;
 	@FXML
-	private TableColumn<CostCenter, HBox> actionsColumn;
+	private TableColumn<Role, HBox> actionsColumn;
 	
 	@FXML
 	private Text currentPageText;
@@ -81,19 +83,18 @@ public class CostCentersListController implements Initializable {
 	@FXML
 	private Button lastPageButton;
 	
-	ObservableList<CostCenter> tableItems = FXCollections.observableArrayList();
+	ObservableList<Role> tableItems = FXCollections.observableArrayList();
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		costCenterDAO = new CostCenterDAO();
+		roleDAO = new RoleDAO();
 		goToRegisterScreenButton.setOnMouseClicked(e -> goToRegister());
 		firstPageButton.setOnMouseClicked(e -> this.updateTableData(1));
 		backPageButton.setOnMouseClicked(e -> this.updateTableData(this.currentPage - 1));
 		lastPageButton.setOnMouseClicked(e -> this.updateTableData(this.totalPages));
 		nextPageButton.setOnMouseClicked(e -> this.updateTableData(this.currentPage + 1));
 		
-		
-		this.fetchCostCenters(); 
+		this.fetchRoles(); 
 	}
 	
 	public void goToRegister() {
@@ -102,36 +103,36 @@ public class CostCentersListController implements Initializable {
 	
 	public void updateTableData(Integer page) {
 		if(page != null && page > 0 && page < this.totalPages) this.currentPage = page;
-		this.fetchCostCenters();
+		this.fetchRoles();
 	}
 	
-	public void fetchCostCenters() {
+	public void fetchRoles() {
 		try {
-			List<CostCenter> costCenters = costCenterDAO.getPaged(this.currentPage, this.perPage);
-			int totalItems = costCenterDAO.count();
+			List<Role> roles = roleDAO.getPaged(this.currentPage, this.perPage);
+			int totalItems = roleDAO.count();
 			
-			tableItems = FXCollections.observableArrayList(costCenters);
+			tableItems = FXCollections.observableArrayList(roles);
 			idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 			nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-			descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+			baseSalaryColumn.setCellValueFactory(new PropertyValueFactory<>("baseSalary"));
 			createDateColumn.setCellValueFactory(new PropertyValueFactory<>("createDate"));
 			updateDateColumn.setCellValueFactory(new PropertyValueFactory<>("updateDate"));
 		
-			actionsColumn.setCellFactory(params -> new TableCell<CostCenter, HBox>() {
+			actionsColumn.setCellFactory(params -> new TableCell<Role, HBox>() {
 				  @Override
 				    protected void updateItem(HBox hbox, boolean empty) {
 				       super.updateItem(hbox, empty);
 				       if(getIndex() == -1 || tableItems.size() < getIndex() + 1) {
 				    	   return;
 				       }
-				       CostCenter costCenter = tableItems.get(getIndex());
+				       Role role = tableItems.get(getIndex());
 				       Button editButton = new Button();
 				       ImageView iconEdit = new ImageView("assets/icons/edit_icon.png");
 				       iconEdit.setFitHeight(16);
 				       iconEdit.setFitWidth(16);
 				       editButton.getStyleClass().add("btn-list-actions");
 				       editButton.setGraphic(iconEdit);
-				       editButton.setOnMouseClicked(e ->  MainController.changeScene("costCenterForm", costCenter.getId()));
+				       editButton.setOnMouseClicked(e ->  MainController.changeScene("roleForm", role.getId()));
 				      
 				        HBox pane = new HBox(editButton);
 				        setGraphic(pane);

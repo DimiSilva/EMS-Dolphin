@@ -24,8 +24,8 @@ public class Project extends BaseEntity {
 		String description = DBSet.getString("description");
 		String initDate = DBSet.getString("initDate");
 		String endDate = DBSet.getString("endDate");
-		String createDate = DBSet.getString("createDate");
-		String updateDate = DBSet.getString("updateDate");
+		String createDate = DBSet.getString("create_date");
+		String updateDate = DBSet.getString("update_date");
 		
 		return new Project(id, name, description, initDate, endDate, createDate, updateDate);
 	}
