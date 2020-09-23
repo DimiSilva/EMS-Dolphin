@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -34,7 +35,7 @@ public class ProjectFormController implements Initializable {
 	@FXML
 	private TextField nameInput;
 	@FXML
-	private TextField emailInput;
+	private TextArea descriptionInput;
 	@FXML
 	private TextField cpfInput;
 	@FXML
