@@ -9,6 +9,7 @@ import java.util.Date;
 import model.exceptions.DBException;
 import model.exceptions.InvalidFieldException;
 import model.interfaces.IBaseUser;
+import model.persistence.AuthDAO;
 import model.persistence.CostCenterDAO;
 import model.persistence.RoleDAO;
 
@@ -33,6 +34,17 @@ public class Contributor extends BaseEntity implements IBaseUser {
 		this.address = address;
 		this.birthDate = birthDate;
 		this.authId = authId;
+	}
+	public Contributor(Integer id, String name, String phone, String address, String email, Date birthDate, String cpf, Integer authId) {
+		this.id = id;
+		this.name = name;
+		this.phone = phone;
+		this.address = address;
+		this.email = email;
+		this.birthDate = birthDate;
+		this.cpf = cpf;
+		this.authId = authId;
+
 	}
 	public Contributor(Integer id, String name, String phone, String address, String email, Date birthDate, String cpf, Integer authId, Role role, CostCenter costCenter, Date createDate, Date updateDate) {
 		this.id = id;
@@ -141,5 +153,17 @@ public class Contributor extends BaseEntity implements IBaseUser {
 	
 	public CostCenter getCostCenter() {
 		return costCenter;
+	}
+	public Auth getAuth() {
+		
+		AuthDAO authDAO = new AuthDAO();
+		Auth auth = null;
+		try {
+			auth = authDAO.getById(this.getAuthId().toString());
+		} catch (DBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return auth;
 	}
 }

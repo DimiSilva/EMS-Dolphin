@@ -1,0 +1,193 @@
+.container {
+	-fx-background-color: #343838;
+}
+
+.login-form-container {
+	-fx-background-color: #343838;
+}
+
+.input:focused {
+	-fx-border-color: #00B4CC;
+	-fx-prompt-text-fill: #00B4CC;
+}
+.date-picker .text-field {
+    -fx-control-inner-background: #343838 ;
+    -fx-border-width: 0 0 1px 0 !important;
+	-fx-border-color: #00B4CC90;
+	-fx-prompt-text-fill: #00B4CC90;
+	-fx-text-fill: #00B4CC;
+}
+.date-picker .content{
+	-fx-border-width: 0px !important;
+}
+.label{
+	-fx-text-fill: #00B4CC;
+}
+.input {
+	-fx-background-color: transparent;
+	-fx-border-width: 0 0 1px 0;
+	-fx-border-color: #00B4CC90;
+	-fx-prompt-text-fill: #00B4CC90;
+	-fx-text-fill: #00B4CC;
+}
+
+.ems-card{
+	-fx-background-color: transparent;
+	-fx-border-color: #005F6B;
+	-fx-border-radius: 16px;
+	-fx-background-radius: 16px;
+	-fx-spin-enabled: 16px;
+	-fx-padding: 24px;
+}
+.ems-title-container{
+	-fx-padding: 24px 0px 24px 0px;
+}
+.ems-form-control-left{
+	-fx-padding:  0px 16px 16px 0px;
+}
+.btn-list-actions{
+	-fx-background-color: transparent;
+}
+.ems-form-control-right{
+	-fx-padding:  0px 0.0px 16px 16px;
+}
+.ems-container-card{
+	-fx-padding: 48px;
+}
+.table-list-head{
+	-fx-background-color: #005F6B;
+
+}
+.page-body-container{
+	-fx-background-color: #343838;
+}
+.bg-dark{
+		-fx-background-color: #343838;
+}
+.table-list {
+	-fx-background-color: transparent;
+	-fx-border-radius: 16px;
+}
+.column{
+	-fx-background-color: transparent;
+}
+.table-view{
+   -fx-background-color: transparent;
+}
+
+.table-view:focused{
+    -fx-background-color: transparent;
+}
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+    -fx-background-color: #005F6B;
+}
+.table-view .table-cell{
+    -fx-text-fill: white;
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, #616161;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; 
+}
+
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, #424242;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #005797;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}
+.table-row-cell:empty:odd, .table-row-cell:empty:even {
+    -fx-background-color: transparent;
+}
+.ems-anchor-card{
+	-fx-border-radius: 16px;
+}
+
+
+
+.combo-box {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 1px 0;
+	-fx-border-color: #00B4CC90;
+	-fx-prompt-text-fill: #00B4CC90;
+	-fx-text-fill: #00B4CC;
+}
+.combo-box .list-cell 
+{
+    -fx-background-color: transparent;
+    -fx-text-fill: #00B4CC;
+}
+/* 
+.combo-box .list-cell 
+{
+    -fx-background: white;
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-base-color;
+    -fx-padding: 3 0 2 7;
+    -fx-cell-size: 1.66667em; 
+}
+
+.combo-box-popup .list-view 
+{
+    -fx-background-color: white, white;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 8, 0.0 , 0 , 0 );
+}    
+
+.combo-box-popup .list-view .list-cell 
+{
+    -fx-padding: 4 0 4 5;
+
+  
+    -fx-background-color: white;
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover 
+{
+    -fx-background: -fx-accent;
+    -fx-background-color: -fx-selection-bar;
+    -fx-text-fill: -fx-selection-bar-text;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover 
+{
+    -fx-background-color: white;
+    -fx-text-fill: -fx-text-inner-color;
+}
+
+.combo-box-base  
+{
+    -fx-skin: "com.sun.javafx.scene.control.skin.ComboBoxBaseSkin";
+    -fx-background-color: white, white, white, white;
+    -fx-background-radius: 5, 5, 4, 3;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-padding: 0;
+}
+
+.combo-box-base:hover
+{
+    -fx-color: -fx-hover-base;
+}
+
+.combo-box-base:showing 
+{
+    -fx-color: -fx-pressed-base;
+}
+
+.combo-box-base:focused {
+    -fx-background-color: -fx-focus-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-radius: 6.4, 4, 5, 3;
+    -fx-background-insets: -1.4, 0, 1, 2;
+}
+
+.combo-box-base:disabled {
+    -fx-opacity: .4;
+}*/
