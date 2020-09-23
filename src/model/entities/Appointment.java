@@ -24,8 +24,8 @@ public class Appointment extends BaseEntity {
 		Integer endHour = DBSet.getInt("endHour");
 		String initDate = DBSet.getString("initDate");
 		String endDate = DBSet.getString("endDate");
-		String createDate = DBSet.getString("createDate");
-		String updateDate = DBSet.getString("updateDate");
+		String createDate = DBSet.getString("create_date");
+		String updateDate = DBSet.getString("update_date");
 		
 		return new Appointment(id, initHour, endHour, initDate, endDate, createDate, updateDate);
 	}	

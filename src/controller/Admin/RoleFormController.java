@@ -25,6 +25,7 @@ import model.DTOs.ProjectsWorkedHours;
 import model.entities.Admin;
 import model.entities.Auth;
 import model.entities.CostCenter;
+import model.entities.Role;
 import model.enums.AccessTypes;
 import model.enums.Months;
 import model.enums.messages.Shared;
@@ -35,17 +36,18 @@ import model.persistence.AdminDAO;
 import model.persistence.AuthDAO;
 import model.persistence.CostCenterDAO;
 import model.persistence.DashboardDAO;
+import model.persistence.RoleDAO;
 
-public class CostCenterFormController implements Initializable {
+public class RoleFormController implements Initializable {
 
-	CostCenterDAO costCenterDAO;
+	RoleDAO roleDAO;
 	
 	@FXML
 	private Labeled titlePage;
 	@FXML
 	private TextField nameInput;
 	@FXML
-	private TextArea descriptionInput;
+	private TextField baseSalaryInput;
 	@FXML
 	private Button registerButton;
 	@FXML
@@ -53,25 +55,25 @@ public class CostCenterFormController implements Initializable {
 	@FXML
 	private VBox passwordContainer;	
 	@FXML
-	private int updatingCostCenterId;
+	private int updatingRoleId;
 	@FXML
-	private CostCenter updatingCostCenter;
+	private Role updatingRole;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		costCenterDAO = new CostCenterDAO();
+		roleDAO = new RoleDAO();
 		
 		registerButton.setOnMouseClicked(e -> register());
-		backButton.setOnMouseClicked(e -> MainController.changeScene("costCentersList"));
+		backButton.setOnMouseClicked(e -> MainController.changeScene("rolesList"));
 	}
 	
 	@FXML
 	public void register() {
 		try {
-			CostCenter costCenter = new CostCenter(nameInput.getText(), descriptionInput.getText());
-			int id = costCenterDAO.insert(costCenter);
+			Role role = new Role(nameInput.getText(), Float.parseFloat(baseSalaryInput.getText()));
+			roleDAO.insert(role);
 			
-			MainController.changeScene("costCentersList");
+			MainController.changeScene("rolesList");
 		}
 		catch(DBException e) {
 			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
@@ -81,40 +83,40 @@ public class CostCenterFormController implements Initializable {
 	@FXML
 	public void update() {
 		try {
-			this.updatingCostCenter.update(this.nameInput.getText(), this.descriptionInput.getText());
+			this.updatingRole.update(this.nameInput.getText(), Float.parseFloat(baseSalaryInput.getText()));
 			
-			costCenterDAO.update(this.updatingCostCenter);
+			roleDAO.update(this.updatingRole);
 			
-			MainController.changeScene("costCentersList");
+			MainController.changeScene("rolesList");
 		}
 		catch(DBException e) {
 			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
 		}
 	}
 	
-	public void updatingCostCenterId(int updatingCostCenterId) {
-		this.updatingCostCenterId = updatingCostCenterId;
+	public void updatingRoleId(int updatingRoleId) {
+		this.updatingRoleId = updatingRoleId;
 	}
 	
 	public void reset() {
-		this.updatingCostCenter = null;
+		this.updatingRole = null;
 		this.nameInput.setText(null);
-		this.descriptionInput.setText(null);
+		this.baseSalaryInput.setText(null);
 		registerButton.setText("Cadastrar");
 		registerButton.setOnMouseClicked(e -> register());
-		titlePage.setText("Cadastrar centro de custo");
+		titlePage.setText("Cadastrar cargo");
 	}
-	public void loadUpdatingCostCenterById(int updatingCostCenterId) {
-		this.updatingCostCenterId = updatingCostCenterId;
+	public void loadUpdatingRoleById(int updatingRoleId) {
+		this.updatingRoleId = updatingRoleId;
 		
 		try {
-			this.updatingCostCenter = costCenterDAO.getById(String.valueOf(this.updatingCostCenterId));
-			this.nameInput.setText(this.updatingCostCenter.getName());
-			this.descriptionInput.setText(this.updatingCostCenter.getDescription());
+			this.updatingRole = roleDAO.getById(String.valueOf(this.updatingRoleId));
+			this.nameInput.setText(this.updatingRole.getName());
+			this.baseSalaryInput.setText(String.valueOf(this.updatingRole.getBaseSalary()));
 			
 			registerButton.setText("Salvar");
 			registerButton.setOnMouseClicked(e -> update());
-			titlePage.setText("Editar centro de custo");
+			titlePage.setText("Editar cargo");
 		}
 		catch(DBException e){
 			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);

@@ -9,6 +9,8 @@ import controller.Admin.ContributorFormController;
 import controller.Admin.CostCenterFormController;
 import controller.Admin.CostCentersListController;
 import controller.Admin.ProjectFormController;
+import controller.Admin.RoleFormController;
+import controller.Admin.RolesListController;
 import controller.Master.AdminsRegisterController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -55,6 +57,12 @@ public class AdminStage implements IStage {
 	private FXMLLoader costCenterForm;
 	private VBox costCenterFormView;
 	
+	private FXMLLoader rolesList;
+	private VBox rolesListView;
+	
+	private FXMLLoader roleForm;
+	private VBox roleFormView;
+	
 	public AdminStage() {
 		stage = new Stage();
 		stage.setMaximized(true);
@@ -95,6 +103,12 @@ public class AdminStage implements IStage {
 			
 			costCenterForm = new FXMLLoader(getClass().getResource("/view/Admin/CostCenterForm/View.fxml"));
 			costCenterFormView = (VBox)((HBox)costCenterForm.load()).getChildren().get(0);
+			
+			rolesList = new FXMLLoader(getClass().getResource("/view/Admin/RolesList/View.fxml"));
+			rolesListView = (VBox)((HBox)rolesList.load()).getChildren().get(0);
+			
+			roleForm = new FXMLLoader(getClass().getResource("/view/Admin/RoleForm/View.fxml"));
+			roleFormView = (VBox)((HBox)roleForm.load()).getChildren().get(0);
 		}
 		catch (IOException e) {
 			System.out.println("IOException occurred");
@@ -114,70 +128,68 @@ public class AdminStage implements IStage {
 		VBox menu = (VBox)baseLayoutView.lookup("#menu");
 			
 		Button profileBtn = new Button("Meu Perfil");
-		profileBtn.setId("dashboardBtn");
 		profileBtn.setOnMouseClicked(e -> loadScene("profile"));
 		profileBtn.setPrefHeight(25.0);
 		profileBtn.setPrefWidth(299.0);
 		profileBtn.getStyleClass().add("ems-btn");
 		
 		Button dashboardBtn = new Button("Dashboard");
-		dashboardBtn.setId("dashboardBtn");
 		dashboardBtn.setOnMouseClicked(e -> loadScene("dashboard"));
 		dashboardBtn.setPrefHeight(25.0);
 		dashboardBtn.setPrefWidth(299.0);
 		dashboardBtn.getStyleClass().add("ems-btn");
 		
 		Button projectsBtn = new Button("Projetos");
-		projectsBtn.setId("dashboardBtn");
 		projectsBtn.setOnMouseClicked(e -> loadScene("projectsList"));
 		projectsBtn.setPrefHeight(25.0);
 		projectsBtn.setPrefWidth(299.0);
 		projectsBtn.getStyleClass().add("ems-btn");
 		
 		Button contributorsBtn = new Button("Colaboradores");
-		contributorsBtn.setId("dashboardBtn");
 		contributorsBtn.setOnMouseClicked(e -> loadScene("contributorsList"));
 		contributorsBtn.setPrefHeight(25.0);
 		contributorsBtn.setPrefWidth(299.0);
 		contributorsBtn.getStyleClass().add("ems-btn");
 		
 		Button clientsBtn = new Button("Clientes");
-		clientsBtn.setId("dashboardBtn");
 		clientsBtn.setOnMouseClicked(e -> loadScene("clientsList"));
 		clientsBtn.setPrefHeight(25.0);
 		clientsBtn.setPrefWidth(299.0);
 		clientsBtn.getStyleClass().add("ems-btn");
 		
 		Button costsCenterBtn = new Button("Centros de Custo");
-		costsCenterBtn.setId("dashboardBtn");
 		costsCenterBtn.setOnMouseClicked(e -> loadScene("costCentersList"));
 		costsCenterBtn.setPrefHeight(25.0);
 		costsCenterBtn.setPrefWidth(299.0);
 		costsCenterBtn.getStyleClass().add("ems-btn");
 		
+		Button rolesBtn = new Button("Cargos");
+		rolesBtn.setOnMouseClicked(e -> loadScene("rolesList"));
+		rolesBtn.setPrefHeight(25.0);
+		rolesBtn.setPrefWidth(299.0);
+		rolesBtn.getStyleClass().add("ems-btn");
+		
 		Button logoutBtn = new Button("Sair");
-		logoutBtn.setOnMouseClicked(e -> MainController.closeApplication());
-		logoutBtn.setId("logoutBtn");		
+		logoutBtn.setOnMouseClicked(e -> MainController.closeApplication());	
 		logoutBtn.setPrefHeight(25.0);
 		logoutBtn.setPrefWidth(299.0);
 		logoutBtn.getStyleClass().add("ems-btn");
 			
-		menu.getChildren().addAll(profileBtn, dashboardBtn, projectsBtn, contributorsBtn, clientsBtn, costsCenterBtn, logoutBtn);
+		menu.getChildren().addAll(profileBtn, dashboardBtn, projectsBtn, contributorsBtn, clientsBtn, costsCenterBtn, rolesBtn, logoutBtn);
 		VBox.setMargin(profileBtn, new Insets(16, 0, 0, 0));
 		VBox.setMargin(dashboardBtn, new Insets(24, 0, 0, 0));
 		VBox.setMargin(projectsBtn, new Insets(24, 0, 0, 0));
 		VBox.setMargin(contributorsBtn, new Insets(24, 0, 0, 0));
 		VBox.setMargin(clientsBtn, new Insets(24, 0, 0, 0));
 		VBox.setMargin(costsCenterBtn, new Insets(24, 0, 0, 0));
+		VBox.setMargin(rolesBtn, new Insets(24, 0, 0, 0));
 		VBox.setMargin(logoutBtn, new Insets(24, 0, 0, 0));
 	}
-
 	
 	public void hide() {
 		if(stage.isShowing())
 			stage.hide();
 	}
-	
 	
 	public void loadScene(String sceneName) {
 		switch (sceneName) {
@@ -253,6 +265,22 @@ public class AdminStage implements IStage {
 					costCenterFormController.reset();
 					stage.show();
 				break;
+			case "rolesList":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(rolesListView);
+					RolesListController rolesListController = rolesList.getController();
+					rolesListController.fetchRoles();
+					stage.show();
+				break;
+			case "roleForm":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(roleFormView);
+					RoleFormController roleFormController = roleForm.getController();
+					roleFormController.reset();
+					stage.show();
+				break;
 		}
 	}
 	
@@ -292,6 +320,15 @@ public class AdminStage implements IStage {
 					CostCenterFormController costCenterFormController = costCenterForm.getController();
 					costCenterFormController.reset();
 					costCenterFormController.loadUpdatingCostCenterById(id);
+					stage.show();
+				break;
+			case "roleForm":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+					baseLayoutView.getChildren().add(roleFormView);
+					RoleFormController roleFormController = roleForm.getController();
+					roleFormController.reset();
+					roleFormController.loadUpdatingRoleById(id);
 					stage.show();
 				break;
 		}
