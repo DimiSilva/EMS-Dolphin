@@ -69,7 +69,7 @@ public class CostCenterFormController implements Initializable {
 	public void register() {
 		try {
 			CostCenter costCenter = new CostCenter(nameInput.getText(), descriptionInput.getText());
-			int id = costCenterDAO.insert(costCenter);
+			costCenterDAO.insert(costCenter);
 			
 			MainController.changeScene("costCentersList");
 		}
@@ -104,6 +104,7 @@ public class CostCenterFormController implements Initializable {
 		registerButton.setOnMouseClicked(e -> register());
 		titlePage.setText("Cadastrar centro de custo");
 	}
+	
 	public void loadUpdatingCostCenterById(int updatingCostCenterId) {
 		this.updatingCostCenterId = updatingCostCenterId;
 		

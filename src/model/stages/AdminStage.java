@@ -215,8 +215,8 @@ public class AdminStage implements IStage {
 				if(baseLayoutView.getChildren().toArray().length == 2)
 					baseLayoutView.getChildren().remove(1);
 					baseLayoutView.getChildren().add(projectFormView);
-//					ProjectFormController projectFormController = projectForm.getController();
-//					projectFormController.reset();
+					ProjectFormController projectFormController = projectForm.getController();
+					projectFormController.reset();
 					stage.show();
 				break;
 			case "contributorsList":
@@ -290,9 +290,9 @@ public class AdminStage implements IStage {
 				if(baseLayoutView.getChildren().toArray().length == 2)
 					baseLayoutView.getChildren().remove(1);
 					baseLayoutView.getChildren().add(projectFormView);
-	//				ProjectFormController projectFormController = projectForm.getController();
-	//				projectFormController.reset();
-	//				projectFormController.loadUpdatingProjectById(id);
+					ProjectFormController projectFormController = projectForm.getController();
+					projectFormController.reset();
+					projectFormController.loadUpdatingProjectById(id);
 					stage.show();
 				break;
 			case "contributorForm":

@@ -70,4 +70,9 @@ public class Client extends BaseEntity{
 	public String getPhone() {
 		return this.phone;
 	}
+	
+	@Override
+	public String toString() {
+	    return this.getName();
+	}
 }

@@ -35,7 +35,7 @@
                               <Insets top="4.0" />
                            </VBox.margin>
                         </Label>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="360.0" prefWidth="405.0" styleClass="dark-background" vbarPolicy="ALWAYS">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="360.0" prefWidth="405.0" styleClass="dark-background" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                            <content>
                               <VBox fx:id="runningProjectsContainer" prefHeight="358.0" prefWidth="392.0" styleClass="dark-background">
                                  <padding>

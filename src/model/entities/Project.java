@@ -14,6 +14,15 @@ public class Project extends BaseEntity {
 	private Date initDate;
 	private Date endDate;
 	
+	public Project(String name, String description, CostCenter costCenter, Client client, Date initDate, Date endDate) {
+		this.name = name;
+		this.description = description;
+		this.costCenter = costCenter;
+		this.client = client;
+		this.initDate = initDate;
+		this.endDate = endDate;
+	}
+	
 	public Project(Integer id, String name, String description, CostCenter costCenter, Client client, Date initDate, Date endDate, Date createDate, Date updateDate) {
 		this.id = id;
 		this.name = name;
@@ -55,12 +64,28 @@ public class Project extends BaseEntity {
 		return new Project(id, name, description, costCenter, client, initDate, endDate, createDate, updateDate);
 	}
 	
+	public void update(String name, String description, Date initDate, Date endDate) {
+		this.name = name;
+		this.description = description;
+		this.initDate = initDate;
+		this.endDate = endDate;
+	}
+	
+	
 	public String getName() {
 		return name;
 	}
 	
 	public String getDescription() {
 		return description;
+	}
+	
+	public CostCenter getCostCenter() {
+		return costCenter;
+	}
+	
+	public Client getClient() {
+		return client;
 	}
 	
 	public Integer getCostCenterId() {

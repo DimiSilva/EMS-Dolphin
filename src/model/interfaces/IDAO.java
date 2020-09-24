@@ -14,8 +14,8 @@ public interface IDAO<T> {
 	public List<T> getAll() throws DBException;
 	public List<T> getPaged(int page, int perPage) throws DBException;
 	public T getById(String id) throws DBException;
-	public int count() throws DBException;
-	public int insert(T object) throws DBException;
+	public Integer count() throws DBException;
+	public Integer insert(T object) throws DBException;
 	public void update(T object) throws DBException;
 	public void remove(String id) throws DBException;
 }

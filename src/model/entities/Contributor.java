@@ -57,32 +57,8 @@ public class Contributor extends BaseEntity implements IBaseUser {
 		Date birthDate = DBSet.getDate("birthdate");
 		String cpf = DBSet.getString("cpf");
 		Integer authId = DBSet.getInt("auth_id");
-		System.out.println(DBSet.getString("cpf"));
-		System.out.println(DBSet.getString("name"));
-		RoleDAO roleDAO = new RoleDAO();
-		Role role = null;
-		try {
-			role = roleDAO.getById(String.valueOf(DBSet.getInt("role_id")));
-		} catch (DBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		CostCenterDAO costCenterDAO = new CostCenterDAO();
-		CostCenter costCenter = null;
-		try {
-			costCenter = costCenterDAO.getById(String.valueOf(DBSet.getInt("cost_center_id")));
-		} catch (DBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//Role role = new Role(DBSet.getInt("role_id"), DBSet.getString("role_name"), DBSet.getFloat("base_salary"), DBSet.getDate("create_date"), DBSet.getDate("role_update_date"));
-		//CostCenter costCenter = new CostCenter(DBSet.getInt("cost_center_id"), DBSet.getString("cost_center_name"), DBSet.getString("cost_center_description"), DBSet.getDate("cost_center_create_date"), DBSet.getDate("cost_center_update_date"));
+		Role role = new Role(DBSet.getInt("role_id"), DBSet.getString("role_name"), DBSet.getFloat("role_base_salary"), DBSet.getDate("role_create_date"), DBSet.getDate("role_update_date"));
+		CostCenter costCenter = new CostCenter(DBSet.getInt("cost_center_id"), DBSet.getString("cost_center_name"), DBSet.getString("cost_center_description"), DBSet.getDate("cost_center_create_date"), DBSet.getDate("cost_center_update_date"));
 		Date createDate = DBSet.getDate("create_date");
 		Date updateDate = DBSet.getDate("update_date");
 		

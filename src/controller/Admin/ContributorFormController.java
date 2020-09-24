@@ -115,17 +115,6 @@ public class ContributorFormController implements Initializable {
 
 	@FXML
 	public void register() {
-
-		System.out.println(nameInput.getText());
-		System.out.println(phoneInput.getText());
-		System.out.println(emailInput.getText());
-		System.out.println(cpfInput.getText());
-		System.out.println(addressInput.getText());
-		System.out.println(phoneInput.getText());
-		System.out.println(birthdateInput.getValue());
-		System.out.println(passwordInput.getText());
-		System.out.println(roleInput.getValue().getId());
-		System.out.println(costCenterInput.getValue().getId());
 		try {
 			Auth auth = new Auth(emailInput.getText(), passwordInput.getText(), AccessTypes.CONTRIBUTOR.getText());
 			int id = authDAO.insert(auth);

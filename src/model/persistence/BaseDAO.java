@@ -92,7 +92,7 @@ public abstract class BaseDAO<T> implements IDAO<T> {
 		}
 	}
 	
-	public int count() throws DBException {
+	public Integer count() throws DBException {
 		try {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery(String.format("SELECT COUNT(*) as count FROM %s", tableName));
@@ -111,13 +111,13 @@ public abstract class BaseDAO<T> implements IDAO<T> {
 		}
 	}
 	
-	public int insert(T object) throws DBException {
+	public Integer insert(T object) throws DBException {
 		try {
 			Statement statement = conn.createStatement();
 			statement.executeUpdate(entityToDBInsertString(object), Statement.RETURN_GENERATED_KEYS);
 			
 			ResultSet result = statement.getGeneratedKeys();
-			result.next();
+			if(!result.next()) return null;
 			int id = result.getInt(1); 
 			statement.close();
 			
