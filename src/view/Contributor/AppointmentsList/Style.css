@@ -1,0 +1,37 @@
+.container {
+	-fx-background-color: #005F6B;
+}
+
+.list-line {
+	-fx-border-color: white;
+	-fx-border-width: 1px;
+	-fx-border-radius: 6px;
+}
+
+.chart-title {
+	-fx-text-fill: white;
+}
+
+.chart-bar { 
+	-fx-bar-fill : #00B4CC;
+}
+
+.chart-plot-background {
+    -fx-background-color: #005F6B;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #00000020;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: #00000020;
+}
+
+.axis {
+    -fx-tick-label-fill: white;
+}
+ 
+.axis-label {
+   -fx-text-fill: white; 
+}

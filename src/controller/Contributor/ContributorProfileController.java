@@ -1,49 +1,49 @@
-package controller.Admin;
+package controller.Contributor;
 
 import java.net.URL;
-import java.time.Month;
-import java.util.Arrays;
-import java.util.List;
+import java.sql.Date;
+
 import java.util.ResourceBundle;
 
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.XYChart;
+
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.DatePicker;
+
 import javafx.scene.control.Labeled;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+
 import javafx.scene.layout.VBox;
-import model.DTOs.ContributorsWorkedHoursInYearByMonth;
-import model.DTOs.ProjectsWorkedHours;
-import model.entities.Admin;
-import model.enums.Months;
-import model.enums.messages.Shared;
+
+import model.entities.Contributor;
+
 import model.exceptions.DBException;
-import model.helpers.Utils;
-import model.persistence.AdminDAO;
+
 import model.persistence.AuthDAO;
-import model.persistence.DashboardDAO;
+import model.persistence.ContributorDAO;
+
 import model.stages.AuthStage;
 
-public class ProfileController implements Initializable {
+public class ContributorProfileController implements Initializable {
 	private AuthDAO authDAO;
-	private AdminDAO adminDAO;
+	private ContributorDAO contributorDAO;
 	
 	@FXML
 	private Labeled titlePage;
 	@FXML
 	private TextField nameInput;
 	@FXML
+	private TextField phoneInput;
+	@FXML
 	private TextField emailInput;
 	@FXML
 	private TextField cpfInput;
+	@FXML
+	private TextField addressInput;
+	@FXML
+	private DatePicker birthdateInput;
 	@FXML
 	private PasswordField passwordInput;
 	@FXML
@@ -55,35 +55,38 @@ public class ProfileController implements Initializable {
 	@FXML
 	private int updatingUserId;
 	@FXML
-	private Admin updatingUser;
+	private Contributor updatingUser;
 	@FXML
-	private Admin loggedUser;
+	private Contributor loggedUser;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		authDAO = new AuthDAO();
-		adminDAO = new AdminDAO();
+		contributorDAO = new ContributorDAO();
 		registerButton.setOnMouseClicked(e -> updateProfile());
 		
 	}
 	
 	public void loadProfile() {
-		this.loggedUser = (Admin) AuthStage.loggedUser;
+		this.loggedUser = (Contributor) AuthStage.loggedUser;
 		
 		if(this.loggedUser != null) {
 			System.out.println("12");
 			nameInput.setText(this.loggedUser.getName());
-			cpfInput.setText(this.loggedUser.getCPF());
+			cpfInput.setText(this.loggedUser.getCpf());
 			emailInput.setText(this.loggedUser.getEmail());
 		}
 	}
 	public void updateProfile() {
 		AuthStage authStage = new AuthStage();
 		try {
-			adminDAO.update(new Admin(
+			contributorDAO.update(new Contributor(
 					this.loggedUser.getId(),
 					this.nameInput.getText(),
+					this.phoneInput.getText(),
+					this.addressInput.getText(),
 					this.emailInput.getText(),
+					Date.valueOf(this.birthdateInput.getValue()),
 					this.cpfInput.getText(),
 					this.loggedUser.getAuthId()
 					));

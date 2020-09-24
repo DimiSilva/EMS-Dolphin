@@ -184,7 +184,7 @@ public class ContributorsListController implements Initializable {
 				       editButton.getStyleClass().add("btn-list-actions");
 				       editButton.setGraphic(iconEdit);
 				     
-				       editButton.setOnMouseClicked(e ->  MainController.changeScene("clientForm", contributor.getId()));
+				       editButton.setOnMouseClicked(e ->  MainController.changeScene("contributorForm", contributor.getId()));
 				      
 				        HBox pane = new HBox(editButton);
 				        setGraphic(pane);
