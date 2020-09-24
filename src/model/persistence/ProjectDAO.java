@@ -4,6 +4,7 @@ package model.persistence;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class ProjectDAO extends BaseDAO<Project> {
 
 	@Override
 	public String entityToDBInsertString(Project object) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		return String.format(
 				"INSERT INTO %s "
 						+ "(name, description, cost_center_id, client_id, init_date, end_date) "
@@ -34,13 +36,14 @@ public class ProjectDAO extends BaseDAO<Project> {
 							, object.getDescription()
 							, object.getCostCenterId()
 							, object.getClientId()
-							, object.getInitDate()
-							, object.getEndDate()
+							, formatter.format(object.getInitDate())
+							, formatter.format(object.getEndDate())
 					);
 	}
 
 	@Override
 	public String entityToDBupdateString(Project object) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		return String.format(
 				"UPDATE %s "
 						+ "SET "
@@ -52,8 +55,8 @@ public class ProjectDAO extends BaseDAO<Project> {
 							, tableName
 							, object.getName()
 							, object.getDescription()
-							, object.getInitDate()
-							, object.getEndDate()
+							, formatter.format(object.getInitDate())
+							, formatter.format(object.getEndDate())
 							, object.getId()
 					);
 	}
@@ -128,7 +131,7 @@ public class ProjectDAO extends BaseDAO<Project> {
 							+ "ON cc.id = p.cost_center_id "
 							+ "INNER JOIN client c "
 							+ "ON c.id = p.client_id "
-							+ "WHERE p.id = %d"
+							+ "WHERE p.id = '%s'"
 								, tableName
 								, id
 						)

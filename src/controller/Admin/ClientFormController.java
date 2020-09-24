@@ -70,10 +70,6 @@ public class ClientFormController implements Initializable {
 	
 	@FXML
 	public void register() {
-		System.out.println(nameInput.getText());
-		System.out.println(phoneInput.getText());
-		System.out.println(emailInput.getText());
-		System.out.println(cnpjInput.getText());
 		try {
 			Client client = new Client(nameInput.getText(), phoneInput.getText(), emailInput.getText(), cnpjInput.getText());
 			clientDAO.insert(client);

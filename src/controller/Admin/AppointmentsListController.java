@@ -117,48 +117,9 @@ public class AppointmentsListController implements Initializable {
 			idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 			hoursColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 			activityColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-			clientColumn.setCellFactory(params -> new TableCell<Appointment, String>() {
-				  @Override
-				    protected void updateItem(String client, boolean empty) {
-				       super.updateItem(client, empty);
-				       if(getIndex() == -1 || tableItems.size() < getIndex() + 1) {
-				    	   return;
-				       }
-				       Appointment appointment = tableItems.get(getIndex());
-				    
-				      // setText(appointment.getProject().getClientName());
-				       setText("null");
-;				       
-				    }
-			});
-			projectColumn.setCellFactory(params -> new TableCell<Appointment, String>() {
-				  @Override
-				    protected void updateItem(String project, boolean empty) {
-				       super.updateItem(project, empty);
-				       if(getIndex() == -1 || tableItems.size() < getIndex() + 1) {
-				    	   return;
-				       }
-				       Appointment appointment = tableItems.get(getIndex());
-				    
-				       //setText(appointment.getProject().getName());
-				       setText("null");
-;				       
-				    }
-			});
-			contributorColumn.setCellFactory(params -> new TableCell<Appointment, String>() {
-				  @Override
-				    protected void updateItem(String contributor, boolean empty) {
-				       super.updateItem(contributor, empty);
-				       if(getIndex() == -1 || tableItems.size() < getIndex() + 1) {
-				    	   return;
-				       }
-				       Appointment appointment = tableItems.get(getIndex());
-				    
-				       setText(appointment.getContributor().getName());
-				      
-;				       
-				    }
-			});
+			clientColumn.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+			projectColumn.setCellValueFactory(new PropertyValueFactory<>("projectName"));
+			contributorColumn.setCellValueFactory(new PropertyValueFactory<>("contributorName"));
 			initDateColumn.setCellValueFactory(new PropertyValueFactory<>("initDate"));
 			endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
 			

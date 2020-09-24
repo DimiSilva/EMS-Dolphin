@@ -142,32 +142,9 @@ public class ContributorsListController implements Initializable {
 			emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 			cpfColumn.setCellValueFactory(new PropertyValueFactory<>("cpf"));
 			phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
-			roleColumn.setCellFactory(params -> new TableCell<Contributor, String>() {
-				  @Override
-				    protected void updateItem(String role, boolean empty) {
-				       super.updateItem(role, empty);
-				       if(getIndex() == -1 || tableItems.size() < getIndex() + 1) {
-				    	   return;
-				       }
-				       Contributor contributor = tableItems.get(getIndex());
-				        setText(contributor.getRole().getName());
-				    }
-			});
-			//roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
-			costCenterColumn.setCellFactory(params -> new TableCell<Contributor, String>() {
-				  @Override
-				    protected void updateItem(String costCenter, boolean empty) {
-				       super.updateItem(costCenter, empty);
-				       if(getIndex() == -1 || tableItems.size() < getIndex() + 1) {
-				    	   return;
-				       }
-				       Contributor contributor = tableItems.get(getIndex());
-				        setText(contributor.getCostCenter().getName());
-				    }
-			});
-			//createDateColumn.setCellValueFactory(new PropertyValueFactory<>("createDate"));
-			//updateDateColumn.setCellValueFactory(new PropertyValueFactory<>("updateDate"));
-		
+			roleColumn.setCellValueFactory(new PropertyValueFactory<>("roleName"));
+			costCenterColumn.setCellValueFactory(new PropertyValueFactory<>("costCenterName"));
+			
 			actionsColumn.setCellFactory(params -> new TableCell<Contributor, HBox>() {
 				  @Override
 				    protected void updateItem(HBox hbox, boolean empty) {
