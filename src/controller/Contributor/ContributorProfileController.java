@@ -2,7 +2,7 @@ package controller.Contributor;
 
 import java.net.URL;
 import java.sql.Date;
-
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -18,7 +18,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 import model.entities.Contributor;
-
+import model.entities.CostCenter;
+import model.entities.Role;
 import model.exceptions.DBException;
 
 import model.persistence.AuthDAO;
@@ -75,6 +76,9 @@ public class ContributorProfileController implements Initializable {
 			nameInput.setText(this.loggedUser.getName());
 			cpfInput.setText(this.loggedUser.getCpf());
 			emailInput.setText(this.loggedUser.getEmail());
+			phoneInput.setText(this.loggedUser.getPhone());
+			addressInput.setText(this.loggedUser.getAddress());
+			birthdateInput.setValue(LocalDate.parse(this.loggedUser.getBirthDate().toString()));
 		}
 	}
 	public void updateProfile() {
@@ -88,7 +92,11 @@ public class ContributorProfileController implements Initializable {
 					this.emailInput.getText(),
 					Date.valueOf(this.birthdateInput.getValue()),
 					this.cpfInput.getText(),
-					this.loggedUser.getAuthId()
+					this.loggedUser.getAuthId(),
+					this.loggedUser.getRole(),
+					this.loggedUser.getCostCenter(),
+					this.loggedUser.getCreateDate(),
+					this.loggedUser.getUpdateDate()
 					));
 		} catch (DBException e) {
 			// TODO Auto-generated catch block
