@@ -49,12 +49,12 @@ public class ProjectContributor extends BaseEntity {
 			projectCostCenter,
 			projectClient,
 			DBSet.getDate("project_init_date"),
-			DBSet.getDate("proejct_end_date"),
+			DBSet.getDate("project_end_date"),
 			DBSet.getDate("project_create_date"),
-			DBSet.getDate("proejct_update_date")
+			DBSet.getDate("project_update_date")
 		);
 		
-		Role contributorRole = new Role(DBSet.getInt("contributor_role_id"), DBSet.getString("contributor_role_name"), DBSet.getFloat("contributor_base_salary"), DBSet.getDate("contributor_create_date"), DBSet.getDate("contributor_role_update_date"));
+		Role contributorRole = new Role(DBSet.getInt("contributor_role_id"), DBSet.getString("contributor_role_name"), DBSet.getFloat("contributor_role_base_salary"), DBSet.getDate("contributor_create_date"), DBSet.getDate("contributor_role_update_date"));
 		CostCenter contributorCostCenter = new CostCenter(DBSet.getInt("contributor_cost_center_id"), DBSet.getString("contributor_cost_center_name"), DBSet.getString("contributor_cost_center_description"), DBSet.getDate("contributor_cost_center_create_date"), DBSet.getDate("contributor_cost_center_update_date"));
 		Contributor contributor = new Contributor(
 			DBSet.getInt("contributor_id"),

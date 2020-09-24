@@ -127,9 +127,18 @@ public class Contributor extends BaseEntity implements IBaseUser {
 		return role;
 	}
 	
+	public String getRoleName() {
+		return role.getName();
+	}
+	
 	public CostCenter getCostCenter() {
 		return costCenter;
 	}
+	
+	public String getCostCenterName() {
+		return costCenter.getName();
+	}
+	
 	public Auth getAuth() {
 		
 		AuthDAO authDAO = new AuthDAO();
