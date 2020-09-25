@@ -34,7 +34,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="200.0" styleClass="ems-card" VBox.vgrow="ALWAYS">
+                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="219.0" prefWidth="950.0" styleClass="ems-card" VBox.vgrow="ALWAYS">
                      <children>
                         <HBox prefHeight="576.0" prefWidth="766.0" VBox.vgrow="ALWAYS">
                            <children>

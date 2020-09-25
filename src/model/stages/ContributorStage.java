@@ -91,7 +91,7 @@ public class ContributorStage implements IStage {
 		
 		Button dashboardBtn = new Button("Home");
 		dashboardBtn.setId("dashboardBtn");
-		dashboardBtn.setOnMouseClicked(e -> loadScene("home"));
+		dashboardBtn.setOnMouseClicked(e -> loadScene("dashboard"));
 		dashboardBtn.setPrefHeight(25.0);
 		dashboardBtn.setPrefWidth(299.0);
 		dashboardBtn.getStyleClass().add("ems-btn");
@@ -103,7 +103,7 @@ public class ContributorStage implements IStage {
 		contributorAppointmentsBtn.getStyleClass().add("ems-btn");
 		
 		Button companyBtn = new Button("Empresa");
-		companyBtn.setOnMouseClicked(e -> loadScene("company"));
+		companyBtn.setOnMouseClicked(e -> loadScene("contributorCompany"));
 		companyBtn.setPrefHeight(25.0);
 		companyBtn.setPrefWidth(299.0);
 		companyBtn.getStyleClass().add("ems-btn");
@@ -167,7 +167,7 @@ public class ContributorStage implements IStage {
 				baseLayoutView.getChildren().remove(1);
 			baseLayoutView.getChildren().add(contributorCompanyView);
 			ContributorCompanyController contributorCompanyController = contributorCompany.getController();
-			contributorCompanyController.loadDashboardData();
+			contributorCompanyController.fetchContributors();
 			stage.show();
 			break;
 		}
@@ -213,7 +213,7 @@ public class ContributorStage implements IStage {
 				baseLayoutView.getChildren().remove(1);
 			baseLayoutView.getChildren().add(contributorCompanyView);
 			ContributorCompanyController contributorCompanyController = contributorCompany.getController();
-			contributorCompanyController.loadDashboardData();
+			contributorCompanyController.fetchContributors();
 			stage.show();
 			break;
 		}
