@@ -2,43 +2,32 @@ package controller.Admin;
 
 import java.net.URL;
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
-
 import java.util.List;
 import java.util.ResourceBundle;
 
 import controller.MainController;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-
 import javafx.scene.control.Labeled;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
 import javafx.scene.layout.VBox;
 import model.entities.Auth;
 import model.entities.Contributor;
 import model.entities.CostCenter;
 import model.entities.Role;
 import model.enums.AccessTypes;
-
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
 import model.exceptions.InvalidFieldException;
 import model.helpers.Utils;
-
 import model.persistence.AuthDAO;
 import model.persistence.ContributorDAO;
 import model.persistence.CostCenterDAO;
-
 import model.persistence.RoleDAO;
 
 public class ContributorFormController implements Initializable {
@@ -117,8 +106,6 @@ public class ContributorFormController implements Initializable {
 		try {
 			Auth auth = new Auth(emailInput.getText(), passwordInput.getText(), AccessTypes.CONTRIBUTOR.getText());
 			int id = authDAO.insert(auth);
-			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-			
 			
 			Contributor contributor = new Contributor(id, nameInput.getText(), phoneInput.getText(), emailInput.getText(), cpfInput.getText(), addressInput.getText(), 
 					Date.valueOf(birthdateInput.getValue()), 

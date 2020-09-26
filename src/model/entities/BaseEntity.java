@@ -2,7 +2,6 @@ package model.entities;
 
 import java.util.Date;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import model.interfaces.IBaseEntity;
 
 public abstract class BaseEntity implements IBaseEntity {

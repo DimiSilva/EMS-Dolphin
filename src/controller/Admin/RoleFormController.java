@@ -1,41 +1,19 @@
 package controller.Admin;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import controller.MainController;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import model.DTOs.ContributorsWorkedHoursInYearByMonth;
-import model.DTOs.ProjectsWorkedHours;
-import model.entities.Admin;
-import model.entities.Auth;
-import model.entities.CostCenter;
 import model.entities.Role;
-import model.enums.AccessTypes;
-import model.enums.Months;
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
-import model.exceptions.InvalidFieldException;
 import model.helpers.Utils;
-import model.persistence.AdminDAO;
-import model.persistence.AuthDAO;
-import model.persistence.CostCenterDAO;
-import model.persistence.DashboardDAO;
 import model.persistence.RoleDAO;
 
 public class RoleFormController implements Initializable {

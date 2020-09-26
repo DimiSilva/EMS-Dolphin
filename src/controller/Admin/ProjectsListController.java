@@ -6,33 +6,22 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import controller.MainController;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.Button;
-
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-
 import javafx.scene.layout.HBox;
-
 import javafx.scene.text.Text;
-
-import model.entities.Admin;
 import model.entities.Project;
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
 import model.helpers.Utils;
-import model.persistence.AdminDAO;
-import model.persistence.AuthDAO;
 import model.persistence.ProjectDAO;
 
 

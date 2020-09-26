@@ -1,9 +1,6 @@
 package controller.Contributor;
 
 import java.net.URL;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -19,7 +16,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import model.DTOs.ContributorRunningProject;
 import model.DTOs.ContributorWorkedHoursInYearByMonth;
-import model.DTOs.ContributorsWorkedHoursInYearByMonth;
 import model.DTOs.ProjectsWorkedHours;
 import model.enums.Months;
 import model.enums.messages.Shared;
@@ -28,7 +24,7 @@ import model.helpers.Utils;
 import model.persistence.DashboardDAO;
 import model.stages.AuthStage;
 
-public class ContributorAppointmentsListController implements Initializable {
+public class AppointmentFormController implements Initializable {
 	@FXML
 	BarChart<String, Integer> contributorsWorkedHoursInYearByMonthChart;
 	@FXML
@@ -45,7 +41,6 @@ public class ContributorAppointmentsListController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		dashboardDAO = new DashboardDAO();
-		diffDateTime();
 	}
 	
 	public void loadDashboardData() {
@@ -93,20 +88,6 @@ public class ContributorAppointmentsListController implements Initializable {
 		);
 		
 		projectsWorkedHoursChart.getData().addAll(projectsWorkedHoursDataSet);
-	}
-	
-	private void diffDateTime() {
-		LocalDateTime d1 = LocalDateTime.of(2017, 7, 6, 23, 30, 0);
-		LocalDateTime d2 = LocalDateTime.of(2017, 7, 7, 7, 0, 55);
-		System.out.println("here");
-		Duration duration = Duration.between(d1, d2);
-		// total seconds of difference (using Math.abs to avoid negative values)
-		long seconds = Math.abs(duration.getSeconds());
-		long hours = seconds / 3600;
-		seconds -= (hours * 3600);
-		long minutes = seconds / 60;
-		seconds -= (minutes * 60);
-		System.out.println(hours + " hours " + minutes + " minutes " + seconds + " seconds");
 	}
 	
 	private void loadRunningProjects() throws DBException {

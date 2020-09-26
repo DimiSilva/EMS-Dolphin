@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import controller.Auth.LoginController;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -13,7 +12,6 @@ import model.enums.AccessTypes;
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
 import model.helpers.Utils;
-import model.interfaces.IBaseEntity;
 import model.interfaces.IBaseUser;
 import model.interfaces.IStage;
 import model.persistence.AdminDAO;

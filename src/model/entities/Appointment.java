@@ -4,12 +4,6 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
-import model.exceptions.DBException;
-
-import model.persistence.ContributorDAO;
-import model.persistence.ProjectDAO;
-
 public class Appointment extends BaseEntity {
 
 	private Date initDate;

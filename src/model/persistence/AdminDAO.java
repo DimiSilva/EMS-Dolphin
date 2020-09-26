@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import model.entities.Admin;
-import model.entities.Auth;
 import model.exceptions.DBException;
 
 public class AdminDAO extends BaseDAO<Admin> {	

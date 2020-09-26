@@ -1,39 +1,21 @@
 package controller.Admin;
 
 import java.net.URL;
-import java.time.Month;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import model.DTOs.ContributorsWorkedHoursInYearByMonth;
-import model.DTOs.ProjectsWorkedHours;
 import model.entities.Admin;
-import model.enums.Months;
-import model.enums.messages.Shared;
 import model.exceptions.DBException;
-import model.helpers.Utils;
 import model.persistence.AdminDAO;
-import model.persistence.AuthDAO;
-import model.persistence.DashboardDAO;
 import model.stages.AuthStage;
 
 public class ProfileController implements Initializable {
-	private AuthDAO authDAO;
 	private AdminDAO adminDAO;
 	
 	@FXML
@@ -61,7 +43,6 @@ public class ProfileController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		authDAO = new AuthDAO();
 		adminDAO = new AdminDAO();
 		registerButton.setOnMouseClicked(e -> updateProfile());
 		

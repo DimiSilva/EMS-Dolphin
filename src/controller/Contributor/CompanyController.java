@@ -1,8 +1,6 @@
 package controller.Contributor;
 
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -11,37 +9,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Cursor;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import model.DTOs.ContributorRunningProject;
-import model.DTOs.ContributorWorkedHoursInYearByMonth;
-import model.DTOs.ContributorsWorkedHoursInYearByMonth;
-import model.DTOs.ProjectsWorkedHours;
 import model.entities.Contributor;
-import model.enums.Months;
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
 import model.helpers.Utils;
 import model.persistence.AuthDAO;
 import model.persistence.ContributorDAO;
-import model.persistence.DashboardDAO;
-import model.stages.AuthStage;
 
-public class ContributorCompanyController implements Initializable {
+public class CompanyController implements Initializable {
 
 	private ContributorDAO contributorDAO;
 	private AuthDAO authDAO;

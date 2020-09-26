@@ -1,4 +1,4 @@
-package controller.Admin;
+package controller.Contributor;
 
 import java.net.URL;
 import java.util.List;

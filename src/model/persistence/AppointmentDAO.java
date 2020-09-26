@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.entities.Appointment;
-import model.entities.Contributor;
 import model.exceptions.DBException;
 
 public class AppointmentDAO extends BaseDAO<Appointment> {	

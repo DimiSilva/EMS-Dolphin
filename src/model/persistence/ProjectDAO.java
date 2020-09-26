@@ -8,8 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.entities.Admin;
-import model.entities.Auth;
 import model.entities.Project;
 import model.exceptions.DBException;
 

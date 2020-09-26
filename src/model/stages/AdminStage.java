@@ -13,7 +13,6 @@ import controller.Admin.ProfileController;
 import controller.Admin.ProjectFormController;
 import controller.Admin.RoleFormController;
 import controller.Admin.RolesListController;
-import controller.Master.AdminsRegisterController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;

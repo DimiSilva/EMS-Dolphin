@@ -3,12 +3,8 @@ package model.persistence;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-import model.entities.Admin;
-import model.entities.Auth;
 import model.entities.CostCenter;
-import model.exceptions.DBException;
 
 public class CostCenterDAO extends BaseDAO<CostCenter> {	
 	public CostCenterDAO() {

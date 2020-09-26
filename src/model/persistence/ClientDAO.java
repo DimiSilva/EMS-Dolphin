@@ -3,13 +3,8 @@ package model.persistence;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.ParseException;
 
-import model.entities.Admin;
-import model.entities.Auth;
 import model.entities.Client;
-import model.exceptions.DBException;
 
 public class ClientDAO extends BaseDAO<Client> {	
 	public ClientDAO() {

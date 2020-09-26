@@ -2,16 +2,12 @@ package model.entities;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import model.exceptions.DBException;
 import model.exceptions.InvalidFieldException;
 import model.interfaces.IBaseUser;
 import model.persistence.AuthDAO;
-import model.persistence.CostCenterDAO;
-import model.persistence.RoleDAO;
 
 public class Contributor extends BaseEntity implements IBaseUser {
 	private String name;

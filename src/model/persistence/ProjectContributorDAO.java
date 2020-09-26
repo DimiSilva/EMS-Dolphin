@@ -7,9 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.entities.Admin;
-import model.entities.Auth;
-import model.entities.Project;
 import model.entities.ProjectContributor;
 import model.exceptions.DBException;
 

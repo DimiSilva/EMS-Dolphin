@@ -3,14 +3,9 @@ package model.persistence;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Locale;
 
-import model.entities.Admin;
-import model.entities.Auth;
-import model.entities.CostCenter;
 import model.entities.Role;
-import model.exceptions.DBException;
 
 public class RoleDAO extends BaseDAO<Role> {	
 	public RoleDAO() {

@@ -36,7 +36,7 @@
                            </padding>
                         </HBox>
                         <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
-                           <children>
+                           <children> 
                               <TableView fx:id="table" fixedCellSize="20.0" minHeight="-Infinity" styleClass="table-list" HBox.hgrow="ALWAYS">
                                 <columns>
                                   	<TableColumn fx:id="idColumn" editable="false" styleClass="column" text="Id" />

@@ -4,28 +4,18 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import controller.MainController;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.AnchorPane;
-import model.entities.Admin;
 import model.entities.Auth;
 import model.enums.AccessTypes;
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
 import model.helpers.Utils;
-import model.interfaces.IDAO;
-import model.persistence.AdminDAO;
 import model.persistence.AuthDAO;
-import model.persistence.ContributorDAO;
 import model.stages.AuthStage;
 
 public class LoginController implements Initializable {

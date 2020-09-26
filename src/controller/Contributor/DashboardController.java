@@ -1,7 +1,6 @@
 package controller.Contributor;
 
 import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -17,7 +16,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import model.DTOs.ContributorRunningProject;
 import model.DTOs.ContributorWorkedHoursInYearByMonth;
-import model.DTOs.ContributorsWorkedHoursInYearByMonth;
 import model.DTOs.ProjectsWorkedHours;
 import model.enums.Months;
 import model.enums.messages.Shared;

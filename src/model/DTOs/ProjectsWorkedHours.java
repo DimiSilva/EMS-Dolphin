@@ -2,7 +2,6 @@ package model.DTOs;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 public class ProjectsWorkedHours {
 	public String projectName;

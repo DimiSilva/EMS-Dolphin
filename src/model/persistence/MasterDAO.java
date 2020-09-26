@@ -5,9 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import model.entities.Admin;
-import model.entities.Auth;
-import model.entities.Contributor;
 import model.entities.Master;
 import model.exceptions.DBException;
 
