@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="873.0" prefWidth="1014.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Admin.ProjectFormController">
+   <children>
+      <VBox alignment="CENTER" prefWidth="800.0" styleClass="bg-dark" HBox.hgrow="ALWAYS">
+         <children>
+            <VBox alignment="TOP_CENTER" spacing="16.0" styleClass="bg-dark" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox maxHeight="-Infinity" prefHeight="62.0" prefWidth="950.0" styleClass="ems-title-container" VBox.vgrow="ALWAYS">
+                     <children>
+                        <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="80.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <VBox prefWidth="800.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label fx:id="titlePage" text="Cadastrar projeto">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="TOP_RIGHT" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Button fx:id="backButton" mnemonicParsing="false" prefHeight="28.0" prefWidth="82.0" styleClass="ems-btn" text="Voltar" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="724.0" prefWidth="950.0" styleClass="ems-card" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox prefHeight="130.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <VBox prefHeight="10.0" prefWidth="900.0" styleClass="ems-form-control-left">
+                                 <children>
+                                    <Label text="Nome" VBox.vgrow="ALWAYS" />
+                                    <TextField fx:id="nameInput" prefHeight="26.0" prefWidth="340.0" styleClass="input" VBox.vgrow="ALWAYS" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets right="8.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox prefHeight="141.0" prefWidth="900.0" styleClass="ems-form-control-left">
+                                 <children>
+                                    <Label text="Descrição" VBox.vgrow="ALWAYS" />
+                                    <TextArea fx:id="descriptionInput" prefHeight="118.0" prefWidth="884.0" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </VBox>
+                              <HBox>
+                                 <children> 
+                                    <VBox prefHeight="30.0" prefWidth="900.0">
+                                       <children>
+                                          <Label text="Data inicial" VBox.vgrow="ALWAYS" />
+                                          <DatePicker fx:id="initDateInput" maxWidth="1.7976931348623157E308" prefHeight="76.0" prefWidth="433.0" VBox.vgrow="ALWAYS" />
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                       <padding>
+                                          <Insets right="8.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox prefHeight="30.0" prefWidth="900.0">
+                                       <children>
+                                          <Label text="Data final" VBox.vgrow="ALWAYS" />
+                                          <DatePicker fx:id="endDateInput" maxWidth="1.7976931348623157E308" prefHeight="76.0" prefWidth="433.0" VBox.vgrow="ALWAYS" />
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                       <padding>
+                                          <Insets left="8.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="8.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox>
+                                 <padding>
+                                    <Insets bottom="8.0" />
+                                 </padding>
+                                 <children>
+                                    <VBox prefHeight="30.0" prefWidth="900.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Centro de custo" VBox.vgrow="ALWAYS" />
+                                          <ComboBox fx:id="costCenterInput" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="313.0" VBox.vgrow="ALWAYS" />
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <padding>
+                                          <Insets right="8.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox prefHeight="30.0" prefWidth="900.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Cliente" VBox.vgrow="ALWAYS" />
+                                          <ComboBox fx:id="clientInput" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="313.0" VBox.vgrow="ALWAYS">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </ComboBox>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <padding>
+                                          <Insets left="8.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <HBox prefWidth="200.0">
+                                             <children>
+                                                <Label text="Adicionar participante">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <HBox prefWidth="200.0">
+                                                   <children>
+                                                      <TextField fx:id="searchParticipantInput" prefHeight="26.0" prefWidth="340.0" promptText="Busca" styleClass="input" HBox.hgrow="ALWAYS">
+                                                         <HBox.margin>
+                                                            <Insets right="16.0" />
+                                                         </HBox.margin>
+                                                      </TextField>
+                                                      <Button fx:id="searchParticipantsButton" mnemonicParsing="false" prefHeight="28.0" prefWidth="82.0" styleClass="ems-btn" text="Buscar" />
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                   <padding>
+                                                      <Insets bottom="8.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" styleClass="bg-dark" VBox.vgrow="ALWAYS">
+                                                   <content>
+                                                      <VBox fx:id="participantsToAddContainer" prefHeight="200.0" prefWidth="100.0" styleClass="bg-dark" />
+                                                   </content>
+                                                   <padding>
+                                                      <Insets bottom="8.0" left="8.0" right="8.0" />
+                                                   </padding>
+                                                </ScrollPane>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <padding>
+                                          <Insets right="4.0" top="4.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <HBox prefWidth="200.0">
+                                             <children>
+                                                <Label text="Participantes">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <padding>
+                                                <Insets bottom="8.0" />
+                                             </padding>
+                                          </HBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" styleClass="bg-dark" VBox.vgrow="ALWAYS">
+                                                   <content>
+                                                      <VBox fx:id="participantsContainer" prefHeight="200.0" prefWidth="100.0" styleClass="bg-dark" />
+                                                   </content>
+                                                   <padding>
+                                                      <Insets bottom="8.0" left="8.0" right="8.0" />
+                                                   </padding>
+                                                </ScrollPane>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="6.0" prefWidth="900.0">
+                           <children>
+                              <Button fx:id="registerButton" mnemonicParsing="false" styleClass="ems-btn" text="Cadastrar" />
+                           </children>
+                           <padding>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
+               </padding>
+            </VBox>
+         </children>
+         <stylesheets>
+            <URL value="@Style.css" />
+            <URL value="@../../Style.css" />
+         </stylesheets>
+      </VBox>
+   </children>
+</HBox>

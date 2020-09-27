@@ -1,0 +1,101 @@
+.container {
+	-fx-background-color: #343838;
+}
+
+.login-form-container {
+	-fx-background-color: #343838;
+}
+
+.input:focused {
+	-fx-border-color: #00B4CC;
+	-fx-prompt-text-fill: #00B4CC;
+}
+.label{
+	-fx-text-fill: #00B4CC;
+}
+.input {
+	-fx-background-color: transparent;
+	-fx-border-width: 0 0 1px 0;
+	-fx-border-color: #00B4CC90;
+	-fx-prompt-text-fill: #00B4CC90;
+	-fx-text-fill: #00B4CC;
+}
+.ems-card{
+	-fx-background-color: transparent;
+	-fx-border-color: #005F6B;
+	-fx-border-radius: 16px;
+	-fx-background-radius: 16px;
+	-fx-spin-enabled: 16px;
+	-fx-padding: 24px;
+}
+.ems-title-container{
+	-fx-padding: 24px 0px 24px 0px;
+}
+.ems-form-control-left{
+	-fx-padding:  0px 16px 16px 0px;
+}
+.btn-list-actions{
+	-fx-background-color: transparent;
+}
+.ems-form-control-right{
+	-fx-padding:  0px 0.0px 16px 16px;
+}
+.ems-container-card{
+	-fx-padding: 48px;
+}
+.table-list-head{
+	-fx-background-color: #005F6B;
+
+}
+.page-body-container{
+	-fx-background-color: #343838;
+}
+.bg-dark{
+		-fx-background-color: #343838;
+}
+.table-list {
+	-fx-background-color: transparent;
+	-fx-border-radius: 16px;
+}
+.column{
+	-fx-background-color: transparent;
+}
+.table-view{
+   -fx-background-color: transparent;
+}
+
+.table-view:focused{
+    -fx-background-color: transparent;
+}
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+    -fx-background-color: #005F6B;
+}
+.table-view .table-cell{
+    -fx-text-fill: white;
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, #616161;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; 
+}
+
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, #424242;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #005797;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}
+.table-row-cell:empty:odd, .table-row-cell:empty:even {
+    -fx-background-color: transparent;
+}
+.ems-anchor-card{
+	-fx-border-radius: 16px;
+}

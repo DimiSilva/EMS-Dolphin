@@ -114,7 +114,7 @@ public class AdminsRegisterController implements Initializable {
 			this.updatingUser = adminDAO.getById(String.valueOf(this.updatingUserId));
 			this.nameInput.setText(this.updatingUser.getName());
 			this.emailInput.setText(this.updatingUser.getEmail());
-			this.cpfInput.setText(this.updatingUser.getCPF());
+			this.cpfInput.setText(this.updatingUser.getCpf());
 			this.passwordContainer.setVisible(false);
 			
 			registerButton.setText("Salvar");

@@ -1,0 +1,28 @@
+.sidebar {
+	-fx-background-color: #343838;
+}
+
+.sidebar .header {
+	-fx-border-width: 0 0 1px 0;
+	-fx-border-color: #B9E0FF;
+	-fx-border-style: solid;
+}
+
+.sidebar .menu-container {
+	-fx-background-color: #343838;
+}
+
+.sidebar .menu-container .menu {
+	-fx-background-color: #343838;
+}
+
+.content-container {
+	-fx-background-color: #B9E0FF;
+}
+
+.ems-btn {
+	-fx-background-color: #005F6B;
+	-fx-text-fill: #00B4CC;
+	-fx-cursor: hand ;
+	-fx-padding: 4px 16px;
+}
