@@ -4,125 +4,153 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import controller.MainController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.XYChart;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-import model.DTOs.ContributorRunningProject;
-import model.DTOs.ContributorWorkedHoursInYearByMonth;
-import model.DTOs.ProjectsWorkedHours;
-import model.enums.Months;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Labeled;
+import javafx.scene.control.TextArea;
+import jfxtras.scene.control.LocalDateTimePicker;
+import jfxtras.scene.control.LocalDateTimeTextField;
+import model.entities.Appointment;
+import model.entities.Contributor;
+import model.entities.Project;
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
 import model.helpers.Utils;
-import model.persistence.DashboardDAO;
+import model.persistence.AppointmentDAO;
+import model.persistence.ContributorDAO;
+import model.persistence.ProjectContributorDAO;
+import model.persistence.ProjectDAO;
 import model.stages.AuthStage;
 
 public class AppointmentFormController implements Initializable {
-	@FXML
-	BarChart<String, Integer> contributorsWorkedHoursInYearByMonthChart;
-	@FXML
-	VBox runningProjectsContainer;
-	@FXML
-	BarChart<String, Integer> projectsWorkedHoursChart;
-	
-	DashboardDAO dashboardDAO;
-	
-	ContributorWorkedHoursInYearByMonth contributorWorkedHoursInMonthData;
-	List<ProjectsWorkedHours> projectsWorkedHoursData;
-	List<ContributorRunningProject> runningProjects;
 
+	AppointmentDAO appointmentDAO;
+	ProjectDAO projectDAO;
+	ProjectContributorDAO projectContributorDAO;
+	ContributorDAO contributorDAO;
+	
+	@FXML
+	private Labeled titlePage;
+	@FXML
+	private TextArea descriptionInput;
+	@FXML
+	private LocalDateTimeTextField initDateInput;
+	@FXML
+	private LocalDateTimeTextField endDateInput;
+	@FXML
+	private ComboBox<Project> projectInput;
+	@FXML
+	private Button registerButton;
+	@FXML
+	private Button backButton;
+	@FXML
+	private Integer updatingAppointmentId;
+	@FXML
+	private Appointment updatingAppointment;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		dashboardDAO = new DashboardDAO();
+		appointmentDAO = new AppointmentDAO();
+		projectDAO = new ProjectDAO();
+		projectContributorDAO = new ProjectContributorDAO();
+		contributorDAO = new ContributorDAO();
+		
+		registerButton.setOnMouseClicked(e -> register());
+		backButton.setOnMouseClicked(e -> MainController.changeScene("appointmentsList"));
+		
+		loadProjects();
 	}
 	
-	public void loadDashboardData() {
-		try {	
-			loadContributorWorkedHoursInMonthChart();
-			loadProjectsWorkedHoursChart();
-			loadRunningProjects();
+	@FXML
+	private void register() {
+		try {
+			Appointment appointment = new Appointment(
+				descriptionInput.getText(), 
+				initDateInput.getLocalDateTime(), 
+				endDateInput.getLocalDateTime(),
+				(Contributor)AuthStage.loggedUser,
+				projectInput.getValue()
+			);
+			appointmentDAO.insert(appointment);
+			
+			MainController.changeScene("appointmentsList");
+		}
+		catch(DBException e) {
+			e.printStackTrace();
+			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+		}
+	}
+	
+	
+	@FXML
+	public void update() {
+		try {
+			this.updatingAppointment.update(
+				descriptionInput.getText(), 
+				initDateInput.getLocalDateTime(), 
+				endDateInput.getLocalDateTime(),
+				(Contributor)AuthStage.loggedUser,
+				projectInput.getValue()
+			);
+			
+			appointmentDAO.update(this.updatingAppointment);
+			
+			MainController.changeScene("appointmentsList");
 		}
 		catch(DBException e) {
 			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
 		}
 	}
+	
+	public void reset() {
+		updatingAppointmentId = null;
+		updatingAppointment = null;
+		
+		descriptionInput.setText(null);
+		initDateInput.setLocalDateTime(null);
+		endDateInput.setLocalDateTime(null);
+		
+		projectInput.getItems().clear();
+		projectInput.setValue(null);
+		loadProjects();
 
-	@SuppressWarnings("unchecked")
-	private void loadContributorWorkedHoursInMonthChart() throws DBException {
-		contributorWorkedHoursInMonthData = dashboardDAO.getContributorWorkedHoursInYearByMonth(AuthStage.loggedUser.getId());
-		
-		XYChart.Series<String, Integer> contributorWorkedHoursInMonthDataSet = new XYChart.Series<String, Integer>();
-		contributorWorkedHoursInMonthDataSet.getData().add(new XYChart.Data<String, Integer>(Months.JANEIRO.getText(), contributorWorkedHoursInMonthData.jan));
-		contributorWorkedHoursInMonthDataSet.getData().add(new XYChart.Data<String, Integer>(Months.FEVEREIRO.getText(), contributorWorkedHoursInMonthData.fev));
-		contributorWorkedHoursInMonthDataSet.getData().add(new XYChart.Data<String, Integer>(Months.MARCO.getText(), contributorWorkedHoursInMonthData.mar));
-		contributorWorkedHoursInMonthDataSet.getData().add(new XYChart.Data<String, Integer>(Months.ABRIL.getText(), contributorWorkedHoursInMonthData.abr));
-		contributorWorkedHoursInMonthDataSet.getData().add(new XYChart.Data<String, Integer>(Months.MAIO.getText(), contributorWorkedHoursInMonthData.mai));
-		contributorWorkedHoursInMonthDataSet.getData().add(new XYChart.Data<String, Integer>(Months.JUNHO.getText(), contributorWorkedHoursInMonthData.jun));
-		contributorWorkedHoursInMonthDataSet.getData().add(new XYChart.Data<String, Integer>(Months.JULHO.getText(), contributorWorkedHoursInMonthData.jul));
-		contributorWorkedHoursInMonthDataSet.getData().add(new XYChart.Data<String, Integer>(Months.AGOSTO.getText(), contributorWorkedHoursInMonthData.ago));
-		contributorWorkedHoursInMonthDataSet.getData().add(new XYChart.Data<String, Integer>(Months.SETEMBRO.getText(), contributorWorkedHoursInMonthData.set));
-		contributorWorkedHoursInMonthDataSet.getData().add(new XYChart.Data<String, Integer>(Months.OUTUBRO.getText(), contributorWorkedHoursInMonthData.out));
-		contributorWorkedHoursInMonthDataSet.getData().add(new XYChart.Data<String, Integer>(Months.NOVEMBRO.getText(), contributorWorkedHoursInMonthData.nov));
-		contributorWorkedHoursInMonthDataSet.getData().add(new XYChart.Data<String, Integer>(Months.DEZEMBRO.getText(), contributorWorkedHoursInMonthData.dez));
-		
-		contributorsWorkedHoursInYearByMonthChart.getData().addAll(contributorWorkedHoursInMonthDataSet);
+		registerButton.setText("Cadastrar");
+		registerButton.setOnMouseClicked(e -> register());
+		titlePage.setText("Cadastrar projeto");
 	}
 	
-	@SuppressWarnings("unchecked")
-	private void loadProjectsWorkedHoursChart() throws DBException {
-		projectsWorkedHoursData = dashboardDAO.getContributorWorkedHoursByProject(AuthStage.loggedUser.getId());
+	public void loadUpdatingAppointment(int updatingAppointmentId) {
+		this.updatingAppointmentId = updatingAppointmentId;
 		
-		XYChart.Series<String, Integer> projectsWorkedHoursDataSet = new XYChart.Series<String, Integer>();
-		projectsWorkedHoursData.forEach(
-			item -> projectsWorkedHoursDataSet
-				.getData()
-				.add(new XYChart.Data<String, Integer>(item.projectName, item.hours)
-			)
-		);
-		
-		projectsWorkedHoursChart.getData().addAll(projectsWorkedHoursDataSet);
+		try {
+			this.updatingAppointment = appointmentDAO.getById(String.valueOf(this.updatingAppointmentId));
+			this.descriptionInput.setText(this.updatingAppointment.getDescription());
+			this.initDateInput.setLocalDateTime(this.updatingAppointment.getInitDate());
+			this.endDateInput.setLocalDateTime(this.updatingAppointment.getEndDate());
+			this.projectInput.setValue(this.updatingAppointment.getProject());
+			
+			registerButton.setText("Salvar");
+			registerButton.setOnMouseClicked(e -> update());
+			titlePage.setText("Editar apontamento");
+		}
+		catch(DBException e){
+			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+		}
 	}
 	
-	private void loadRunningProjects() throws DBException {
-		runningProjects = dashboardDAO.getContributorRunningProjects(AuthStage.loggedUser.getId());
-
-		runningProjects.forEach(item -> {
-				Label projectName = new Label(item.projectName);
-				projectName.getStyleClass().add("text-white");
-				HBox projectNameContainer = new HBox(projectName);
-				projectNameContainer.setAlignment(Pos.CENTER);
-				HBox.setHgrow(projectNameContainer, Priority.ALWAYS);
-				
-				Label initDate = new Label(item.initDate.toString());
-				initDate.getStyleClass().add("text-white");
-				HBox initDateContainer = new HBox(initDate);
-				initDateContainer.setAlignment(Pos.CENTER);
-				HBox.setHgrow(initDateContainer, Priority.ALWAYS);
-				
-				Label endDate = new Label(item.endDate.toString());
-				endDate.getStyleClass().add("text-white");
-				HBox endDateContainer = new HBox(endDate);
-				endDateContainer.setAlignment(Pos.CENTER);
-				HBox.setHgrow(endDateContainer, Priority.ALWAYS);
-				
-				HBox row = new HBox();
-				row.getStyleClass().add("list-line");
-				row.setPadding(new Insets(4, 4, 4, 4));
-				HBox.setMargin(row, new Insets(0, 0, 8, 0));
-				
-				row.getChildren().add(projectNameContainer);
-				row.getChildren().add(initDateContainer);
-				row.getChildren().add(endDateContainer);
-				
-				runningProjectsContainer.getChildren().add(row);
-			}
-		);
+	private void loadProjects() {
+		try {
+			if(AuthStage.loggedUser == null) return;
+			List<Project> projects = projectDAO.getAllOfContributorPaticipating(String.valueOf(AuthStage.loggedUser.getId()));
+			projects.forEach(item -> projectInput.getItems().add(item));
+		}
+		catch (DBException e) {
+			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+			e.printStackTrace();
+			MainController.changeScene("projectsList");
+		}
 	}
 }

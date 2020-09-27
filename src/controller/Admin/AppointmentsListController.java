@@ -4,16 +4,22 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import controller.MainController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import model.entities.Appointment;
+import model.entities.Contributor;
 import model.enums.messages.Shared;
 import model.exceptions.DBException;
 import model.helpers.Utils;
@@ -48,7 +54,7 @@ public class AppointmentsListController implements Initializable {
 	private TableColumn<Appointment, String> endDateColumn;
 
 	@FXML
-	private Text currentPageText;
+	private Text currentPageText; 
 	@FXML
 	private Text pagesText;
 	@FXML
@@ -80,7 +86,6 @@ public class AppointmentsListController implements Initializable {
 		this.fetchAppoitments();
 	}  
 	
-	
 	public void fetchAppoitments() {
 		try {
 			List<Appointment> appointments = appointmentDAO.getPaged(this.currentPage, this.perPage);
@@ -88,15 +93,14 @@ public class AppointmentsListController implements Initializable {
 			
 			tableItems = FXCollections.observableArrayList(appointments);
 			idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-			hoursColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+			hoursColumn.setCellValueFactory(new PropertyValueFactory<>("totalHours"));
 			activityColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
 			clientColumn.setCellValueFactory(new PropertyValueFactory<>("clientName"));
 			projectColumn.setCellValueFactory(new PropertyValueFactory<>("projectName"));
 			contributorColumn.setCellValueFactory(new PropertyValueFactory<>("contributorName"));
 			initDateColumn.setCellValueFactory(new PropertyValueFactory<>("initDate"));
 			endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-			
-				
+		
 			table.setItems(tableItems);
 			
 			this.totalPages = (int)Math.ceil((float)totalItems / this.perPage);

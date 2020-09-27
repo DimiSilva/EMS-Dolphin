@@ -3,7 +3,10 @@ package model.stages;
 import java.io.IOException;
 
 import controller.MainController;
+import controller.Contributor.AppointmentFormController;
+import controller.Contributor.AppointmentsListController;
 import controller.Contributor.DashboardController;
+import controller.Contributor.ProfileController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -126,72 +129,58 @@ public class ContributorStage implements IStage {
 	
 	public void loadScene(String sceneName) {
 		switch (sceneName) {
-		case "profile":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-			baseLayoutView.getChildren().add(profileView);
-			stage.show();
-			break;
-		case "dashboard":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-			baseLayoutView.getChildren().add(dashboardView);
-			stage.show();
-			break;
-		case "appointmentsList":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-			baseLayoutView.getChildren().add(appointmentsListView);
-			stage.show();
-			break;
-		case "appointmentForm":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-			baseLayoutView.getChildren().add(appointmentFormView);
-			stage.show();
-			break;
-		case "company":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-			baseLayoutView.getChildren().add(companyView);
-			stage.show();
-			break;
+			case "profile":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+				baseLayoutView.getChildren().add(profileView);
+				ProfileController profileController = profile.getController();
+				profileController.loadProfile();
+				stage.show();
+				break;
+			case "dashboard":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+				baseLayoutView.getChildren().add(dashboardView);
+				DashboardController dashboardController = dashboard.getController();
+				dashboardController.loadDashboardData();
+				stage.show();
+				break;
+			case "appointmentsList":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+				baseLayoutView.getChildren().add(appointmentsListView);
+				AppointmentsListController appointmentsListController = appointmentsList.getController();
+				appointmentsListController.fetchAppoitments();
+				stage.show();
+				break;
+			case "appointmentForm":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+				baseLayoutView.getChildren().add(appointmentFormView);
+				AppointmentFormController appointmentFormController = appointmentForm.getController();
+				appointmentFormController.reset();
+				stage.show();
+				break;
+			case "company":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+				baseLayoutView.getChildren().add(companyView);
+				stage.show();
+				break;
 		}
-
 	}
 	
 	public void loadScene(String sceneName, int id) {
 		switch (sceneName) {
-		case "profile":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-			baseLayoutView.getChildren().add(profileView);
-			stage.show();
-			break;
-		case "dashboard":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-			baseLayoutView.getChildren().add(dashboardView);
-			stage.show();
-			break;
-		case "appointmentsList":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-			baseLayoutView.getChildren().add(appointmentsListView);
-			stage.show();
-			break;
-		case "appointmentForm":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-			baseLayoutView.getChildren().add(appointmentFormView);
-			stage.show();
-			break;
-		case "company":
-			if(baseLayoutView.getChildren().toArray().length == 2)
-				baseLayoutView.getChildren().remove(1);
-			baseLayoutView.getChildren().add(companyView);
-			stage.show();
-			break;
+			case "appointmentForm":
+				if(baseLayoutView.getChildren().toArray().length == 2)
+					baseLayoutView.getChildren().remove(1);
+				baseLayoutView.getChildren().add(appointmentFormView);
+				AppointmentFormController appointmentFormController = appointmentForm.getController();
+				appointmentFormController.reset();
+				appointmentFormController.loadUpdatingAppointment(id);
+				stage.show();
+				break;
 		}
 	}
 }

@@ -109,4 +109,9 @@ public class Project extends BaseEntity {
 	public Date getEndDate() {
 		return endDate;
 	}
+	
+	@Override
+	public String toString() {
+		return this.name;
+	}
 }

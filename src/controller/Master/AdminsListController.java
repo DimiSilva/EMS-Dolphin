@@ -92,6 +92,7 @@ public class AdminsListController implements Initializable {
 		if(page != null && page > 0 && page < this.totalPages) this.currentPage = page;
 		this.fetchAdmins();
 	} 
+	
 	public void deleteUser(int id, int authId, String name) {	
 		if(Utils.showConfirmAlert("Atenção", "Deseja mesmo apagar o usuário " + name , "Apagar", "Cancelar") == true) {
 			try {
@@ -103,9 +104,7 @@ public class AdminsListController implements Initializable {
 				Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
 			}
 		}
-
 	} 
-	
 	
 	public void fetchAdmins() {
 		try {

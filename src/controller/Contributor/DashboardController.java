@@ -56,6 +56,7 @@ public class DashboardController implements Initializable {
 
 	@SuppressWarnings("unchecked")
 	private void loadContributorWorkedHoursInMonthChart() throws DBException {
+		if(AuthStage.loggedUser == null) return;
 		contributorWorkedHoursInMonthData = dashboardDAO.getContributorWorkedHoursInYearByMonth(AuthStage.loggedUser.getId());
 		
 		XYChart.Series<String, Integer> contributorWorkedHoursInMonthDataSet = new XYChart.Series<String, Integer>();
@@ -72,11 +73,13 @@ public class DashboardController implements Initializable {
 		contributorWorkedHoursInMonthDataSet.getData().add(new XYChart.Data<String, Integer>(Months.NOVEMBRO.getText(), contributorWorkedHoursInMonthData.nov));
 		contributorWorkedHoursInMonthDataSet.getData().add(new XYChart.Data<String, Integer>(Months.DEZEMBRO.getText(), contributorWorkedHoursInMonthData.dez));
 		
+		contributorsWorkedHoursInYearByMonthChart.getData().clear();
 		contributorsWorkedHoursInYearByMonthChart.getData().addAll(contributorWorkedHoursInMonthDataSet);
 	}
 	
 	@SuppressWarnings("unchecked")
 	private void loadProjectsWorkedHoursChart() throws DBException {
+		if(AuthStage.loggedUser == null) return;
 		projectsWorkedHoursData = dashboardDAO.getContributorWorkedHoursByProject(AuthStage.loggedUser.getId());
 		
 		XYChart.Series<String, Integer> projectsWorkedHoursDataSet = new XYChart.Series<String, Integer>();
@@ -87,12 +90,15 @@ public class DashboardController implements Initializable {
 			)
 		);
 		
+		projectsWorkedHoursChart.getData().clear();
 		projectsWorkedHoursChart.getData().addAll(projectsWorkedHoursDataSet);
 	}
 	
 	private void loadRunningProjects() throws DBException {
+		if(AuthStage.loggedUser == null) return;
 		runningProjects = dashboardDAO.getContributorRunningProjects(AuthStage.loggedUser.getId());
-
+		runningProjectsContainer.getChildren().clear();
+		
 		runningProjects.forEach(item -> {
 				Label projectName = new Label(item.projectName);
 				projectName.getStyleClass().add("text-white");

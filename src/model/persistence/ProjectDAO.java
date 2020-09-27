@@ -105,6 +105,52 @@ public class ProjectDAO extends BaseDAO<Project> {
 		}
 	}
 	
+	public List<Project> getAllOfContributorPaticipating(String contributorId) throws DBException {
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery(
+					String.format(
+							"SELECT pc.*, "
+							+ "p.*, "
+							+ "cc.id as cost_center_id, "
+							+ "cc.name as cost_center_name, "
+							+ "cc.description as cost_center_description, "
+							+ "cc.create_date as cost_center_create_date, "
+							+ "cc.update_date as cost_center_update_date, "
+							+ "c.id as client_id, "
+							+ "c.name as client_name, "
+							+ "c.phone as client_phone, "
+							+ "c.email as client_email, "
+							+ "c.cnpj as client_cnpj, "
+							+ "c.create_date as client_create_date, "
+							+ "c.update_date as client_update_date "
+							+ "FROM project_contributor pc "
+							+ "INNER JOIN project p "
+							+ "ON p.id = pc.project_id "
+							+ "INNER JOIN cost_center cc "
+							+ "ON cc.id = p.cost_center_id "
+							+ "INNER JOIN client c "
+							+ "ON c.id = p.client_id "
+							+ "WHERE pc.contributor_id = '%s' AND p.init_date <= CURDATE() AND p.end_date > CURDATE()"
+								, contributorId
+						)
+					);
+
+			List<Project> list = new ArrayList<Project>();
+			
+			while(result.next()) { list.add(entityFromDBSet(result)); }
+			
+			result.close();
+			statement.close();
+			
+			return list;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException();
+		}
+	}
+	
 	@Override
 	public Project getById(String id) throws DBException {
 		try {

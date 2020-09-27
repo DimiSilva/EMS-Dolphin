@@ -4,6 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySQL-Connector"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MysqlConnector"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JFXtras"/>
 	<classpathentry kind="src" path="client/src"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySQL Connector"/>

@@ -18,23 +18,32 @@ import model.helpers.Utils;
 import model.persistence.DashboardDAO;
 
 public class DashboardController implements Initializable {
+	
+	DashboardDAO dashboardDAO;
+	
 	@FXML
 	BarChart<String, Integer> contributorsWorkedHoursInYearByMonthChart;
 	@FXML
 	BarChart<String, Integer> projectsWorkedHoursChart;
 	
-	DashboardDAO dashboardDAO;
-	
 	List<ContributorsWorkedHoursInYearByMonth> contributorsWorkedHoursInMonthData;
 	List<ProjectsWorkedHours> projectsWorkedHoursData;
 	
-	@SuppressWarnings("unchecked")
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		try {	
-			dashboardDAO = new DashboardDAO();
+	public void initialize(URL location, ResourceBundle resources) {	
+		dashboardDAO = new DashboardDAO();
+		loadDashboardData();
+	}
+	
+	public void loadDashboardData() {
+		loadContributorsWorkedHoursInMonthChart();
+		loadProjectsWorkedHoursChart();
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void loadContributorsWorkedHoursInMonthChart() {
+		try {
 			contributorsWorkedHoursInMonthData = dashboardDAO.getAllContributorsWorkedHoursInYearByMonth();
-			projectsWorkedHoursData = dashboardDAO.getAllProjectsWorkedHours();
 			
 			XYChart.Series<String, Integer> contributorsWorkedHoursInMonthDataSet = new XYChart.Series<String, Integer>();
 			Arrays.asList(Months.values()).forEach(
@@ -53,6 +62,19 @@ public class DashboardController implements Initializable {
 				}
 			);
 			
+			contributorsWorkedHoursInYearByMonthChart.getData().clear();
+			contributorsWorkedHoursInYearByMonthChart.getData().addAll(contributorsWorkedHoursInMonthDataSet);
+		}
+		catch(DBException e) {
+			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void loadProjectsWorkedHoursChart() {
+		try {
+			projectsWorkedHoursData = dashboardDAO.getAllProjectsWorkedHours();
+		
 			XYChart.Series<String, Integer> projectsWorkedHoursDataSet = new XYChart.Series<String, Integer>();
 			projectsWorkedHoursData.forEach(
 				item -> projectsWorkedHoursDataSet
@@ -60,8 +82,7 @@ public class DashboardController implements Initializable {
 					.add(new XYChart.Data<String, Integer>(item.projectName, item.hours))
 			);
 			
-			
-			contributorsWorkedHoursInYearByMonthChart.getData().addAll(contributorsWorkedHoursInMonthDataSet);
+			projectsWorkedHoursChart.getData().clear();
 			projectsWorkedHoursChart.getData().addAll(projectsWorkedHoursDataSet);
 		}
 		catch(DBException e) {

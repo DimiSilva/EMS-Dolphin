@@ -3,16 +3,18 @@ package model.entities;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class Appointment extends BaseEntity {
 
-	private Date initDate;
-	private Date endDate;
+	private LocalDateTime initDate;
+	private LocalDateTime endDate;
 	private String description;
 	private Contributor contributor;
 	private Project project;
 	
-	public Appointment(String description, Date initDate, Date endDate, Contributor contributor, Project project) {
+	public Appointment(String description, LocalDateTime initDate, LocalDateTime endDate, Contributor contributor, Project project) {
 		this.description = description;
 		this.initDate = initDate;
 		this.endDate = endDate;
@@ -20,7 +22,7 @@ public class Appointment extends BaseEntity {
 		this.project = project;
 	}
 	
-	public Appointment(Integer id, String description, Date initDate, Date endDate, Contributor contributor, Project project, Date createDate, Date updateDate) {
+	public Appointment(Integer id, String description, LocalDateTime initDate, LocalDateTime endDate, Contributor contributor, Project project, Date createDate, Date updateDate) {
 		this.id = id;
 		this.description = description;
 		this.initDate = initDate;
@@ -34,8 +36,8 @@ public class Appointment extends BaseEntity {
 	public static Appointment fromDBSet(ResultSet DBSet) throws SQLException {
 		int id = DBSet.getInt("id");
 		String description = DBSet.getString("description");
-		Date initDate = DBSet.getDate("init_date");
-		Date endDate = DBSet.getDate("end_date");
+		LocalDateTime initDate = DBSet.getTimestamp("init_date").toLocalDateTime();
+		LocalDateTime endDate = DBSet.getTimestamp("end_date").toLocalDateTime();
 		CostCenter projectCostCenter = new CostCenter(
 			DBSet.getInt("project_cost_center_id"),
 			DBSet.getString("project_cost_center_name"),
@@ -87,7 +89,13 @@ public class Appointment extends BaseEntity {
 		return new Appointment(id, description,  initDate, endDate, contributor, project, createDate, updateDate);
 	}	
 	
-	
+	public void update(String description, LocalDateTime initDate, LocalDateTime endDate, Contributor contributor, Project project) {
+		this.description = description;
+		this.initDate = initDate;
+		this.endDate = endDate;
+		this.contributor = contributor;
+		this.project = project;
+	}
 	
 	public Integer getId() {
 		return	this.id;
@@ -97,11 +105,11 @@ public class Appointment extends BaseEntity {
 		return this.description;
 	}
 	
-	public Date getInitDate() {
+	public LocalDateTime getInitDate() {
 		return this.initDate;
 	}
 	
-	public Date getEndDate() {
+	public LocalDateTime getEndDate() {
 		return this.endDate;
 	}
 	
@@ -123,5 +131,9 @@ public class Appointment extends BaseEntity {
 	
 	public String getContributorName() {
 		return this.contributor.getName();
+	}
+	
+	public Long getTotalHours() {
+		return ChronoUnit.HOURS.between(initDate, endDate);
 	}
 }
