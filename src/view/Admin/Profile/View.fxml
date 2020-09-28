@@ -34,7 +34,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="219.0" prefWidth="950.0" styleClass="ems-card" VBox.vgrow="ALWAYS">
+                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="254.0" prefWidth="950.0" styleClass="ems-card" VBox.vgrow="ALWAYS">
                      <children>
                         <HBox prefHeight="576.0" prefWidth="766.0" VBox.vgrow="ALWAYS">
                            <children>
@@ -96,11 +96,22 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_CENTER" prefHeight="846.0" prefWidth="766.0" VBox.vgrow="ALWAYS">
+                        <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
                            <children>
+                              <Label fx:id="messageError" style="-fx-text-fill: #c62525;" textFill="#c62525">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="16.0" top="16.0" />
+                                 </padding>
+                              </Label>
                               <Button fx:id="registerButton" mnemonicParsing="false" styleClass="ems-btn" text="Salvar" />
                            </children>
-                        </HBox>
+                        </VBox>
                      </children>
                      <padding>
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />

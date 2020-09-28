@@ -46,8 +46,8 @@ public class LoginController implements Initializable {
 	@FXML
 	private void login() {
 //		emailInput.setText("contributor2@contributor.com");
-//		emailInput.setText("admin@admin.com"); 
-//		passwordInput.setText("123456");
+		emailInput.setText("contributor1@contributor.com"); 
+		passwordInput.setText("123456");
 		String validationResult = loginValidators();
 		if(validationResult != null) {
 			messageError.setText(validationResult);
@@ -58,7 +58,7 @@ public class LoginController implements Initializable {
 			Auth userAuth = authDAO.getByIdentifier(emailInput.getText());
 
 			if(userAuth == null || passwordInput.getText().compareTo(userAuth.getPassword()) != 0){
-				messageError.setText("Credenciais inv·lidas!");
+				messageError.setText("Credenciais inv√°lidas!");
 				return;
 			}
 			
@@ -85,10 +85,10 @@ public class LoginController implements Initializable {
 		String email = emailInput.getText();
 		String password = passwordInput.getText();
 		if(email == null || email.length() < 3 || !email.contains("@"))
-			return "Email inv·lido!";
+			return "Email inv√°lido!";
 		
 		if(password == null || password.length() < 6)
-			return "Senha inv·lida!";
+			return "Senha inv√°lida!";
 			
 		return null;
 	}

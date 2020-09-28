@@ -38,7 +38,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="200.0" styleClass="ems-card" VBox.vgrow="ALWAYS">
+                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="246.0" prefWidth="950.0" styleClass="ems-card" VBox.vgrow="ALWAYS">
                      <children>
                         <HBox prefHeight="576.0" prefWidth="766.0" VBox.vgrow="ALWAYS">
                            <children>
@@ -84,7 +84,7 @@
                                           <Insets right="8.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox  fx:id="passwordContainer" prefHeight="63.0" prefWidth="281.0" styleClass="ems-form-control-right" VBox.vgrow="ALWAYS">
+                                    <VBox fx:id="passwordContainer" prefHeight="63.0" prefWidth="281.0" styleClass="ems-form-control-right" VBox.vgrow="ALWAYS">
                                        <children>
                                           <Label text="Senha" VBox.vgrow="ALWAYS" />
                                           <PasswordField fx:id="passwordInput" styleClass="input" />
@@ -100,11 +100,23 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_CENTER" prefHeight="846.0" prefWidth="766.0" VBox.vgrow="ALWAYS">
+                        <VBox alignment="CENTER">
                            <children>
-                              <Button fx:id="registerButton" mnemonicParsing="false" styleClass="ems-btn" text="Cadastrar" />
+                              <Label fx:id="messageError" style="-fx-text-fill: #c62525;" styleClass="error-message" textFill="#c62525">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="16.0" top="16.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="registerButton" mnemonicParsing="false" styleClass="ems-btn" text="Cadastrar">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Button>
                            </children>
-                        </HBox>
+                        </VBox>
                      </children>
                      <padding>
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />

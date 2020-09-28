@@ -32,7 +32,7 @@ public class AppointmentDAO extends BaseDAO<Appointment> {
 							, object.getInitDate()
 							, object.getEndDate()
 							, object.getContributor().getId()
-							, object.getProject().getId()						
+							, object.getProject().getId()
 					);
 	}
 

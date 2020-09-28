@@ -70,6 +70,9 @@ public class ContributorFormController implements Initializable {
 	@FXML
 	private ComboBox<CostCenter> costCenterInput;	
 	
+	@FXML
+	private Labeled messageError;
+	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -103,27 +106,31 @@ public class ContributorFormController implements Initializable {
 
 	@FXML
 	public void register() {
-		try {
-			Auth auth = new Auth(emailInput.getText(), passwordInput.getText(), AccessTypes.CONTRIBUTOR.getText());
-			int id = authDAO.insert(auth);
+		if(this.validateForm("register") == true) {
+			try {
+				Auth auth = new Auth(emailInput.getText(), passwordInput.getText(), AccessTypes.CONTRIBUTOR.getText());
+				int id = authDAO.insert(auth);
 			
-			Contributor contributor = new Contributor(id, nameInput.getText(), phoneInput.getText(), emailInput.getText(), cpfInput.getText(), addressInput.getText(), 
+				Contributor contributor = new Contributor(id, nameInput.getText(), phoneInput.getText(), emailInput.getText(), cpfInput.getText(), addressInput.getText(), 
 					Date.valueOf(birthdateInput.getValue()), 
 					roleInput.getValue(), costCenterInput.getValue());
 			
-			contributorDAO.insert(contributor);
+				contributorDAO.insert(contributor);
 			
-			MainController.changeScene("clientsList");
-		}
-		catch(DBException e) {
-			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+				MainController.changeScene("clientsList");
+			}
+			catch(DBException e) {
+				Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+			}
 		}
 	}
 	
 	@FXML
 	public void update() {
-		try {
-			this.updatingContributor.update(
+		
+		if(this.validateForm("update") == true) {
+			try {
+				this.updatingContributor.update(
 					this.updatingContributor.getAuthId(), 
 					this.nameInput.getText(), 
 					this.emailInput.getText(), 
@@ -135,14 +142,15 @@ public class ContributorFormController implements Initializable {
 					this.costCenterInput.getValue()
 				);
 			
-			contributorDAO.update(this.updatingContributor);			
-			MainController.changeScene("contributorsList");
-		}
-		catch(DBException e) {
-			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
-		}
-		catch(InvalidFieldException e) {
-			Utils.showErrorAlert("Erro!", e.message, null);
+				contributorDAO.update(this.updatingContributor);			
+				MainController.changeScene("contributorsList");
+			}
+			catch(DBException e) {
+				Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+			}
+			catch(InvalidFieldException e) {
+				Utils.showErrorAlert("Erro!", e.message, null);
+			}
 		}
 	}
 
@@ -150,6 +158,95 @@ public class ContributorFormController implements Initializable {
 		/*this.updatingClientrId = updatingClientrId;*/
 	}
 	
+	public boolean validateForm(String type) {
+		
+		if(type == "register") {
+			if(
+				this.nameInput.getText() != null && 
+				this.cpfInput.getText() != null && 
+				this.phoneInput.getText() != null &&
+				this.addressInput.getText() != null &&
+				this.passwordInput.getText() != null && 
+				this.emailInput.getText() != null &&
+				this.birthdateInput.getValue() != null &&
+				this.roleInput.getValue() != null &&
+				this.costCenterInput.getValue() != null
+			){
+				if(
+					this.nameInput.getText().length() > 0 && 
+					this.cpfInput.getText().length() > 0 && 
+					this.passwordInput.getText().length() > 0 && 
+					this.addressInput.getText().length() > 0 && 
+					this.phoneInput.getText().length() > 0 && 
+					this.emailInput.getText().length() > 0
+				){
+				
+					if(this.cpfInput.getText().length() != 11) {
+						this.messageError.setText("CPF inválido!");
+						return false;
+					}
+					if(this.phoneInput.getText().length() < 10) {
+						this.messageError.setText("Telefone inválido!");
+						return false;
+					}
+					
+					if(this.passwordInput.getText().length() < 6) {
+						this.messageError.setText("A senha deve ter no mínimo 6 caracteres!");
+						return false;
+					}
+
+					this.messageError.setText("");
+					return true;
+					
+				}else {
+					this.messageError.setText("Preencha todos os campos!");
+					return false;
+				}
+			}else {
+				this.messageError.setText("Preencha todos os campos!");
+				return false;			
+			}
+		}else {
+			if(
+				this.nameInput.getText() != null && 
+				this.cpfInput.getText() != null && 
+				this.emailInput.getText() != null
+			){
+				if(
+					this.nameInput.getText().length() > 0 && 
+					this.cpfInput.getText().length() > 0 && 
+					this.emailInput.getText().length() > 0
+				){
+					if(this.phoneInput.getText().length() < 10) {
+						this.messageError.setText("Telefone inválido!");
+						return false;
+					}
+					if(this.passwordInput.getText() != null) {
+						if(this.passwordInput.getText().length() < 6) {
+							this.messageError.setText("A senha deve ter no mínimo 6 caracteres!");
+							return false;
+						}
+					}
+					
+					if(this.cpfInput.getText().length() != 11) {
+						this.messageError.setText("CPF inválido!");
+						return false;
+					}
+
+					this.messageError.setText("");
+					return true;
+						
+				}else {
+						this.messageError.setText("Preencha todos os campos!");
+					return false;
+				}
+			}else {
+				this.messageError.setText("Preencha todos os campos!");
+				return false;			
+			}
+		}
+	}
+
 	public void reset() {
 		this.updatingContributor = null;
 		this.nameInput.setText(null);
@@ -165,6 +262,7 @@ public class ContributorFormController implements Initializable {
 		registerButton.setText("Cadastrar");
 		registerButton.setOnMouseClicked(e -> register());
 		titlePage.setText("Cadastrar Cliente");
+		this.messageError.setText("");
 	}
 	public void loadUpdatingContributorById(int updatingContributorId) {
 		this.updatingContributorId = updatingContributorId;

@@ -9,18 +9,22 @@
 	-fx-text-fill: #00B4CC;
 }
 
+
 .table-row-cell:empty {
    	-fx-background-color: white;
 }
  
 .table-row-cell:empty .table-cell {
 	-fx-border-width: 0px;
-} 
+}
 
 .dark-background {
-	-fx-background-color: #005F6B;
+	-fx-background-color: #343838;
 }
 
 .text-white {
 	-fx-text-fill: white; 
+}
+-error-message{
+	-fx-text-fill: #c62525 !important;
 }

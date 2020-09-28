@@ -28,7 +28,7 @@ public class AdminDAO extends BaseDAO<Admin> {
 							, tableName
 							, object.getName()
 							, object.getEmail()
-							, object.getCpf()
+							, object.getCPF()
 							, object.getAuthId()
 					);
 	}

@@ -99,3 +99,6 @@
 .ems-anchor-card{
 	-fx-border-radius: 16px;
 }
+-error-message{
+	-fx-text-fill: #c62525;
+}

@@ -72,7 +72,7 @@ public class Admin extends BaseEntity implements IBaseUser {
 		return this.email;
 	}
 	
-	public String getCpf() {
+	public String getCPF() {
 		return this.cpf;
 	}
 	

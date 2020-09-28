@@ -40,6 +40,8 @@ public class ProfileController implements Initializable {
 	private Admin updatingUser;
 	@FXML
 	private Admin loggedUser;
+	@FXML
+	private Labeled messageError;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -49,30 +51,70 @@ public class ProfileController implements Initializable {
 	}
 	
 	public void loadProfile() {
+		this.messageError.setText("");
 		this.loggedUser = (Admin) AuthStage.loggedUser;
 		
 		if(this.loggedUser != null) {
 			System.out.println("12");
 			nameInput.setText(this.loggedUser.getName());
-			cpfInput.setText(this.loggedUser.getCpf());
+			cpfInput.setText(this.loggedUser.getCPF());
 			emailInput.setText(this.loggedUser.getEmail());
 		}
 	}
 	public void updateProfile() {
 		AuthStage authStage = new AuthStage();
-		try {
-			adminDAO.update(new Admin(
-					this.loggedUser.getId(),
-					this.nameInput.getText(),
-					this.emailInput.getText(),
-					this.cpfInput.getText(),
-					this.loggedUser.getAuthId()
-					));
-		} catch (DBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		if(this.validateForm() == true) {
+			try {
+				adminDAO.update(new Admin(
+						this.loggedUser.getId(),
+						this.nameInput.getText(),
+						this.emailInput.getText(),
+						this.cpfInput.getText(),
+						this.loggedUser.getAuthId()
+						));
+			} catch (DBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			authStage.updateLoggedUser(this.loggedUser.getAuth());
 		}
-		authStage.updateLoggedUser(this.loggedUser.getAuth());
-		//adminDAO.update();
+
+	}
+	public boolean validateForm() {
+		
+			if(
+				this.nameInput.getText() != null && 
+				this.cpfInput.getText() != null && 
+				this.emailInput.getText() != null
+			){
+				if(
+					this.nameInput.getText().length() > 0 && 
+					this.cpfInput.getText().length() > 0 && 
+					this.emailInput.getText().length() > 0
+				){
+				
+					if(this.cpfInput.getText().length() != 11) {
+						this.messageError.setText("CPF inválido!");
+						return false;
+					}
+					if(this.passwordInput.getText() != null) {
+						if(this.passwordInput.getText().length() == 6) {
+							this.messageError.setText("A senha deve ter no mínimo 6 caracteres!");
+							return false;
+						}
+					}
+				
+					this.messageError.setText("");
+					return true;
+					
+				}else {
+					this.messageError.setText("Preencha todos os campos!");
+					return false;
+				}
+			}else {
+				this.messageError.setText("Preencha todos os campos!");
+				return false;			
+			}
 	}
 }

@@ -78,7 +78,7 @@ public class RolesListController implements Initializable {
 	}
 	
 	public void goToRegister() {
-		MainController.changeScene("costCenterForm");
+		MainController.changeScene("roleForm");
 	} 
 	
 	public void updateTableData(Integer page) {
