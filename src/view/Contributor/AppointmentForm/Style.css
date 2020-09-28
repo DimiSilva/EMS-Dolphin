@@ -114,3 +114,15 @@
 .ems-anchor-card{
 	-fx-border-radius: 16px;
 }
+.combo-box {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 1px 0;
+	-fx-border-color: #00B4CC90;
+	-fx-prompt-text-fill: #00B4CC90;
+	-fx-text-fill: #00B4CC;
+}
+.combo-box .list-cell 
+{
+    -fx-background-color: transparent;
+    -fx-text-fill: #00B4CC;
+}

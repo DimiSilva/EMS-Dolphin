@@ -50,6 +50,8 @@ public class AppointmentFormController implements Initializable {
 	private Integer updatingAppointmentId;
 	@FXML
 	private Appointment updatingAppointment;
+	@FXML
+	private Labeled messageError;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -66,45 +68,75 @@ public class AppointmentFormController implements Initializable {
 	
 	@FXML
 	private void register() {
-		try {
-			Appointment appointment = new Appointment(
-				descriptionInput.getText(), 
-				initDateInput.getLocalDateTime(), 
-				endDateInput.getLocalDateTime(),
-				(Contributor)AuthStage.loggedUser,
-				projectInput.getValue()
-			);
-			appointmentDAO.insert(appointment);
-			
-			MainController.changeScene("appointmentsList");
-		}
-		catch(DBException e) {
-			e.printStackTrace();
-			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+		if(this.validateForm() == true) {
+			try {
+				Appointment appointment = new Appointment(
+					descriptionInput.getText(), 
+					initDateInput.getLocalDateTime(), 
+					endDateInput.getLocalDateTime(),
+					(Contributor)AuthStage.loggedUser,
+					projectInput.getValue()
+				);
+				appointmentDAO.insert(appointment);
+				
+				MainController.changeScene("appointmentsList");
+			}
+			catch(DBException e) {
+				e.printStackTrace();
+				Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+			}
 		}
 	}
 	
 	
 	@FXML
 	public void update() {
-		try {
-			this.updatingAppointment.update(
-				descriptionInput.getText(), 
-				initDateInput.getLocalDateTime(), 
-				endDateInput.getLocalDateTime(),
-				(Contributor)AuthStage.loggedUser,
-				projectInput.getValue()
-			);
-			
-			appointmentDAO.update(this.updatingAppointment);
-			
-			MainController.changeScene("appointmentsList");
-		}
-		catch(DBException e) {
-			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
-		}
+		if(this.validateForm() == true) {
+			try {
+				this.updatingAppointment.update(
+					descriptionInput.getText(), 
+					initDateInput.getLocalDateTime(), 
+					endDateInput.getLocalDateTime(),
+					(Contributor)AuthStage.loggedUser,
+					projectInput.getValue()
+				);
+				
+				appointmentDAO.update(this.updatingAppointment);
+				
+				MainController.changeScene("appointmentsList");
+			}
+			catch(DBException e) {
+				Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+			}
+		}	
 	}
+	public boolean validateForm() {
 	
+			if(
+				this.descriptionInput.getText() != null && 
+				this.initDateInput.getText() != null && 
+				this.endDateInput.getText() != null && 
+				this.projectInput.getValue() != null
+			){
+				if(
+					this.descriptionInput.getText().length() > 0 && 
+					this.initDateInput.getText().length() > 0 && 
+					this.endDateInput.getText().length() > 0 				
+				){
+					this.messageError.setText("");
+					return true;
+					
+				}else {
+					this.messageError.setText("Preencha todos os campos!");
+					return false;
+				}
+			}else {
+				this.messageError.setText("Preencha todos os campos!");
+				return false;			
+			}
+		
+	}
+
 	public void reset() {
 		updatingAppointmentId = null;
 		updatingAppointment = null;
@@ -119,7 +151,8 @@ public class AppointmentFormController implements Initializable {
 
 		registerButton.setText("Cadastrar");
 		registerButton.setOnMouseClicked(e -> register());
-		titlePage.setText("Cadastrar projeto");
+		titlePage.setText("Cadastrar apontamento");
+		this.messageError.setText("");
 	}
 	
 	public void loadUpdatingAppointment(int updatingAppointmentId) {

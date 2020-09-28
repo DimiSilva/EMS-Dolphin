@@ -13,19 +13,29 @@
 
 <HBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Contributor.DashboardController">
    <children>
-      <VBox styleClass="container" HBox.hgrow="ALWAYS">  
+      <VBox styleClass="bg-dark" HBox.hgrow="ALWAYS">  
          <children>
             <HBox VBox.vgrow="ALWAYS"> 
                <children>
-                  <BarChart fx:id="contributorsWorkedHoursInYearByMonthChart" animated="false" legendVisible="false" title="Total de horas trabalhadas nos meses do ano atual" HBox.hgrow="ALWAYS"> 
-                     <xAxis>
-                        <CategoryAxis label="Mês" side="BOTTOM" tickLabelFill="WHITE" />
-                     </xAxis>
-                     <yAxis>
-                        <NumberAxis label="Horas" side="LEFT" tickLabelFill="WHITE" />
-                     </yAxis> 
-                  </BarChart>
-                  <VBox alignment="TOP_CENTER" prefHeight="360.0" prefWidth="439.0"> 
+                  <VBox styleClass="chart-container" HBox.hgrow="ALWAYS">
+                     <children>
+                        <BarChart fx:id="contributorsWorkedHoursInYearByMonthChart" animated="false" legendVisible="false" title="Total de horas trabalhadas nos meses do ano atual" VBox.vgrow="ALWAYS"> 
+                           <xAxis>
+                              <CategoryAxis label="Mês" side="BOTTOM" tickLabelFill="WHITE" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis label="Horas" side="LEFT" tickLabelFill="WHITE" />
+                           </yAxis> 
+                        </BarChart>
+                     </children>
+                     <padding>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets right="16.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" styleClass="chart-container" HBox.hgrow="ALWAYS"> 
                      <children>
                         <Label styleClass="text-white" text="Projetos em andamento" VBox.vgrow="ALWAYS">
                            <font>
@@ -75,28 +85,44 @@
                            </content>
                         </ScrollPane>
                      </children>
+                     <padding>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                     </padding>
                   </VBox>
                </children>
             </HBox>
             <HBox VBox.vgrow="ALWAYS">
                <children>
-                  <BarChart fx:id="projectsWorkedHoursChart" animated="false" legendVisible="false" title="Total de horas trabalhadas por projeto" HBox.hgrow="ALWAYS">
-                    <xAxis>
-                      <CategoryAxis label="Projeto" side="BOTTOM" tickLabelFill="WHITE" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis label="Horas" side="LEFT" tickLabelFill="WHITE" />
-                    </yAxis>
+                  <VBox styleClass="chart-container" HBox.hgrow="ALWAYS">
+                     <children>
+                        <BarChart fx:id="projectsWorkedHoursChart" animated="false" legendVisible="false" title="Total de horas trabalhadas por projeto">
+                          <xAxis>
+                            <CategoryAxis label="Projeto" side="BOTTOM" tickLabelFill="WHITE" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis label="Horas" side="LEFT" tickLabelFill="WHITE" />
+                          </yAxis>
+                           <padding>
+                              <Insets top="8.0" />
+                           </padding>
+                        </BarChart>
+                     </children>
                      <padding>
-                        <Insets top="8.0" />
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                      </padding>
-                  </BarChart>
+                     <HBox.margin>
+                        <Insets top="16.0" />
+                     </HBox.margin>
+                  </VBox>
                </children>
             </HBox>
          </children>
          <stylesheets>
             <URL value="@Style.css" />
             <URL value="@../../Style.css" />
-         </stylesheets></VBox>
+         </stylesheets>
+         <padding>
+            <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
+         </padding></VBox>
    </children>
 </HBox>
