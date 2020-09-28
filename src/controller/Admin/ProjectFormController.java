@@ -1,4 +1,4 @@
-package controller.Admin;
+ package controller.Admin;
 
 import java.net.URL;
 import java.time.ZoneId;
@@ -79,6 +79,9 @@ public class ProjectFormController implements Initializable {
 	@FXML
 	private Project updatingProject; 
 	
+	@FXML
+	private Labeled messageError;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		projectDAO = new ProjectDAO();
@@ -100,20 +103,21 @@ public class ProjectFormController implements Initializable {
 	
 	@FXML
 	private void register() {
-		try {
-			Project project = new Project(
-				nameInput.getText(), 
-				descriptionInput.getText(), 
-				costCenterInput.getValue(), 
-				clientInput.getValue(), 
-				Date.from(initDateInput.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()), 
-				Date.from(endDateInput.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant())
-			);
-			int id = projectDAO.insert(project);
+		if(this.validateForm() == true) {
+			try {
+				Project project = new Project(
+						nameInput.getText(), 
+						descriptionInput.getText(), 
+						costCenterInput.getValue(), 
+						clientInput.getValue(), 
+						Date.from(initDateInput.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()), 
+						Date.from(endDateInput.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant())
+						);
+				int id = projectDAO.insert(project);
 			
-			final Project insertedProject = projectDAO.getById(String.valueOf(id));
+				final Project insertedProject = projectDAO.getById(String.valueOf(id));
 			
-			participants.forEach(item -> {
+				participants.forEach(item -> {
 					try {
 						projectContributorDAO.insert(new ProjectContributor(insertedProject, item));
 					}
@@ -121,32 +125,33 @@ public class ProjectFormController implements Initializable {
 						e.printStackTrace();
 						Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
 					}
-				}
-			);
+				});
 			
-			MainController.changeScene("projectsList");
-		}
-		catch(DBException e) {
-			e.printStackTrace();
-			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+				MainController.changeScene("projectsList");
+			}
+			catch(DBException e) {
+				e.printStackTrace();
+				Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+			}
 		}
 	}
 	
 	
 	@FXML
 	public void update() {
-		try {
-			this.updatingProject.update(
-				nameInput.getText(), 
-				descriptionInput.getText(),
-				Date.from(initDateInput.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()), 
-				Date.from(endDateInput.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant())		
-			);
+		if(this.validateForm() == true) {
+			try {
+				this.updatingProject.update(
+						nameInput.getText(), 
+						descriptionInput.getText(),
+						Date.from(initDateInput.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()), 
+						Date.from(endDateInput.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant())		
+					);
 			
-			projectDAO.update(this.updatingProject);			
-			projectContributorDAO.removeAllFromProject(String.valueOf(this.updatingProject.getId()));
+				projectDAO.update(this.updatingProject);			
+				projectContributorDAO.removeAllFromProject(String.valueOf(this.updatingProject.getId()));
 			
-			participants.forEach(item -> {
+				participants.forEach(item -> {
 					try {
 						projectContributorDAO.insert(new ProjectContributor(this.updatingProject, item));
 					}
@@ -154,15 +159,44 @@ public class ProjectFormController implements Initializable {
 						e.printStackTrace();
 						Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
 					}
-				}
-			);
-			
-			MainController.changeScene("projectsList");
+				});
+				
+				MainController.changeScene("projectsList");
+			}
+			catch(DBException e) {
+				Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+			}
 		}
-		catch(DBException e) {
-			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
-		}
+	
 	}
+	public boolean validateForm() {
+
+			if(
+				this.nameInput.getText() != null && 
+				this.descriptionInput.getText() != null && 
+				this.initDateInput.getValue() != null && 
+				this.endDateInput.getValue() != null &&
+				this.costCenterInput.getValue() != null &&
+				this.clientInput.getValue() != null
+			){
+				if(
+					this.nameInput.getText().length() > 0 && 
+					this.descriptionInput.getText().length() > 0
+				){
+					this.messageError.setText("");
+					return true;
+					
+				}else {
+					this.messageError.setText("Preencha todos os campos!");
+					return false;
+				}
+			}else {
+				this.messageError.setText("Preencha todos os campos!");
+				return false;			
+			}
+
+	}
+
 	
 	public void reset() {
 		updatingProjectId = null;
@@ -191,6 +225,7 @@ public class ProjectFormController implements Initializable {
 		registerButton.setText("Cadastrar");
 		registerButton.setOnMouseClicked(e -> register());
 		titlePage.setText("Cadastrar projeto");
+		this.messageError.setText("");
 	}
 	
 	public void loadUpdatingProjectById(int updatingProjectId) {

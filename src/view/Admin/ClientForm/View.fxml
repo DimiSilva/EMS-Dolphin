@@ -21,7 +21,7 @@
                            <children>
                               <VBox prefWidth="800.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label fx:id="titlePage" text="Cadastrar Colaborador">
+                                    <Label fx:id="titlePage" text="Cadastrar Cliente">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -41,9 +41,9 @@
                      <children>
                         <HBox prefHeight="576.0" prefWidth="766.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                              <VBox HBox.hgrow="ALWAYS">
                                  <children>
-                                    <VBox prefHeight="63.0" prefWidth="281.0" styleClass="ems-form-control-left" VBox.vgrow="ALWAYS">
+                                    <VBox maxHeight="-Infinity" styleClass="ems-form-control-left" VBox.vgrow="ALWAYS">
                                        <children>
                                           <Label text="Nome" VBox.vgrow="ALWAYS" />
                                           <TextField fx:id="nameInput" prefHeight="26.0" prefWidth="340.0" styleClass="input" VBox.vgrow="ALWAYS" />
@@ -55,7 +55,7 @@
                                           <Insets right="8.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox prefHeight="63.0" prefWidth="281.0" styleClass="ems-form-control-left" VBox.vgrow="ALWAYS">
+                                    <VBox maxHeight="-Infinity" styleClass="ems-form-control-left" VBox.vgrow="ALWAYS">
                                        <children>
                                           <Label text="CNPJ" VBox.vgrow="ALWAYS" />
                                           <TextField fx:id="cnpjInput" styleClass="input" VBox.vgrow="ALWAYS" />
@@ -67,23 +67,11 @@
                                           <Insets right="8.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox prefHeight="63.0" prefWidth="281.0" styleClass="ems-form-control-left">
-                                       <children>
-                                          <Label text="Senha" VBox.vgrow="ALWAYS" />
-                                          <TextField fx:id="cnpjInput1" styleClass="input" VBox.vgrow="ALWAYS" />
-                                       </children>
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                       <padding>
-                                          <Insets right="8.0" />
-                                       </padding>
-                                    </VBox>
                                  </children>
                               </VBox>
-                              <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                              <VBox HBox.hgrow="ALWAYS">
                                  <children>
-                                    <VBox maxHeight="-Infinity" prefWidth="281.0" styleClass="ems-form-control-right" VBox.vgrow="ALWAYS">
+                                    <VBox maxHeight="-Infinity" styleClass="ems-form-control-right" VBox.vgrow="ALWAYS">
                                        <children>
                                           <Label text="Email" VBox.vgrow="ALWAYS" />
                                           <TextField fx:id="emailInput" prefHeight="26.0" prefWidth="345.0" styleClass="input" VBox.vgrow="ALWAYS" />
@@ -95,7 +83,7 @@
                                           <Insets right="8.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox fx:id="passwordContainer" prefHeight="63.0" prefWidth="281.0" styleClass="ems-form-control-right" VBox.vgrow="ALWAYS">
+                                    <VBox fx:id="passwordContainer" maxHeight="-Infinity" styleClass="ems-form-control-right" VBox.vgrow="ALWAYS">
                                        <children>
                                           <Label text="Telefone" VBox.vgrow="ALWAYS" />
                                           <TextField fx:id="phoneInput" prefHeight="26.0" prefWidth="345.0" styleClass="input" VBox.vgrow="ALWAYS" />
@@ -111,11 +99,19 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <HBox alignment="BOTTOM_CENTER" prefHeight="846.0" prefWidth="766.0" VBox.vgrow="ALWAYS">
+                        <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
                            <children>
+                              <Label fx:id="messageError" style="-fx-text-fill: #c62525;">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="16.0" top="16.0" />
+                                 </padding>
+                              </Label>
                               <Button fx:id="registerButton" mnemonicParsing="false" styleClass="ems-btn" text="Cadastrar" />
                            </children>
-                        </HBox>
+                        </VBox>
                      </children>
                      <padding>
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />

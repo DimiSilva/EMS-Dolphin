@@ -21,7 +21,7 @@ public class RoleDAO extends BaseDAO<Role> {
 	public String entityToDBInsertString(Role object) {
 		return String.format(
 				"INSERT INTO %s "
-						+ "(name, description) "
+						+ "(name, base_salary) "
 						+ "VALUES "
 						+ "('%s', '%s')"
 							, tableName

@@ -41,6 +41,9 @@ public class ClientFormController implements Initializable {
 	@FXML
 	private Client updatingClient;
 	
+	@FXML
+	private Labeled messageError;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		clientDAO = new ClientDAO();
@@ -51,30 +54,34 @@ public class ClientFormController implements Initializable {
 	
 	@FXML
 	public void register() {
-		try {
-			Client client = new Client(nameInput.getText(), phoneInput.getText(), emailInput.getText(), cnpjInput.getText());
-			clientDAO.insert(client);
-			
-			MainController.changeScene("clientsList");
-		}
-		catch(DBException e) {
-			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+		if(this.validateForm() == true) {
+			try {
+				Client client = new Client(nameInput.getText(), phoneInput.getText(), emailInput.getText(), cnpjInput.getText());
+				clientDAO.insert(client);
+				
+				MainController.changeScene("clientsList");
+			}
+			catch(DBException e) {
+				Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+			}
 		}
 	}
 	
 	@FXML
 	public void update() {
-		try {
-			this.updatingClient.update(this.nameInput.getText(), this.emailInput.getText(), this.cnpjInput.getText(), this.phoneInput.getText());
-			
-			clientDAO.update(this.updatingClient);			
-			MainController.changeScene("clientsList");
-		}
-		catch(DBException e) {
-			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
-		}
-		catch(InvalidFieldException e) {
-			Utils.showErrorAlert("Erro!", e.message, null);
+		if(this.validateForm() == true) {
+			try {
+				this.updatingClient.update(this.nameInput.getText(), this.emailInput.getText(), this.cnpjInput.getText(), this.phoneInput.getText());
+				
+				clientDAO.update(this.updatingClient);			
+				MainController.changeScene("clientsList");
+			}
+			catch(DBException e) {
+				Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+			}
+			catch(InvalidFieldException e) {
+				Utils.showErrorAlert("Erro!", e.message, null);
+			}
 		}
 	}
 
@@ -82,6 +89,41 @@ public class ClientFormController implements Initializable {
 		this.updatingClientrId = updatingClientrId;
 	}
 	
+	public boolean validateForm() {
+		if(
+			this.nameInput.getText() != null && 
+			this.emailInput.getText() != null && 
+			this.cnpjInput.getText() != null && 
+			this.phoneInput.getText() != null
+		){
+			if(
+				this.nameInput.getText().length() > 0 && 
+				this.emailInput.getText().length() > 0 && 
+				this.cnpjInput.getText().length() > 0 && 
+				this.phoneInput.getText().length() > 0 
+				
+			){
+				if(this.cnpjInput.getText().length() != 14) {
+					this.messageError.setText("CNPJ inválido!");
+					return false;
+				}
+				if(this.phoneInput.getText().length() < 10) {
+					this.messageError.setText("Telefone inválido!");
+					return false;
+				}
+				this.messageError.setText("");
+				return true;
+				
+			}else {
+				this.messageError.setText("Preencha todos os campos!");
+				return false;
+			}
+		}else {
+			this.messageError.setText("Preencha todos os campos!");
+			return false;			
+		}
+
+}
 	public void reset() {
 		this.updatingClient = null;
 		this.nameInput.setText(null);
@@ -92,6 +134,7 @@ public class ClientFormController implements Initializable {
 		registerButton.setText("Cadastrar");
 		registerButton.setOnMouseClicked(e -> register());
 		titlePage.setText("Cadastrar Cliente");
+		this.messageError.setText("");
 	}
 	public void loadUpdatingClientById(int updatingClientrId) {
 		this.updatingClientrId = updatingClientrId;

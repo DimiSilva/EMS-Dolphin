@@ -49,6 +49,8 @@ public class ProfileController implements Initializable {
 	private Contributor updatingUser;
 	@FXML
 	private Contributor loggedUser;
+	@FXML
+	private Labeled messageError;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -58,6 +60,7 @@ public class ProfileController implements Initializable {
 	}
 	
 	public void loadProfile() {
+
 		this.loggedUser = (Contributor) AuthStage.loggedUser;
 		
 		if(this.loggedUser != null) {
@@ -69,29 +72,80 @@ public class ProfileController implements Initializable {
 			addressInput.setText(this.loggedUser.getAddress());
 			birthdateInput.setValue(LocalDate.parse(this.loggedUser.getBirthDate().toString()));
 		}
+		this.messageError.setText("");
 	}
+	public boolean validateForm() {
+		
+		if(
+			this.nameInput.getText() != null && 
+			this.cpfInput.getText() != null && 
+			this.phoneInput.getText() != null && 
+			this.addressInput.getText() != null && 
+			this.birthdateInput.getValue() != null && 
+			this.emailInput.getText() != null
+		){
+			if(
+				this.nameInput.getText().length() > 0 && 
+				this.cpfInput.getText().length() > 0 && 
+				this.phoneInput.getText().length() > 0 && 
+				this.addressInput.getText().length() > 0 && 
+				this.emailInput.getText().length() > 0
+			){
+				System.out.println(this.nameInput.getText().length());
+				if(this.cpfInput.getText().length() != 11) {
+					this.messageError.setText("CPF inválido!");
+					return false;
+				}
+				if(this.phoneInput.getText().length() < 10) {
+					this.messageError.setText("Telefone inválido!");
+					return false;
+				}
+				
+				if(this.passwordInput.getText() != null) {
+					if(this.passwordInput.getText().length() == 6) {
+						this.messageError.setText("A senha deve ter no mínimo 6 caracteres!");
+						return false;
+					}
+				}
+			
+				this.messageError.setText("");
+				return true;
+				
+			}else {
+				this.messageError.setText("Preencha todos os campos!");
+				return false;
+			}
+		}else {
+			this.messageError.setText("Preencha todos os campos!");
+			return false;			
+		}
+}
 	public void updateProfile() {
 		AuthStage authStage = new AuthStage();
-		try {
-			contributorDAO.update(new Contributor(
-					this.loggedUser.getId(),
-					this.nameInput.getText(),
-					this.phoneInput.getText(),
-					this.addressInput.getText(),
-					this.emailInput.getText(),
-					Date.valueOf(this.birthdateInput.getValue()),
-					this.cpfInput.getText(),
-					this.loggedUser.getAuthId(),
-					this.loggedUser.getRole(),
-					this.loggedUser.getCostCenter(),
-					this.loggedUser.getCreateDate(),
-					this.loggedUser.getUpdateDate()
-					));
-		} catch (DBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		if(this.validateForm() == true) {
+			try {
+				contributorDAO.update(new Contributor(
+						this.loggedUser.getId(),
+						this.nameInput.getText(),
+						this.phoneInput.getText(),
+						this.addressInput.getText(),
+						this.emailInput.getText(),
+						Date.valueOf(this.birthdateInput.getValue()),
+						this.cpfInput.getText(),
+						this.loggedUser.getAuthId(),
+						this.loggedUser.getRole(),
+						this.loggedUser.getCostCenter(),
+						this.loggedUser.getCreateDate(),
+						this.loggedUser.getUpdateDate()
+						));
+			} catch (DBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			authStage.updateLoggedUser(this.loggedUser.getAuth());
+	
 		}
-		authStage.updateLoggedUser(this.loggedUser.getAuth());
-		//adminDAO.update();
+	
 	}
 }

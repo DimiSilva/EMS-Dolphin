@@ -37,6 +37,9 @@ public class RoleFormController implements Initializable {
 	@FXML
 	private Role updatingRole;
 	
+	@FXML
+	private Labeled messageError;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		roleDAO = new RoleDAO();
@@ -47,28 +50,32 @@ public class RoleFormController implements Initializable {
 	
 	@FXML
 	public void register() {
-		try {
-			Role role = new Role(nameInput.getText(), Float.parseFloat(baseSalaryInput.getText()));
-			roleDAO.insert(role);
-			
-			MainController.changeScene("rolesList");
-		}
-		catch(DBException e) {
-			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+		if(this.validateForm() == true) {
+			try {
+				Role role = new Role(nameInput.getText(), Float.parseFloat(baseSalaryInput.getText()));
+				roleDAO.insert(role);
+				
+				MainController.changeScene("rolesList");
+			}
+			catch(DBException e) {
+				Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+			}
 		}
 	}
 	
 	@FXML
 	public void update() {
-		try {
-			this.updatingRole.update(this.nameInput.getText(), Float.parseFloat(baseSalaryInput.getText()));
-			
-			roleDAO.update(this.updatingRole);
-			
-			MainController.changeScene("rolesList");
-		}
-		catch(DBException e) {
-			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+		if(this.validateForm() == true) {
+			try {
+				this.updatingRole.update(this.nameInput.getText(), Float.parseFloat(baseSalaryInput.getText()));
+				
+				roleDAO.update(this.updatingRole);
+				
+				MainController.changeScene("rolesList");
+			}
+			catch(DBException e) {
+				Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+			}
 		}
 	}
 	
@@ -76,6 +83,34 @@ public class RoleFormController implements Initializable {
 		this.updatingRoleId = updatingRoleId;
 	}
 	
+	public boolean validateForm() {
+
+		if(
+			this.nameInput.getText() != null && 
+			this.baseSalaryInput.getText() != null
+		){
+			if(
+				this.nameInput.getText().length() > 0 && 
+				this.baseSalaryInput.getText().length() > 0
+			){
+				if(Float.valueOf(this.baseSalaryInput.getText()) < 0) {
+					this.messageError.setText("O salário base não pode ser negativo!");
+					return false;
+				}
+				
+				this.messageError.setText("");
+				return true;
+				
+			}else {
+				this.messageError.setText("Preencha todos os campos!");
+				return false;
+			}
+		}else {
+			this.messageError.setText("Preencha todos os campos!");
+			return false;			
+		}
+
+}
 	public void reset() {
 		this.updatingRole = null;
 		this.nameInput.setText(null);
@@ -83,6 +118,7 @@ public class RoleFormController implements Initializable {
 		registerButton.setText("Cadastrar");
 		registerButton.setOnMouseClicked(e -> register());
 		titlePage.setText("Cadastrar cargo");
+		this.messageError.setText("");
 	}
 	public void loadUpdatingRoleById(int updatingRoleId) {
 		this.updatingRoleId = updatingRoleId;

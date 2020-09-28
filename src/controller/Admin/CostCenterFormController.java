@@ -38,6 +38,9 @@ public class CostCenterFormController implements Initializable {
 	@FXML
 	private CostCenter updatingCostCenter;
 	
+	@FXML
+	private Labeled messageError;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		costCenterDAO = new CostCenterDAO();
@@ -48,28 +51,32 @@ public class CostCenterFormController implements Initializable {
 	
 	@FXML
 	public void register() {
-		try {
-			CostCenter costCenter = new CostCenter(nameInput.getText(), descriptionInput.getText());
-			costCenterDAO.insert(costCenter);
-			
-			MainController.changeScene("costCentersList");
-		}
-		catch(DBException e) {
-			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+		if(this.validateForm() == true) {
+			try {
+				CostCenter costCenter = new CostCenter(nameInput.getText(), descriptionInput.getText());
+				costCenterDAO.insert(costCenter);
+				
+				MainController.changeScene("costCentersList");
+			}
+			catch(DBException e) {
+				Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+			}
 		}
 	}
 	
 	@FXML
 	public void update() {
-		try {
-			this.updatingCostCenter.update(this.nameInput.getText(), this.descriptionInput.getText());
-			
-			costCenterDAO.update(this.updatingCostCenter);
-			
-			MainController.changeScene("costCentersList");
-		}
-		catch(DBException e) {
-			Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+		if(this.validateForm() == true) {
+			try {
+				this.updatingCostCenter.update(this.nameInput.getText(), this.descriptionInput.getText());
+				
+				costCenterDAO.update(this.updatingCostCenter);
+				
+				MainController.changeScene("costCentersList");
+			}
+			catch(DBException e) {
+				Utils.showErrorAlert("Erro!", Shared.SOMETHING_WENT_WRONG.getText(), null);
+			}
 		}
 	}
 	
@@ -77,6 +84,29 @@ public class CostCenterFormController implements Initializable {
 		this.updatingCostCenterId = updatingCostCenterId;
 	}
 	
+	public boolean validateForm() {
+
+		if(
+			this.nameInput.getText() != null && 
+			this.descriptionInput.getText() != null
+		){
+			if(
+				this.nameInput.getText().length() > 0 && 
+				this.descriptionInput.getText().length() > 0
+			){
+				this.messageError.setText("");
+				return true;
+				
+			}else {
+				this.messageError.setText("Preencha todos os campos!");
+				return false;
+			}
+		}else {
+			this.messageError.setText("Preencha todos os campos!");
+			return false;			
+		}
+
+}
 	public void reset() {
 		this.updatingCostCenter = null;
 		this.nameInput.setText(null);
@@ -84,6 +114,7 @@ public class CostCenterFormController implements Initializable {
 		registerButton.setText("Cadastrar");
 		registerButton.setOnMouseClicked(e -> register());
 		titlePage.setText("Cadastrar centro de custo");
+		this.messageError.setText("");
 	}
 	
 	public void loadUpdatingCostCenterById(int updatingCostCenterId) {

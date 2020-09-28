@@ -19,9 +19,12 @@
 }
 
 .dark-background {
-	-fx-background-color: #005F6B;
+	-fx-background-color: #343838;
 }
 
 .text-white {
 	-fx-text-fill: white; 
+}
+-error-message{
+	-fx-text-fill: #c62525 !important;
 }
