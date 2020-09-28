@@ -64,7 +64,6 @@ public class ProfileController implements Initializable {
 		this.loggedUser = (Contributor) AuthStage.loggedUser;
 		
 		if(this.loggedUser != null) {
-			System.out.println("12");
 			nameInput.setText(this.loggedUser.getName());
 			cpfInput.setText(this.loggedUser.getCpf());
 			emailInput.setText(this.loggedUser.getEmail());
@@ -93,17 +92,17 @@ public class ProfileController implements Initializable {
 			){
 				System.out.println(this.nameInput.getText().length());
 				if(this.cpfInput.getText().length() != 11) {
-					this.messageError.setText("CPF inválido!");
+					this.messageError.setText("CPF invï¿½lido!");
 					return false;
 				}
 				if(this.phoneInput.getText().length() < 10) {
-					this.messageError.setText("Telefone inválido!");
+					this.messageError.setText("Telefone invï¿½lido!");
 					return false;
 				}
 				
 				if(this.passwordInput.getText() != null) {
 					if(this.passwordInput.getText().length() == 6) {
-						this.messageError.setText("A senha deve ter no mínimo 6 caracteres!");
+						this.messageError.setText("A senha deve ter no mï¿½nimo 6 caracteres!");
 						return false;
 					}
 				}

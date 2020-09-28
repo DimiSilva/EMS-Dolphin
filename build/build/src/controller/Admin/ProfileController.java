@@ -52,7 +52,6 @@ public class ProfileController implements Initializable {
 		this.loggedUser = (Admin) AuthStage.loggedUser;
 		
 		if(this.loggedUser != null) {
-			System.out.println("12");
 			nameInput.setText(this.loggedUser.getName());
 			cpfInput.setText(this.loggedUser.getCPF());
 			emailInput.setText(this.loggedUser.getEmail());

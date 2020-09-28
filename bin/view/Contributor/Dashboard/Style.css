@@ -45,3 +45,8 @@
 .axis-label {
    -fx-text-fill: white; 
 }
+.chart-container{
+	-fx-border-color: #005F6B;
+	-fx-border-radius: 16px;
+	-fx-border-width: 2px;
+}
