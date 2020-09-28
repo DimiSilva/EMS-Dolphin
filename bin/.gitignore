@@ -1,2 +1,6 @@
+/.classpath
+/.project
+/assets/
 /controller/
 /model/
+/view/
