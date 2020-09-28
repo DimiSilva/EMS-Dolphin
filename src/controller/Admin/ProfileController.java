@@ -56,7 +56,7 @@ public class ProfileController implements Initializable {
 		
 		if(this.loggedUser != null) {
 			nameInput.setText(this.loggedUser.getName());
-			cpfInput.setText(this.loggedUser.getCPF());
+			cpfInput.setText(this.loggedUser.getCpf());
 			emailInput.setText(this.loggedUser.getEmail());
 		}
 	}
